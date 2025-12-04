@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cardápio Online</title>
+    <title>Cardápio Agapio Lanches</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       /* Custom scrollbar to match theme */
@@ -11,27 +11,51 @@
         width: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #FEF3C7; 
+        background: #EED117; 
       }
       ::-webkit-scrollbar-thumb {
-        background: #DC2626; 
+        background: #E7252A; 
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #B91C1C; 
+        background: #C01E22; 
+      }
+      body {
+        background-color: #EED117; /* Brand Yellow */
+      }
+
+      /* Animação pulsante estilo Elementor para o botão do WhatsApp */
+      .animate-pulse-green {
+        animation: pulse-green 2s infinite;
+      }
+
+      @keyframes pulse-green {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        }
+        70% {
+          transform: scale(1.05); /* Aumenta levemente */
+          box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); /* A sombra expande e fica transparente */
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+        }
       }
     </style>
   <script type="importmap">
 {
   "imports": {
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0"
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
   }
 }
 </script>
 </head>
-  <body class="bg-yellow-50 text-red-900 font-sans antialiased">
+  <body class="text-red-900 font-sans antialiased">
     <div id="root"></div>
   </body>
 </html>

@@ -14,31 +14,26 @@ export const Footer: React.FC<FooterProps> = ({ businessInfo, onOpenLegal }) => 
   };
 
   return (
-    <footer className="bg-red-900 text-yellow-100 py-8 mt-12 rounded-t-[2rem]">
-      <div className="max-w-4xl mx-auto px-4 flex flex-col items-center justify-center gap-6">
+    <footer className="w-full py-8 mt-auto flex flex-col items-center justify-center gap-4 border-t-4 border-[#E7252A]">
         
         {/* Legal Links */}
-        <div className="flex gap-6">
-             <button onClick={() => onOpenLegal('terms')} className="text-sm text-yellow-200 hover:text-white hover:underline transition-colors">Termos de Uso</button>
-             <button onClick={() => onOpenLegal('privacy')} className="text-sm text-yellow-200 hover:text-white hover:underline transition-colors">Política de Privacidade</button>
+        <div className="flex gap-6 text-[#E7252A] font-bold text-sm">
+             <button onClick={() => onOpenLegal('terms')} className="hover:underline">Termos de Uso</button>
+             <button onClick={() => onOpenLegal('privacy')} className="hover:underline">Política de Privacidade</button>
         </div>
 
-        {/* Copyright */}
-        <p className="text-sm opacity-70">© {new Date().getFullYear()} {businessInfo.name}. Todos os direitos reservados.</p>
-        
         {/* Dev Info */}
-        <div className="bg-red-950/30 px-6 py-4 rounded-xl flex flex-col items-center gap-2 border border-red-800/50">
-          <span className="text-yellow-400 font-semibold text-sm">Criado por FCL</span>
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-[#E7252A] font-semibold text-sm">Criado por FCL</span>
           <button 
             onClick={handleDevContact}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-2 px-4 rounded-full transition-all hover:scale-105 shadow-lg"
+            className="flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white text-xs font-bold py-1.5 px-4 rounded-full shadow-sm"
           >
             <WhatsappIcon className="w-4 h-4" />
-            Falar com o Desenvolvedor
+            Contato
           </button>
         </div>
 
-      </div>
     </footer>
   );
 };

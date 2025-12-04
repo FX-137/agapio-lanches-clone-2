@@ -12,13 +12,13 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type })
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl">
-        <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-yellow-400 rounded-t-2xl">
-          <h2 className="text-2xl font-bold text-red-800">
+        <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-[#EED117] rounded-t-2xl">
+          <h2 className="text-2xl font-bold text-[#E7252A]">
             {type === 'privacy' ? 'Política de Privacidade' : 'Termos de Uso'}
           </h2>
           <button 
             onClick={onClose}
-            className="text-red-800 hover:bg-red-700 hover:text-white rounded-full p-2 transition-colors"
+            className="text-[#E7252A] hover:bg-[#C01E22] hover:text-white rounded-full p-2 transition-colors"
           >
             ✕
           </button>
@@ -45,7 +45,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type })
         <div className="p-4 border-t border-gray-100 flex justify-end">
           <button 
             onClick={onClose}
-            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+            className="bg-[#E7252A] hover:bg-[#C01E22] text-white font-bold py-2 px-6 rounded-lg transition-colors"
           >
             Fechar
           </button>

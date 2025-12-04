@@ -1,3 +1,4 @@
+
 import { BusinessInfo, MenuCategory } from './types';
 
 export const BUSINESS_INFO: BusinessInfo = {
@@ -15,76 +16,422 @@ export const BUSINESS_INFO: BusinessInfo = {
 
 export const MENU_DATA: MenuCategory[] = [
   {
-    id: "xis",
-    title: "Xis Tradicionais",
+    id: "xis_tradicionais",
+    title: "Lanches Tradicionais",
     items: [
       {
-        id: "x1",
+        id: "01",
         name: "Xis Salada",
-        description: "Pão, maionese, carne, queijo, presunto, alface, tomate, milho e ervilha.",
-        price: 28.00,
-        image: "https://picsum.photos/seed/xis1/400/300"
+        description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 18.00
       },
       {
-        id: "x2",
+        id: "02",
+        name: "Xis Salada Simples",
+        description: "Hambúrguer bovino, maionese, queijo e ovo.",
+        price: 14.00
+      },
+      {
+        id: "03",
+        name: "Xis Strogonoff",
+        description: "Pão massinha, contrafilé, tomate, alface, champignon, batata palha, queijo, ovo, maionese e molho especial.",
+        price: 32.00
+      },
+      {
+        id: "04",
+        name: "Xis da Casa",
+        description: "Pão massinha, hambúrguer bovino, alface, tomate, milho, ervilha, pepino, maionese, palmito, presunto, queijo e ovo.",
+        price: 24.00
+      },
+      {
+        id: "05",
         name: "Xis Frango",
-        description: "Pão, maionese, frango em cubos, queijo, presunto, alface, tomate, milho e ervilha.",
-        price: 32.00,
-        image: "https://picsum.photos/seed/xis2/400/300"
+        description: "Pão massinha, peito de frango, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 19.00
       },
       {
-        id: "x3",
+        id: "06",
         name: "Xis Coração",
-        description: "Pão, maionese, coração de frango, queijo, presunto, alface, tomate, milho e ervilha.",
-        price: 35.00,
-        image: "https://picsum.photos/seed/xis3/400/300"
+        description: "Pão massinha, coração, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 25.00
       },
       {
-        id: "x4",
-        name: "Xis Tudo",
-        description: "Pão, maionese, carne, frango, coração, bacon, calabresa, ovo, queijo, presunto e salada completa.",
-        price: 45.00,
-        image: "https://picsum.photos/seed/xis4/400/300"
+        id: "07",
+        name: "Xis Bacon",
+        description: "Pão massinha, hambúrguer bovino, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 25.00
+      },
+      {
+        id: "08",
+        name: "Xis Calabresa",
+        description: "Pão massinha, calabresa, tomate, alface, milho, ervilha, queijo, ovo, e maionese.",
+        price: 19.00
+      },
+      {
+        id: "09",
+        name: "Xis Lombo",
+        description: "Pão massinha, lombo, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 19.00
+      },
+      {
+        id: "10",
+        name: "Xis Misto",
+        description: "Pão massinha, coração, calabresa, contrafilé, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 27.00
+      },
+      {
+        id: "11",
+        name: "Xis Acebolado",
+        description: "Pão massinha, bife de hambúrguer, tomate, alface, milho, ervilha, queijo, ovo, maionese e cebola.",
+        price: 20.00
       }
     ]
   },
   {
-    id: "dog",
-    title: "Cachorro Quente",
+    id: "dogs_torradas",
+    title: "Cachorros e Torradas",
     items: [
       {
-        id: "d1",
-        name: "Dog Simples",
-        description: "Pão, salsicha, molho, batata palha, milho e ervilha.",
-        price: 18.00,
-        image: "https://picsum.photos/seed/dog1/400/300"
+        id: "12",
+        name: "Cachorro Quente",
+        description: "Pão de cachorro, salsicha, presunto, tomate, alface, milho, ervilha, queijo e maionese.",
+        price: 14.00
       },
       {
-        id: "d2",
-        name: "Dog Duplo",
-        description: "Pão, duas salsichas, molho, batata palha, milho, ervilha e queijo ralado.",
-        price: 22.00,
-        image: "https://picsum.photos/seed/dog2/400/300"
+        id: "13",
+        name: "Cachorro Quente Simples",
+        description: "2 salsichas, maionese, catchup, batata palha e queijo.",
+        price: 13.00
+      },
+      {
+        id: "14",
+        name: "Dog Linguiça",
+        description: "Pão de cachorro, linguiça calabresa, presunto, tomate, alface, milho, ervilha, queijo e maionese.",
+        price: 21.00
+      },
+      {
+        id: "15",
+        name: "Dog Coração",
+        description: "Pão de cachorro, alface, tomate, milho, ervilha, maionese, coração e queijo.",
+        price: 9.00
+      },
+      {
+        id: "16",
+        name: "Torrada",
+        description: "Três fatias de pão de forma, 2 fatias de queijo, 2 fatias de presunto e maionese.",
+        price: 13.00
+      },
+      {
+        id: "17",
+        name: "Prensado 1",
+        description: "Pão de xis, 2 fatias de queijo, 2 fatias de presunto, ovo e maionese.",
+        price: 14.00
+      },
+      {
+        id: "18",
+        name: "Prensado 2",
+        description: "Pão de xis, alface, tomate, milho, ervilha, 2 fatias de queijo, 2 fatias de presunto, ovo e maionese.",
+        price: 13.00
+      },
+      {
+        id: "19",
+        name: "Sambidi",
+        description: "Sanduíche frio: 3 fatias de pão de forma, 2 fatias de queijo, 2 de presunto, alface, tomate, palmito, pepino e maionese.",
+        price: 17.00
       }
     ]
   },
   {
-    id: "porcoes",
-    title: "Porções",
+    id: "baurus",
+    title: "Baurus",
     items: [
       {
-        id: "p1",
-        name: "Batata Frita P",
-        description: "Porção de batatas fritas crocantes (400g).",
-        price: 20.00,
-        image: "https://picsum.photos/seed/fries/400/300"
+        id: "20",
+        name: "Bauru Mercosul",
+        description: "Pão cervejinha, contrafilé, tomate, alface, queijo, ovo, presunto, bacon e maionese.",
+        price: 30.00
       },
       {
-        id: "p2",
-        name: "Batata Frita com Cheddar e Bacon",
-        description: "Batatas fritas cobertas com molho cheddar e cubos de bacon crocante.",
-        price: 32.00,
-        image: "https://picsum.photos/seed/cheddar/400/300"
+        id: "21",
+        name: "Bauru Master",
+        description: "Pão cervejinha, contrafilé, provolone, catupiry, tomate, alface, queijos, ovo, presunto, bacon e maionese.",
+        price: 36.00
+      },
+      {
+        id: "22",
+        name: "Bauru Contrafilé Tradicional",
+        description: "Pão cervejinha, contrafilé, lombo, tomate, alface, queijo, ovo e maionese.",
+        price: 28.00
+      },
+      {
+        id: "23",
+        name: "Bauru Peito de Frango",
+        description: "Pão cervejinha, peito de frango, tomate, alface, queijo, ovo e maionese.",
+        price: 25.00
+      },
+      {
+        id: "24",
+        name: "Bauru Peito de Frango Master",
+        description: "Pão cervejinha, peito de frango, tomate, alface, queijo, provolone, catupiry, ovo e maionese.",
+        price: 30.00
+      }
+    ]
+  },
+  {
+    id: "especiais",
+    title: "Lanches Especiais",
+    items: [
+      {
+        id: "25",
+        name: "Xis Frango com Catupiry",
+        description: "Pão massinha, peito de frango, tomate, alface, milho, ervilha, catupiry, ovo e maionese.",
+        price: 25.90
+      },
+      {
+        id: "26",
+        name: "Xis Frango a Punta Del Este",
+        description: "Pão massinha, filé de frango em pedaços, tomate seco, nata, alcaparras, champignon, queijo gorgonzola e ovo.",
+        price: 32.00
+      },
+      {
+        id: "27",
+        name: "Xis Frango C/ Cheddar",
+        description: "Pão massinha, peito de frango, queijo cheddar, tomate alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 25.90
+      },
+      {
+        id: "28",
+        name: "Xis Filadélia",
+        description: "Pão cervejinha, contrafilé, champignon, cebola, pimentão, queijo, ovo e maionese.",
+        price: 28.90
+      },
+      {
+        id: "29",
+        name: "Xis Gaúcho",
+        description: "Pão cervejinha, contrafilé, lombo, salsichão, cebola, pimentão, tomate em rodelas, queijo, ovo e maionese.",
+        price: 28.90
+      },
+      {
+        id: "30",
+        name: "Xis 4 Queijos",
+        description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijos: provolone, gorgonzola, queijo prato, cheddar, ovo e maionese.",
+        price: 28.00
+      },
+      {
+        id: "31",
+        name: "Xis 5 Queijos",
+        description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijos: provolone, gorgonzola, queijo prato, cheddar, catupiry, ovo e maionese.",
+        price: 28.00
+      },
+      {
+        id: "32",
+        name: "Big Agápio",
+        description: "Pão massinha, 2 hambúrgueres bovinos, tomate, alface, milho, ervilha, palmito, pepino, presunto, queijo, ovo e maionese.",
+        price: 30.00
+      },
+      {
+        id: "33",
+        name: "Xis Contrafilé",
+        description: "Pão massinha, contrafilé, alface, tomate, milho, ervilha, queijo, ovo e maionese.",
+        price: 28.00
+      },
+      {
+        id: "34",
+        name: "Xis Contrafilé 4 Queijos",
+        description: "Pão de xis, maionese, contrafilé em pedaços, provolone, gorgonzola, queijo prato, cheddar, ovo, alface, tomate, ervilha e milho.",
+        price: 35.00
+      },
+      {
+        id: "35",
+        name: "Xis Contrafilé 5 Queijos",
+        description: "Pão de xis, maionese, contrafilé em pedaços, provolone, gorgonzola, queijo prato, cheddar, catupiry, ovo, alface, tomate, ervilha e milho.",
+        price: 38.00
+      },
+      {
+        id: "36",
+        name: "Xis Mega",
+        description: "Pão massinha, calabresa, champignon, tomate, alface, milho, ervilha, maionese, 2 fatias de queijo e ovo.",
+        price: 32.00
+      },
+      {
+        id: "37",
+        name: "Xis Passo Fundo",
+        description: "Pão massinha, iscas de contrafilé ou frango, bacon, milho, ervilha, alface, tomate, palmito, aspargos, maionese, queijo e ovo.",
+        price: 25.00
+      },
+      {
+        id: "38",
+        name: "Xis Erechim",
+        description: "Pão massinha, coração, cebola, alho, orégano, queijo, tomate, ovo e maionese.",
+        price: 17.00
+      },
+      {
+        id: "39",
+        name: "Xis Vegetariano",
+        description: "Pão massinha, tomate, alface, milho, ervilha, palmito, pepino, cebola, pimentão, champignon, maionese, queijo e ovo.",
+        price: 24.00
+      },
+      {
+        id: "40",
+        name: "Xis Vegetariano 2",
+        description: "Pão massinha, tomate, alface, milho, ervilha, palmito, pepino, champignon, maionese, queijo e ovo.",
+        price: 24.90
+      },
+      {
+        id: "41",
+        name: "Xis Pantaneiro",
+        description: "Pão massinha, peito de frango, bacon, alho, alface, tomate, queijo, ovo e maionese.",
+        price: 24.00
+      },
+      {
+        id: "42",
+        name: "Xis Suprema",
+        description: "Pão massinha, calabresa, champignon, azeitona preta, cebola, pimentão, queijo, ovo e maionese.",
+        price: 25.00
+      },
+      {
+        id: "43",
+        name: "Xis Lombo aos Queijos",
+        description: "Pão massinha, filé de lombo, alface, tomate, queijos: parmesão ralado, prato e catupiry e ovo.",
+        price: 29.00
+      },
+      {
+        id: "44",
+        name: "Xis Sigo",
+        description: "Pão massinha, lombo, frango, contrafilé, coração, bacon, provolone, ovo, queijo e maionese.",
+        price: 29.90
+      },
+      {
+        id: "45",
+        name: "Xis Michelona",
+        description: "Pão massinha, contrafilé, coração, champignon, palmito, pepino, tomate, alface, queijo, ovo e maionese.",
+        price: 29.00
+      },
+      {
+        id: "46",
+        name: "Xis Portuguesa",
+        description: "Pão cervejinha, contrafilé, cebola, pimentão, tomate em rodelas, azeitona, queijo, ovo e maionese.",
+        price: 29.00
+      },
+      {
+        id: "47",
+        name: "Penta 1",
+        description: "Pão cervejinha, contrafilé, lombo, frango, coração, bacon, tomate e cebola na chapa, queijo, ovo e maionese.",
+        price: 29.00
+      },
+      {
+        id: "48",
+        name: "Penta 2",
+        description: "Pão massinha, contrafilé, lombo, frango, coração, bacon, tomate, alface, palmito, queijo, ovo e maionese.",
+        price: 29.90
+      },
+      {
+        id: "49",
+        name: "Xis Wesley",
+        description: "Pão de xis, maionese, hamburguer bovino, pepino, queijo, ovo, alface e molho rosê.",
+        price: 17.00
+      },
+      {
+        id: "50",
+        name: "Xis Mc Luíza",
+        description: "Pão de xis, hamburguer bovino, bacon em tiras, tomate, alface, cebola na chapa, maionese e cheddar.",
+        price: 24.00
+      }
+    ]
+  },
+  {
+    id: "extras",
+    title: "Porções e Extras",
+    items: [
+      {
+        id: "E1",
+        name: "Batata Combo",
+        description: "Porção de batata frita.",
+        price: 5.00
+      },
+      {
+        id: "E2",
+        name: "Porções Extra",
+        description: "Bacon, alcaparras, tomates secos, cheddar, catupiry, aspargos, cebola, provolone, palmito.",
+        price: 6.00
+      },
+      {
+        id: "E3",
+        name: "Ovo Extra",
+        description: "Ovo adicional.",
+        price: 3.00
+      }
+    ]
+  },
+  {
+    id: "picadinhos",
+    title: "Picadinhos",
+    items: [
+      {
+        id: "P1",
+        name: "Picadinho de Frango",
+        description: "Porção de picadinho de frango.",
+        price: 28.00
+      },
+      {
+        id: "P2",
+        name: "Picadinho de Coração",
+        description: "Porção de picadinho de coração.",
+        price: 35.00
+      },
+      {
+        id: "P3",
+        name: "Fritas",
+        description: "Porção de batatas fritas.",
+        price: 23.00
+      }
+    ]
+  },
+  {
+    id: "alaminutas",
+    title: "Alaminutas",
+    items: [
+      {
+        id: "A1",
+        name: "Alaminuta de Carne",
+        description: "Arroz, batata frita e carne.",
+        price: 24.00
+      },
+      {
+        id: "A2",
+        name: "Alaminuta de Frango",
+        description: "Arroz, batata frita e frango.",
+        price: 20.90
+      },
+      {
+        id: "A3",
+        name: "Alaminuta de Lombo",
+        description: "Arroz, batata frita e lombo.",
+        price: 19.90
+      },
+      {
+        id: "A4",
+        name: "Alaminuta de Filé",
+        description: "Arroz, batata frita e filé.",
+        price: 45.00
+      }
+    ]
+  },
+  {
+    id: "combos",
+    title: "Combos",
+    items: [
+      {
+        id: "C1",
+        name: "Combo 1",
+        description: "2 Xis Salada + Fritas 250gr.",
+        price: 35.00
+      },
+      {
+        id: "C2",
+        name: "Combo 2",
+        description: "1 Xis Salada ou 1 Xis Calabresa + 1 Refri Fruki Lata + 1 Batata Mini.",
+        price: 23.90
       }
     ]
   },
@@ -93,25 +440,56 @@ export const MENU_DATA: MenuCategory[] = [
     title: "Bebidas",
     items: [
       {
-        id: "b1",
+        id: "B1",
         name: "Refrigerante Lata 350ml",
         description: "Coca-cola, Guaraná, Sprite, Fanta.",
-        price: 6.00,
-        image: "https://picsum.photos/seed/soda/400/300"
+        price: 6.00
       },
       {
-        id: "b2",
+        id: "B2",
         name: "Refrigerante 2L",
         description: "Coca-cola ou Guaraná.",
-        price: 14.00,
-        image: "https://picsum.photos/seed/coke2l/400/300"
+        price: 14.00
       },
       {
-        id: "b3",
+        id: "B3",
         name: "Água Mineral 500ml",
         description: "Com ou sem gás.",
-        price: 4.00,
-        image: "https://picsum.photos/seed/water/400/300"
+        price: 4.00
+      }
+    ]
+  },
+  {
+    id: "mais_pedidos",
+    title: "Lanches Mais Pedidos",
+    items: [
+      {
+        id: "MP1",
+        name: "Xis Salada",
+        description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 18.00,
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg6ui7FlwqnG7JOTCUyAwDnXVhMzNCVQIHR3drJS6n-0Oupp8_BrkWKIfcDUBEfb-c7SeYw1yTpa9Cx6JJYthZeriLutKAX9gokwhEFbdoqqIF-iJM72nxRuiQdwCesblbFZo4wTC8_kThqvoN6jXXdOijfk_8vIxcJfWNM8Vdx4FA7KNVQ9DqP9anPtUI/s1184/xis-salada%20oficial.png"
+      },
+      {
+        id: "MP2",
+        name: "Big Agápio",
+        description: "Pão massinha, 2 hambúrgueres bovinos, tomate, alface, milho, ervilha, palmito, pepino, presunto, queijo, ovo e maionese.",
+        price: 30.00,
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3LbDutAVa0nXbXh6qthkoxQyw0locO4IZNF6gHmqerA3pRhjAIQ63jM4nuBnIJMbTxocdT_fSxTQ7C7933yyBfV6GCPqYX8n3g5Yc9sUCG784RJWn6y9aiYznwx5ZgttT468poJNCpk8WDNc_BbnGE1s0DjHzq8hYxXNPKA4oEJqH0Y9OG29CUI4GEoU/s1536/big-agapio.jpg"
+      },
+      {
+        id: "MP3",
+        name: "Bauru Master",
+        description: "Pão cervejinha, contrafilé, provolone, catupiry, tomate, alface, queijos, ovo, presunto, bacon e maionese.",
+        price: 36.00,
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6dp6md1roopMVSB_Yh_qftTI_9jzzM0EYfsx84WgWPv5oLZhkTZhxJ1I0CMHZrrFrOzc8U61JAaAuE22Y9SFvp1mwhF8S31Po-2Cmu_NQ6pfxPRF6Ieqir-ULox1jWZZaZq3d3mrdT2S4112CqEPhTXVp4M9QAFKZzezp7Fogg_oxlE8t-csxIA5M2BE/s1344/BM6.jpg"
+      },
+      {
+        id: "MP4",
+        name: "Xis Bacon",
+        description: "Pão massinha, hambúrguer bovino, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+        price: 25.00,
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfoVp1-TVrZ6kPWf8omXJQBL1NQq6W8fqIW3vLF6-WUiBh-O6iz69EEew-WbRceCXdAfI_HS551-4I0CZcDX7EVBkgczeaYYcMpxlSwUf2ULdznSzCoC1_fiZm3C8ftWFgYPaheQxbWogfmxYeLVmXbtLcK06S6lsg3jbNFjn4w_iXqfm46bhZDDCcdjI/s1184/xis-bacon%20oficial%202.png"
       }
     ]
   }
