@@ -1,53 +1,530 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cardápio Agapio Lanches</title>
+    <!-- Tailwind CSS (via CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      /* Custom scrollbar to match theme */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #EED117; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #E7252A; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #C01E22; 
-      }
-      body {
-        background-color: #EED117; /* Brand Yellow */
-      }
+        /* Cores da Marca */
+        :root {
+            --brand-yellow: #EED117;
+            --brand-red: #E7252A;
+            --brand-red-dark: #C01E22;
+        }
 
-      /* Animação pulsante estilo Elementor para o botão do WhatsApp */
-      .animate-pulse-green {
-        animation: pulse-green 2s infinite;
-      }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--brand-yellow);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--brand-red);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--brand-red-dark);
+        }
 
-      @keyframes pulse-green {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        body {
+            background-color: var(--brand-yellow);
+            color: #7f1d1d; /* text-red-900 equivalent */
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
-        70% {
-          transform: scale(1.05); /* Aumenta levemente */
-          box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); /* A sombra expande e fica transparente */
+
+        /* Animação pulsante */
+        .animate-pulse-green {
+            animation: pulse-green 2s infinite;
         }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+
+        @keyframes pulse-green {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
         }
-      }
     </style>
-  
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/"
+  }
+}
+</script>
 </head>
-  <body class="text-red-900 font-sans antialiased">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<body class="flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <!-- Container Principal -->
+    <div id="app" class="w-full">
+        
+        <!-- HERO SECTION -->
+        <div id="hero-container" class="w-full pt-10 pb-6 px-4 flex flex-col items-center justify-center text-center">
+            <!-- Conteúdo injetado via JS -->
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <main class="w-full px-2 md:px-4 py-6 space-y-8">
+            
+            <!-- MENU CONTAINER -->
+            <div id="menu-container" class="space-y-12 max-w-6xl mx-auto">
+                <!-- Conteúdo injetado via JS -->
+            </div>
+
+            <!-- PAGAMENTO -->
+            <div id="payment-container" class="w-full max-w-6xl mx-auto mt-8 flex justify-center items-center">
+                <img 
+                    src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEin2r0kT4FAtOeGB7XCV0nSHYOj0rBHIxkryrP0Jc70iuSP028aXlAYkPhtfr5GopTpIdO2w5rKYfwe0lMuWLNz6rTL3fNsmctbl3OMX7EaeqNVK3KWLYohJ1K79ywC5qtCUw-m0jCaPgAcbMZZDL8382Y0TU-gEXxwgK3NKyrCdqu3fgw9Mnxnx7sMbxY/s1084/Tarja%20pronta.png" 
+                    alt="Formas de Pagamento" 
+                    class="h-20 md:h-28 w-auto object-contain drop-shadow-sm"
+                />
+            </div>
+
+            <!-- LOCATION -->
+            <div id="location-container" class="w-full max-w-6xl mx-auto mt-8">
+                <!-- Conteúdo injetado via JS -->
+            </div>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer id="footer-container" class="w-full py-8 mt-auto flex flex-col items-center justify-center gap-4 border-t-4 border-[#E7252A]">
+            <!-- Conteúdo injetado via JS -->
+        </footer>
+
+    </div>
+
+    <!-- LEGAL MODAL -->
+    <div id="legal-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-[#EED117] rounded-t-2xl">
+                <h2 id="modal-title" class="text-2xl font-bold text-[#E7252A]">Título</h2>
+                <button onclick="closeModal()" class="text-[#E7252A] hover:bg-[#C01E22] hover:text-white rounded-full p-2 transition-colors font-bold text-xl">✕</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto text-gray-700 leading-relaxed">
+                <!-- Conteúdo injetado via JS -->
+            </div>
+            <div class="p-4 border-t border-gray-100 flex justify-end">
+                <button onclick="closeModal()" class="bg-[#E7252A] hover:bg-[#C01E22] text-white font-bold py-2 px-6 rounded-lg transition-colors">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        /**
+         * DADOS DA APLICAÇÃO
+         * Copiados de data.ts e types.ts
+         */
+        const BUSINESS_INFO = {
+            name: "Cardápio Agapio Lanches",
+            address: "Av. José de Alencar, 869 - Menino Deus, Porto Alegre",
+            googleMapsQuery: "Av.+José+de+Alencar,+869",
+            phone: "(51) 3026-0902",
+            secondaryPhone: "(51) 99214-1406",
+            whatsapp: "5551992141406",
+            devWhatsapp: "5551992496479",
+            openingHours: [
+                "ABERTO DE SEGUNDA À DOMINGO DAS 11H À MEIA-NOITE"
+            ]
+        };
+
+        const MENU_DATA = [
+            {
+                id: "xis_tradicionais",
+                title: "Lanches Tradicionais",
+                items: [
+                    { id: "01", name: "Xis Salada", description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 18.00 },
+                    { id: "02", name: "Xis Salada Simples", description: "Hambúrguer bovino, maionese, queijo e ovo.", price: 14.00 },
+                    { id: "03", name: "Xis Strogonoff", description: "Pão massinha, contrafilé, tomate, alface, champignon, batata palha, queijo, ovo, maionese e molho especial.", price: 32.00 },
+                    { id: "04", name: "Xis da Casa", description: "Pão massinha, hambúrguer bovino, alface, tomate, milho, ervilha, pepino, maionese, palmito, presunto, queijo e ovo.", price: 24.00 },
+                    { id: "05", name: "Xis Frango", description: "Pão massinha, peito de frango, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 19.00 },
+                    { id: "06", name: "Xis Coração", description: "Pão massinha, coração, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "07", name: "Xis Bacon", description: "Pão massinha, hambúrguer bovino, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "08", name: "Xis Calabresa", description: "Pão massinha, calabresa, tomate, alface, milho, ervilha, queijo, ovo, e maionese.", price: 19.00 },
+                    { id: "09", name: "Xis Lombo", description: "Pão massinha, lombo, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 19.00 },
+                    { id: "10", name: "Xis Misto", description: "Pão massinha, coração, calabresa, contrafilé, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 27.00 },
+                    { id: "11", name: "Xis Acebolado", description: "Pão massinha, bife de hambúrguer, tomate, alface, milho, ervilha, queijo, ovo, maionese e cebola.", price: 20.00 }
+                ]
+            },
+            {
+                id: "dogs_torradas",
+                title: "Cachorros e Torradas",
+                items: [
+                    { id: "12", name: "Cachorro Quente", description: "Pão de cachorro, salsicha, presunto, tomate, alface, milho, ervilha, queijo e maionese.", price: 14.00 },
+                    { id: "13", name: "Cachorro Quente Simples", description: "2 salsichas, maionese, catchup, batata palha e queijo.", price: 13.00 },
+                    { id: "14", name: "Dog Linguiça", description: "Pão de cachorro, linguiça calabresa, presunto, tomate, alface, milho, ervilha, queijo e maionese.", price: 21.00 },
+                    { id: "15", name: "Dog Coração", description: "Pão de cachorro, alface, tomate, milho, ervilha, maionese, coração e queijo.", price: 9.00 },
+                    { id: "16", name: "Torrada", description: "Três fatias de pão de forma, 2 fatias de queijo, 2 fatias de presunto e maionese.", price: 13.00 },
+                    { id: "17", name: "Prensado 1", description: "Pão de xis, 2 fatias de queijo, 2 fatias de presunto, ovo e maionese.", price: 14.00 },
+                    { id: "18", name: "Prensado 2", description: "Pão de xis, alface, tomate, milho, ervilha, 2 fatias de queijo, 2 fatias de presunto, ovo e maionese.", price: 13.00 },
+                    { id: "19", name: "Sambidi", description: "Sanduíche frio: 3 fatias de pão de forma, 2 fatias de queijo, 2 de presunto, alface, tomate, palmito, pepino e maionese.", price: 17.00 }
+                ]
+            },
+            {
+                id: "baurus",
+                title: "Baurus",
+                items: [
+                    { id: "20", name: "Bauru Mercosul", description: "Pão cervejinha, contrafilé, tomate, alface, queijo, ovo, presunto, bacon e maionese.", price: 30.00 },
+                    { id: "21", name: "Bauru Master", description: "Pão cervejinha, contrafilé, provolone, catupiry, tomate, alface, queijos, ovo, presunto, bacon e maionese.", price: 36.00 },
+                    { id: "22", name: "Bauru Contrafilé Tradicional", description: "Pão cervejinha, contrafilé, lombo, tomate, alface, queijo, ovo e maionese.", price: 28.00 },
+                    { id: "23", name: "Bauru Peito de Frango", description: "Pão cervejinha, peito de frango, tomate, alface, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "24", name: "Bauru Peito de Frango Master", description: "Pão cervejinha, peito de frango, tomate, alface, queijo, provolone, catupiry, ovo e maionese.", price: 30.00 }
+                ]
+            },
+            {
+                id: "especiais",
+                title: "Lanches Especiais",
+                items: [
+                    { id: "25", name: "Xis Frango com Catupiry", description: "Pão massinha, peito de frango, tomate, alface, milho, ervilha, catupiry, ovo e maionese.", price: 25.90 },
+                    { id: "26", name: "Xis Frango a Punta Del Este", description: "Pão massinha, filé de frango em pedaços, tomate seco, nata, alcaparras, champignon, queijo gorgonzola e ovo.", price: 32.00 },
+                    { id: "27", name: "Xis Frango C/ Cheddar", description: "Pão massinha, peito de frango, queijo cheddar, tomate alface, milho, ervilha, queijo, ovo e maionese.", price: 25.90 },
+                    { id: "28", name: "Xis Filadélia", description: "Pão cervejinha, contrafilé, champignon, cebola, pimentão, queijo, ovo e maionese.", price: 28.90 },
+                    { id: "29", name: "Xis Gaúcho", description: "Pão cervejinha, contrafilé, lombo, salsichão, cebola, pimentão, tomate em rodelas, queijo, ovo e maionese.", price: 28.90 },
+                    { id: "30", name: "Xis 4 Queijos", description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijos: provolone, gorgonzola, queijo prato, cheddar, ovo e maionese.", price: 28.00 },
+                    { id: "31", name: "Xis 5 Queijos", description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijos: provolone, gorgonzola, queijo prato, cheddar, catupiry, ovo e maionese.", price: 28.00 },
+                    { id: "32", name: "Big Agápio", description: "Pão massinha, 2 hambúrgueres bovinos, tomate, alface, milho, ervilha, palmito, pepino, presunto, queijo, ovo e maionese.", price: 30.00 },
+                    { id: "33", name: "Xis Contrafilé", description: "Pão massinha, contrafilé, alface, tomate, milho, ervilha, queijo, ovo e maionese.", price: 28.00 },
+                    { id: "34", name: "Xis Contrafilé 4 Queijos", description: "Pão de xis, maionese, contrafilé em pedaços, provolone, gorgonzola, queijo prato, cheddar, ovo, alface, tomate, ervilha e milho.", price: 35.00 },
+                    { id: "35", name: "Xis Contrafilé 5 Queijos", description: "Pão de xis, maionese, contrafilé em pedaços, provolone, gorgonzola, queijo prato, cheddar, catupiry, ovo, alface, tomate, ervilha e milho.", price: 38.00 },
+                    { id: "36", name: "Xis Mega", description: "Pão massinha, calabresa, champignon, tomate, alface, milho, ervilha, maionese, 2 fatias de queijo e ovo.", price: 32.00 },
+                    { id: "37", name: "Xis Passo Fundo", description: "Pão massinha, iscas de contrafilé ou frango, bacon, milho, ervilha, alface, tomate, palmito, aspargos, maionese, queijo e ovo.", price: 25.00 },
+                    { id: "38", name: "Xis Erechim", description: "Pão massinha, coração, cebola, alho, orégano, queijo, tomate, ovo e maionese.", price: 17.00 },
+                    { id: "39", name: "Xis Vegetariano", description: "Pão massinha, tomate, alface, milho, ervilha, palmito, pepino, cebola, pimentão, champignon, maionese, queijo e ovo.", price: 24.00 },
+                    { id: "40", name: "Xis Vegetariano 2", description: "Pão massinha, tomate, alface, milho, ervilha, palmito, pepino, champignon, maionese, queijo e ovo.", price: 24.90 },
+                    { id: "41", name: "Xis Pantaneiro", description: "Pão massinha, peito de frango, bacon, alho, alface, tomate, queijo, ovo e maionese.", price: 24.00 },
+                    { id: "42", name: "Xis Suprema", description: "Pão massinha, calabresa, champignon, azeitona preta, cebola, pimentão, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "43", name: "Xis Lombo aos Queijos", description: "Pão massinha, filé de lombo, alface, tomate, queijos: parmesão ralado, prato e catupiry e ovo.", price: 29.00 },
+                    { id: "44", name: "Xis Sigo", description: "Pão massinha, lombo, frango, contrafilé, coração, bacon, provolone, ovo, queijo e maionese.", price: 29.90 },
+                    { id: "45", name: "Xis Michelona", description: "Pão massinha, contrafilé, coração, champignon, palmito, pepino, tomate, alface, queijo, ovo e maionese.", price: 29.00 },
+                    { id: "46", name: "Xis Portuguesa", description: "Pão cervejinha, contrafilé, cebola, pimentão, tomate em rodelas, azeitona, queijo, ovo e maionese.", price: 29.00 },
+                    { id: "47", name: "Penta 1", description: "Pão cervejinha, contrafilé, lombo, frango, coração, bacon, tomate e cebola na chapa, queijo, ovo e maionese.", price: 29.00 },
+                    { id: "48", name: "Penta 2", description: "Pão massinha, contrafilé, lombo, frango, coração, bacon, tomate, alface, palmito, queijo, ovo e maionese.", price: 29.90 },
+                    { id: "49", name: "Xis Wesley", description: "Pão de xis, maionese, hamburguer bovino, pepino, queijo, ovo, alface e molho rosê.", price: 17.00 },
+                    { id: "50", name: "Xis Mc Luíza", description: "Pão de xis, hamburguer bovino, bacon em tiras, tomate, alface, cebola na chapa, maionese e cheddar.", price: 24.00 }
+                ]
+            },
+            {
+                id: "extras",
+                title: "Porções e Extras",
+                items: [
+                    { id: "E1", name: "Batata Combo", description: "Porção de batata frita.", price: 5.00 },
+                    { id: "E2", name: "Porções Extra", description: "Bacon, alcaparras, tomates secos, cheddar, catupiry, aspargos, cebola, provolone, palmito.", price: 6.00 },
+                    { id: "E3", name: "Ovo Extra", description: "Ovo adicional.", price: 3.00 }
+                ]
+            },
+            {
+                id: "picadinhos",
+                title: "Picadinhos",
+                items: [
+                    { id: "P1", name: "Picadinho de Frango", description: "Porção de picadinho de frango.", price: 28.00 },
+                    { id: "P2", name: "Picadinho de Coração", description: "Porção de picadinho de coração.", price: 35.00 },
+                    { id: "P3", name: "Fritas", description: "Porção de batatas fritas.", price: 23.00 }
+                ]
+            },
+            {
+                id: "alaminutas",
+                title: "Alaminutas",
+                items: [
+                    { id: "A1", name: "Alaminuta de Carne", description: "Arroz, batata frita e carne.", price: 24.00 },
+                    { id: "A2", name: "Alaminuta de Frango", description: "Arroz, batata frita e frango.", price: 20.90 },
+                    { id: "A3", name: "Alaminuta de Lombo", description: "Arroz, batata frita e lombo.", price: 19.90 },
+                    { id: "A4", name: "Alaminuta de Filé", description: "Arroz, batata frita e filé.", price: 45.00 }
+                ]
+            },
+            {
+                id: "combos",
+                title: "Combos",
+                items: [
+                    { id: "C1", name: "Combo 1", description: "2 Xis Salada + Fritas 250gr.", price: 35.00 },
+                    { id: "C2", name: "Combo 2", description: "1 Xis Salada ou 1 Xis Calabresa + 1 Refri Fruki Lata + 1 Batata Mini.", price: 23.90 }
+                ]
+            },
+            {
+                id: "bebidas",
+                title: "Bebidas",
+                items: [
+                    { id: "B1", name: "Refrigerante Lata 350ml", description: "Coca-cola, Guaraná, Sprite, Fanta.", price: 6.00 },
+                    { id: "B2", name: "Refrigerante 2L", description: "Coca-cola ou Guaraná.", price: 14.00 },
+                    { id: "B3", name: "Água Mineral 500ml", description: "Com ou sem gás.", price: 4.00 }
+                ]
+            },
+            {
+                id: "mais_pedidos",
+                title: "Lanches Mais Pedidos",
+                items: [
+                    {
+                        id: "MP1",
+                        name: "Xis Salada",
+                        description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+                        price: 18.00,
+                        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg6ui7FlwqnG7JOTCUyAwDnXVhMzNCVQIHR3drJS6n-0Oupp8_BrkWKIfcDUBEfb-c7SeYw1yTpa9Cx6JJYthZeriLutKAX9gokwhEFbdoqqIF-iJM72nxRuiQdwCesblbFZo4wTC8_kThqvoN6jXXdOijfk_8vIxcJfWNM8Vdx4FA7KNVQ9DqP9anPtUI/s1184/xis-salada%20oficial.png"
+                    },
+                    {
+                        id: "MP2",
+                        name: "Big Agápio",
+                        description: "Pão massinha, 2 hambúrgueres bovinos, tomate, alface, milho, ervilha, palmito, pepino, presunto, queijo, ovo e maionese.",
+                        price: 30.00,
+                        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3LbDutAVa0nXbXh6qthkoxQyw0locO4IZNF6gHmqerA3pRhjAIQ63jM4nuBnIJMbTxocdT_fSxTQ7C7933yyBfV6GCPqYX8n3g5Yc9sUCG784RJWn6y9aiYznwx5ZgttT468poJNCpk8WDNc_BbnGE1s0DjHzq8hYxXNPKA4oEJqH0Y9OG29CUI4GEoU/s1536/big-agapio.jpg"
+                    },
+                    {
+                        id: "MP3",
+                        name: "Bauru Master",
+                        description: "Pão cervejinha, contrafilé, provolone, catupiry, tomate, alface, queijos, ovo, presunto, bacon e maionese.",
+                        price: 36.00,
+                        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6dp6md1roopMVSB_Yh_qftTI_9jzzM0EYfsx84WgWPv5oLZhkTZhxJ1I0CMHZrrFrOzc8U61JAaAuE22Y9SFvp1mwhF8S31Po-2Cmu_NQ6pfxPRF6Ieqir-ULox1jWZZaZq3d3mrdT2S4112CqEPhTXVp4M9QAFKZzezp7Fogg_oxlE8t-csxIA5M2BE/s1344/BM6.jpg"
+                    },
+                    {
+                        id: "MP4",
+                        name: "Xis Bacon",
+                        description: "Pão massinha, hambúrguer bovino, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
+                        price: 25.00,
+                        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfoVp1-TVrZ6kPWf8omXJQBL1NQq6W8fqIW3vLF6-WUiBh-O6iz69EEew-WbRceCXdAfI_HS551-4I0CZcDX7EVBkgczeaYYcMpxlSwUf2ULdznSzCoC1_fiZm3C8ftWFgYPaheQxbWogfmxYeLVmXbtLcK06S6lsg3jbNFjn4w_iXqfm46bhZDDCcdjI/s1184/xis-bacon%20oficial%202.png"
+                    }
+                ]
+            }
+        ];
+
+        /**
+         * ÍCONES SVG
+         */
+        const ICONS = {
+            phone: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`,
+            whatsapp: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.304-5.252l.002-.001a9.88 9.88 0 019.852-9.882c2.628 0 5.105 1.026 6.963 2.883a9.845 9.845 0 012.886 6.964 9.88 9.88 0 01-9.852 9.882l-.001.037z" /></svg>`,
+            whatsappSmall: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-white fill-current"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.304-5.252l.002-.001a9.88 9.88 0 019.852-9.882c2.628 0 5.105 1.026 6.963 2.883a9.845 9.845 0 012.886 6.964 9.88 9.88 0 01-9.852 9.882l-.001.037z" /></svg>`,
+            mapPin: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
+            navigation: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>`
+        };
+
+        /**
+         * FUNÇÕES DE RENDERIZAÇÃO
+         */
+
+        function renderHero() {
+            const hero = document.getElementById('hero-container');
+            
+            const hoursHtml = BUSINESS_INFO.openingHours.map(h => `<div>${h}</div>`).join('');
+            
+            let secondaryPhoneHtml = '';
+            if (BUSINESS_INFO.secondaryPhone) {
+                secondaryPhoneHtml = `
+                    <a href="tel:${BUSINESS_INFO.secondaryPhone.replace(/\D/g, '')}" class="flex items-center gap-2 bg-[#E7252A] hover:bg-[#C01E22] text-[#EED117] font-bold text-sm md:text-base py-2 px-5 rounded shadow-sm border border-[#C01E22]">
+                        <span class="w-4 h-4">${ICONS.phone}</span>
+                        ${BUSINESS_INFO.secondaryPhone}
+                    </a>
+                `;
+            }
+
+            hero.innerHTML = `
+                <h1 class="text-4xl md:text-6xl font-black text-[#E7252A] mb-2 uppercase tracking-tight leading-none drop-shadow-sm">
+                    ${BUSINESS_INFO.name}<span class="text-2xl align-top">®</span>
+                </h1>
+                
+                <p class="text-[#E7252A] text-lg font-bold mb-6">Desde 1982</p>
+                
+                <div class="flex flex-wrap justify-center gap-3 mb-4 w-full">
+                    <a href="tel:${BUSINESS_INFO.phone.replace(/\D/g, '')}" class="flex items-center gap-2 bg-[#E7252A] hover:bg-[#C01E22] text-[#EED117] font-bold text-sm md:text-base py-2 px-5 rounded shadow-sm border border-[#C01E22]">
+                        <span class="w-4 h-4">${ICONS.phone}</span>
+                        ${BUSINESS_INFO.phone}
+                    </a>
+                    ${secondaryPhoneHtml}
+                </div>
+
+                <a href="https://wa.me/${BUSINESS_INFO.whatsapp}" target="_blank" rel="noopener noreferrer" class="w-full max-w-sm bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg py-3 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green">
+                    <span class="w-6 h-6">${ICONS.whatsapp}</span>
+                    Pedir pelo WhatsApp
+                </a>
+
+                <div class="flex flex-col items-center gap-1 text-[#E7252A] font-bold text-sm md:text-base">
+                    <div class="flex items-center gap-1">
+                        <span class="w-4 h-4">${ICONS.mapPin}</span>
+                        <span>${BUSINESS_INFO.address}</span>
+                    </div>
+                    <div class="uppercase mt-1 text-[#E7252A]">
+                        ${hoursHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Função global para lidar com o clique no card
+        function handleOrder(itemName) {
+            const message = `Olá! Gostaria de pedir um ${itemName}.`;
+            const url = `https://wa.me/${BUSINESS_INFO.whatsapp}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        window.handleOrder = handleOrder;
+
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            
+            MENU_DATA.forEach(category => {
+                const section = document.createElement('section');
+                section.className = "w-full";
+                section.id = category.id;
+
+                const itemsHtml = category.items.map(item => {
+                    let imageHtml = '';
+                    if (item.image) {
+                        const badge = category.id === 'mais_pedidos' 
+                            ? `<div class="absolute top-2 right-2 bg-[#E7252A] text-[#EED117] text-[10px] font-black px-2 py-0.5 rounded shadow-md border border-[#EED117] z-10 uppercase tracking-wide">Mais Pedido</div>` 
+                            : '';
+                        
+                        imageHtml = `
+                            <div class="w-full h-64 mb-3 overflow-hidden rounded border-2 border-[#E7252A] relative">
+                                ${badge}
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+                            </div>
+                        `;
+                    }
+
+                    return `
+                        <div onclick="handleOrder('${item.name}')" class="flex flex-col h-full cursor-pointer group relative bg-[#EED117] border-2 border-[#E7252A] rounded-lg p-3 pt-4 shadow-[2px_2px_0px_rgba(231,37,42,0.2)] hover:shadow-[4px_4px_0px_rgba(231,37,42,0.4)] hover:bg-[#FEF08A] hover:-translate-y-0.5 transition-all duration-200">
+                            ${imageHtml}
+                            <div class="flex justify-between items-baseline mb-2 pr-2">
+                                <h3 class="text-lg font-black text-[#E7252A] leading-tight uppercase">${item.name}</h3>
+                                <div class="flex-shrink-0 ml-2 bg-[#E7252A] text-[#EED117] px-2 py-0.5 rounded font-black text-lg shadow-sm">
+                                    R$ ${item.price.toFixed(2).replace('.', ',')}
+                                </div>
+                            </div>
+                            <p class="text-[#E7252A] text-sm leading-snug font-bold pr-2 flex-grow">${item.description}</p>
+                            <div class="mt-3 flex justify-end items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity">
+                                <span class="text-[10px] text-[#E7252A] font-black uppercase tracking-tighter">Clique para pedir</span>
+                                <div class="bg-[#22c55e] rounded-full p-1 shadow-sm">
+                                    ${ICONS.whatsappSmall}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                section.innerHTML = `
+                    <div class="bg-[#E7252A] rounded-lg shadow-md mb-4 py-2 px-4 text-center border-2 border-[#C01E22]">
+                        <h2 class="text-2xl md:text-3xl font-black text-[#EED117] uppercase tracking-wider drop-shadow-sm">
+                            ${category.title}
+                        </h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                        ${itemsHtml}
+                    </div>
+                `;
+                container.appendChild(section);
+            });
+        }
+
+        function renderLocation() {
+            const container = document.getElementById('location-container');
+            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${BUSINESS_INFO.googleMapsQuery}`;
+            
+            container.innerHTML = `
+                <div class="bg-[#E7252A] rounded-t-lg py-2 px-4 text-center">
+                    <h2 class="text-xl font-black text-[#EED117] uppercase tracking-wider">NOSSA LOCALIZAÇÃO</h2>
+                </div>
+                <div class="border-x-2 border-b-2 border-[#E7252A] bg-[#EED117] p-4 rounded-b-lg">
+                    <div class="w-full h-64 border-2 border-[#E7252A] rounded bg-gray-200 mb-4 overflow-hidden">
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            style="border: 0"
+                            loading="lazy"
+                            allowfullscreen
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://maps.google.com/maps?q=${BUSINESS_INFO.googleMapsQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            title="Map Location"
+                        ></iframe>
+                    </div>
+                    <div class="flex justify-center">
+                        <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-[#E7252A] hover:bg-[#C01E22] text-[#EED117] font-bold py-3 px-8 rounded shadow-md transition-transform active:scale-95">
+                            <span class="w-5 h-5">${ICONS.navigation}</span>
+                            Como chegar
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFooter() {
+            const footer = document.getElementById('footer-container');
+            
+            window.handleDevContact = () => {
+                const message = "Olá Fernando. Gostaria de saber mais sobre criação de sites.";
+                window.open(`https://wa.me/${BUSINESS_INFO.devWhatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+            };
+
+            footer.innerHTML = `
+                <div class="flex gap-6 text-[#E7252A] font-bold text-sm">
+                    <button onclick="openModal('terms')" class="hover:underline">Termos de Uso</button>
+                    <button onclick="openModal('privacy')" class="hover:underline">Política de Privacidade</button>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <span class="text-[#E7252A] font-semibold text-sm">Criado por FCL</span>
+                    <button onclick="handleDevContact()" class="flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white text-xs font-bold py-1.5 px-4 rounded-full shadow-sm">
+                        <div class="w-4 h-4 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
+                            ${ICONS.whatsapp}
+                        </div>
+                        <span class="leading-none">Contato</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        // --- LÓGICA DO MODAL ---
+        function openModal(type) {
+            const modal = document.getElementById('legal-modal');
+            const titleEl = document.getElementById('modal-title');
+            const contentEl = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            
+            if (type === 'privacy') {
+                titleEl.textContent = 'Política de Privacidade';
+                contentEl.innerHTML = `
+                    <div class="space-y-4">
+                        <p><strong>1. Coleta de Dados:</strong> Nós respeitamos a sua privacidade. Este site não coleta dados pessoais automaticamente. Quaisquer dados fornecidos (como nome ou telefone) são utilizados exclusivamente para o processamento do pedido via WhatsApp.</p>
+                        <p><strong>2. Uso das Informações:</strong> As informações compartilhadas nas conversas de WhatsApp são de responsabilidade do usuário e do estabelecimento comercial.</p>
+                        <p><strong>3. Cookies:</strong> Utilizamos cookies apenas para funcionamento essencial do site e análise anônima de tráfego.</p>
+                        <p><strong>4. Contato:</strong> Em caso de dúvidas sobre seus dados, entre em contato através dos canais oficiais do estabelecimento.</p>
+                    </div>
+                `;
+            } else {
+                titleEl.textContent = 'Termos de Uso';
+                contentEl.innerHTML = `
+                    <div class="space-y-4">
+                        <p><strong>1. Aceitação:</strong> Ao utilizar nosso cardápio digital, você concorda com estes termos.</p>
+                        <p><strong>2. Pedidos:</strong> Os pedidos são realizados externamente via WhatsApp. A disponibilidade dos itens e os preços estão sujeitos a alteração sem aviso prévio.</p>
+                        <p><strong>3. Entregas:</strong> As taxas de entrega e áreas de cobertura devem ser consultadas diretamente com o atendente no momento do pedido.</p>
+                        <p><strong>4. Imagens:</strong> As imagens são meramente ilustrativas.</p>
+                    </div>
+                `;
+            }
+        }
+        window.openModal = openModal;
+
+        function closeModal() {
+            document.getElementById('legal-modal').classList.add('hidden');
+        }
+        window.closeModal = closeModal;
+
+        // --- INICIALIZAÇÃO ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHero();
+            renderMenu();
+            renderLocation();
+            renderFooter();
+        });
+    </script>
+</body>
 </html>
