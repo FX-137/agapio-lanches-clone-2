@@ -245,26 +245,39 @@
                 ]
             },
             {
-                id: "picadinhos",
-                title: "Picadinhos",
-                items: [
-                { id: "P1", name: "Picadinho de Frango", description: "Porção de picadinho de frango.", price: 28.00 },
-                { id: "P2", name: "Picadinho de Coração", description: "Porção de picadinho de coração.", price: 35.00 },
-                { id: "P3", name: "Fritas", description: "Porção de batatas fritas.", price: 23.00 },
-                { id: "P4", name: "Picadinho de Filé", description: "Porção de filé.", price: 45.00 }
-                ]
-            },
-            {
-                id: "alaminutas",
-                title: "Alaminutas",
-                items: [
-                { id: "A1", name: "Alaminuta de Carne", description: "Arroz, batata frita e carne.", price: 24.00 },
-                { id: "A2", name: "Alaminuta de Frango", description: "Arroz, batata frita e frango.", price: 20.90 },
-                { id: "A3", name: "Alaminuta de Lombo", description: "Arroz, batata frita e lombo.", price: 19.90 },
-                { id: "A4", name: "Alaminuta de Filé", description: "Arroz, batata frita e filé.", price: 45.00 }
-                ]
-            },
-            {
+                id: "picadinhos",
+                title: "Picadinhos",
+                items: [
+                    { 
+                        id: "P1", 
+                        name: "Picadinho de Frango", 
+                        description: "Porção de picadinho de frango.", 
+                        priceFull: 28.00,  // AGORA É PREÇO INTEIRO
+                        priceHalf: 17.00   // ADICIONADO: PREÇO MEIA PORÇÃO
+                    },
+                    { 
+                        id: "P2", 
+                        name: "Picadinho de Coração", 
+                        description: "Porção de picadinho de coração.", 
+                        priceFull: 35.00, 
+                        priceHalf: 20.00   // ADICIONADO: PREÇO MEIA PORÇÃO
+                    },
+                    { 
+                        id: "P3", 
+                        name: "Fritas", 
+                        description: "Porção de batatas fritas.", 
+                        priceFull: 23.00, 
+                        priceHalf: 15.00   // ADICIONADO: PREÇO MEIA PORÇÃO
+                    },
+                    { 
+                        id: "P4", 
+                        name: "Picadinho de filé", // (Corrigi o nome no Filé)
+                        description: "Porção de picadinho de filé.", 
+                        priceFull: 45.00, 
+                        priceHalf: 30.00   // ADICIONADO: PREÇO MEIA PORÇÃO
+                    }
+                ]
+            }
                 id: "combos",
                 title: "Combos",
                 items: [
