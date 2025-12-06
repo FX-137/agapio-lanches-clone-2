@@ -233,60 +233,63 @@
                 { id: "48", name: "Penta 2", description: "Pão massinha, contrafilé, lombo, frango, coração, bacon, tomate, alface, palmito, queijo, ovo e maionese.", price: 29.90 },
                 { id: "49", name: "Xis Wesley", description: "Pão de xis, maionese, hamburguer bovino, pepino, queijo, ovo, alface e molho rosê.", price: 17.00 },
                 { id: "50", name: "Xis Mc Luíza", description: "Pão de xis, hamburguer bovino, bacon em tiras, tomate, alface, cebola na chapa, maionese e cheddar.", price: 24.00 }
-                ]
-            },
+                /* ... Final da Categoria ANTERIOR, antes de 'extras' ...
+   Você deve garantir que a categoria anterior termine em }, 
+   e que 'extras' comece com a chave de abertura { na linha de baixo.
+*/
+
             {
-                id: "extras",
-                title: "Porções e Extras",
-                items: [
-                { id: "E1", name: "Batata Combo", description: "Porção de batata frita.", price: 5.00 },
-                { id: "E2", name: "Porções Extra", description: "Bacon, alcaparras, tomates secos, cheddar, catupiry, aspargos, cebola, provolone, palmito.", price: 6.00 },
-                { id: "E3", name: "Ovo Extra", description: "Ovo adicional.", price: 3.00 }
-                ]
-            },
-        
-            {
+                id: "extras",
+                title: "Porções e Extras",
+                items: [
+                    { id: "E1", name: "Batata Combo", description: "Porção de batata frita.", price: 5.00 },
+                    { id: "E2", name: "Porções Extra", description: "Bacon, alcaparras, tomates secos, cheddar, catupiry, aspargos, cebola, provolone, palmito.", price: 6.00 },
+                    { id: "E3", name: "Ovo Extra", description: "Ovo adicional.", price: 3.00 }
+                ]
+            }, // <-- VÍRGULA OBRIGATÓRIA PARA SEPARAR DO PRÓXIMO BLOCO
+            {
                 id: "picadinhos",
                 title: "Picadinhos",
                 items: [
-                    { 
-                        id: "P1", 
-                        name: "Picadinho de Frango", 
-                        description: "Porção de picadinho de frango.", 
-                        priceFull: 28.00,  // AGORA É PREÇO INTEIRO
-                        priceHalf: 17.00   // ADICIONADO: PREÇO MEIA PORÇÃO
-                    },
-                    { 
-                        id: "P2", 
-                        name: "Picadinho de Coração", 
-                        description: "Porção de picadinho de coração.", 
-                        priceFull: 35.00, 
-                        priceHalf: 20.00   // ADICIONADO: PREÇO MEIA PORÇÃO
-                    },
-                    { 
-                        id: "P3", 
-                        name: "Fritas", 
-                        description: "Porção de batatas fritas.", 
-                        priceFull: 23.00, 
-                        priceHalf: 15.00   // ADICIONADO: PREÇO MEIA PORÇÃO
-                    },
-                    { 
-                        id: "P4", 
-                        name: "Picadinho de filé", // (Corrigi o nome no Filé)
-                        description: "Porção de picadinho de filé.", 
-                        priceFull: 45.00, 
-                        priceHalf: 30.00   // ADICIONADO: PREÇO MEIA PORÇÃO
-                    }
+                    { 
+                        id: "P1", 
+                        name: "Picadinho de Frango", 
+                        description: "Porção de picadinho de frango.", 
+                        priceFull: 28.00, 
+                        priceHalf: 17.00   
+                    },
+                    { 
+                        id: "P2", 
+                        name: "Picadinho de Coração", 
+                        description: "Porção de picadinho de coração.", 
+                        priceFull: 35.00, 
+                        priceHalf: 20.00   
+                    },
+                    { 
+                        id: "P3", 
+                        name: "Fritas", 
+                        description: "Porção de batatas fritas.", 
+                        priceFull: 23.00, 
+                        priceHalf: 15.00   
+                    },
+                    { 
+                        id: "P4", 
+                        name: "Picadinho de filé", 
+                        description: "Porção de picadinho de filé.", 
+                        priceFull: 45.00, 
+                        priceHalf: 30.00   
+                    }
+                ]
+            }, // <-- VÍRGULA OBRIGATÓRIA PARA SEPARAR DO PRÓXIMO BLOCO
+            {
+                id: "combos",
+                title: "Combos",
+                items: [
+                    { id: "C1", name: "Combo 1", description: "2 Xis Salada + Fritas 250gr.", price: 35.00 },
+                    { id: "C2", name: "Combo 2", description: "1 Xis Salada ou 1 Xis Calabresa + 1 Refri Fruki Lata + 1 Batata Mini.", price: 23.90 }
                 ]
             }
-                id: "combos",
-                title: "Combos",
-                items: [
-                { id: "C1", name: "Combo 1", description: "2 Xis Salada + Fritas 250gr.", price: 35.00 },
-                { id: "C2", name: "Combo 2", description: "1 Xis Salada ou 1 Xis Calabresa + 1 Refri Fruki Lata + 1 Batata Mini.", price: 23.90 }
-                ]
-            },
-            {
+/* ... Se houver mais categorias, adicione }, aqui ... */
                 id: "bebidas",
                 title: "Bebidas",
                 items: [
