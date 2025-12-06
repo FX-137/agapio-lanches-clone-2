@@ -59,9 +59,9 @@
 <script type="importmap">
 {
   "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
     "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/"
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/"
   }
 }
 </script>
@@ -328,6 +328,9 @@
                 `;
             }
 
+            // Mensagem padrão para o botão principal
+            const mainWppMsg = encodeURIComponent("Olá, eu gostaria de fazer um pedido");
+
             hero.innerHTML = `
                 <h1 class="text-4xl md:text-6xl font-black text-[#E7252A] mb-2 uppercase tracking-tight leading-none drop-shadow-sm">
                     ${BUSINESS_INFO.name}<span class="text-2xl align-top">®</span>
@@ -343,14 +346,14 @@
                     ${secondaryPhoneHtml}
                 </div>
 
-                <a href="https://wa.me/${BUSINESS_INFO.whatsapp}" target="_blank" rel="noopener noreferrer" class="w-full max-w-sm bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg py-3 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green">
+                <a href="https://wa.me/${BUSINESS_INFO.whatsapp}?text=${mainWppMsg}" target="_blank" rel="noopener noreferrer" class="w-full max-w-sm bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg py-3 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green">
                     <span class="w-6 h-6">${ICONS.whatsapp}</span>
                     Pedir pelo WhatsApp
                 </a>
 
                 <div class="flex flex-col items-center gap-1 text-[#E7252A] font-bold text-sm md:text-base">
-                    <div class="flex items-center gap-1">
-                        <span class="w-4 h-4">${ICONS.mapPin}</span>
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="w-5 h-5 flex-shrink-0 flex items-center justify-center">${ICONS.mapPin}</span>
                         <span>${BUSINESS_INFO.address}</span>
                     </div>
                     <div class="uppercase mt-1 text-[#E7252A]">
@@ -384,7 +387,7 @@
                             : '';
                         
                         imageHtml = `
-                            <div class="w-full h-64 mb-3 overflow-hidden rounded border-2 border-[#E7252A] relative">
+                            <div class="w-full h-64 md:h-96 mb-3 overflow-hidden rounded border-2 border-[#E7252A] relative">
                                 ${badge}
                                 <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
                             </div>
