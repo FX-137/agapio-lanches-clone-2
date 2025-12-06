@@ -145,9 +145,21 @@
         </div>
     </div>
 
-    
+    <!-- SCRIPT DA APLICAÇÃO -->
+    <script>
+        // DADOS DO NEGÓCIO
+        const BUSINESS_INFO = {
+            name: "Cardápio Agapio Lanches",
+            address: "Av. José de Alencar, 869 - Menino Deus, Porto Alegre",
+            googleMapsQuery: "Av.+José+de+Alencar,+869",
+            phone: "(51) 3026-0902",
+            secondaryPhone: "(51) 99214-1406",
+            whatsapp: "5551992141406",
+            devWhatsapp: "5551992496479",
+            openingHours: ["ABERTO DE SEGUNDA À DOMINGO DAS 11H À MEIA-NOITE"]
+        };
 
-     // DADOS DO MENU
+        // DADOS DO MENU
         const MENU_DATA = [
             {
                 id: "xis_tradicionais",
@@ -279,7 +291,7 @@
                 ]
             }
         ];
-<script src="./data.js"></script>
+
         // RENDERIZAÇÃO
         document.addEventListener('DOMContentLoaded', () => {
             // Setup Hero Info
@@ -396,6 +408,5 @@
             document.getElementById('legal-modal').classList.add('hidden');
         }
     </script>
-    
 </body>
 </html>
