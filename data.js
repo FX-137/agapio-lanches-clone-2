@@ -23,7 +23,7 @@ export const MENU_DATA: MenuCategory[] = [
         id: "01",
         name: "Xis Salada",
         description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
-        price: 18.00
+        price: 19.00
       },
       {
         id: "02",
