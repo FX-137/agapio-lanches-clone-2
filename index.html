@@ -52,6 +52,36 @@
 }
 </script>
 </head>
+     <style>
+        /* Cores da Marca */
+        :root {
+            --brand-yellow: #EED117;
+            --brand-red: #E7252A;
+            --brand-red-dark: #C01E22;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--brand-yellow); }
+        ::-webkit-scrollbar-thumb { background: var(--brand-red); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-red-dark); }
+/* Correção forçada para o tamanho da imagem dos cartões */
+.cartoes-fixo {
+    width: 100% !important; /* Permite que o max-width atue */
+    max-width: 280px !important; /* Limita o tamanho no celular */
+    height: auto !important; /* Mantém a proporção */
+    display: block !important; /* Garante centralização */
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Ajuste para telas maiores, se necessário */
+@media (min-width: 768px) {
+    .cartoes-fixo {
+        max-width: 400px !important; /* Aumenta um pouco em tablets/PC */
+    }
+}
+        body {
 <body class="flex flex-col min-h-screen relative overflow-x-hidden">
 
     <!-- HERO SECTION -->
