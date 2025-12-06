@@ -243,16 +243,27 @@
                 { id: "E2", name: "Porções Extra", description: "Bacon, alcaparras, tomates secos, cheddar, catupiry, aspargos, cebola, provolone, palmito.", price: 6.00 },
                 { id: "E3", name: "Ovo Extra", description: "Ovo adicional.", price: 3.00 }
                 ]
-            },
             {
-                id: "picadinhos",
-                title: "Picadinhos",
-                items: [
-                { id: "P1", name: "Picadinho de Frango", description: "Porção de picadinho de frango.", price: 28.00 },
-                { id: "P2", name: "Picadinho de Coração", description: "Porção de picadinho de coração.", price: 35.00 },
-                { id: "P3", name: "Fritas", description: "Porção de batatas fritas.", price: 23.00 }
-                ]
-            },
+                id: "picadinhos",
+                title: "Picadinhos",
+                items: [
+                    // --- PICADINHO DE FRANGO ---
+                    { id: "P1A", name: "Picadinho Frango (Inteira)", description: "Porção de picadinho de frango.", price: 28.00 },
+                    { id: "P1B", name: "Picadinho Frango (Meia)", description: "Meia porção de picadinho de frango.", price: 17.00 },
+                    
+                    // --- PICADINHO DE CORAÇÃO ---
+                    { id: "P2A", name: "Picadinho Coração (Inteira)", description: "Porção de picadinho de coração.", price: 35.00 },
+                    { id: "P2B", name: "Picadinho Coração (Meia)", description: "Meia porção de picadinho de coração.", price: 20.00 },
+
+                    // --- PORÇÃO DE FRITAS ---
+                    { id: "P3A", name: "Fritas (Inteira)", description: "Porção de batatas fritas.", price: 23.00 },
+                    { id: "P3B", name: "Fritas (Meia)", description: "Meia porção de batatas fritas.", price: 15.00 },
+                    
+                    // --- PORÇÃO DE FILÉ ---
+                    { id: "P4A", name: "Picadinho Filé (Inteira)", description: "Porção de picadinho de filé.", price: 45.00 },
+                    { id: "P4B", name: "Picadinho Filé (Meia)", description: "Meia porção de picadinho de filé.", price: 30.00 }
+                ]
+            } // <-- Adicione VÍRGULA aqui (},) se houver outra categoria depois.
             {
                 id: "alaminutas",
                 title: "Alaminutas",
