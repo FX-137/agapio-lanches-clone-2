@@ -1,7 +1,7 @@
 
 import { BusinessInfo, MenuCategory } from './types';
 
-(window as any).BUSINESS_INFO: BusinessInfo = {
+export const BUSINESS_INFO: BusinessInfo = {
   name: "Cardápio Agapio Lanches",
   address: "Av. José de Alencar, 869 - Menino Deus, Porto Alegre",
   googleMapsQuery: "Av.+José+de+Alencar,+869",
@@ -14,7 +14,7 @@ import { BusinessInfo, MenuCategory } from './types';
   ]
 };
 
-(window as any).MENU_DATA: MenuCategory[] = [
+export const MENU_DATA: MenuCategory[] = [
   {
     id: "xis_tradicionais",
     title: "Lanches Tradicionais",
