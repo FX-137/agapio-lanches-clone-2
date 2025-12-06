@@ -13,75 +13,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cardápio Agapio Lanches</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Cores da Marca */
-        :root {
-            --brand-yellow: #EED117;
-            --brand-red: #E7252A;
-            --brand-red-dark: #C01E22;
-        }
+   <script src="https://cdn.tailwindcss.com"></script>
+<style>
+    /* Cores da Marca */
+    :root {
+        --brand-yellow: #EED117;
+        --brand-red: #E7252A;
+        --brand-red-dark: #C01E22;
+    }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--brand-yellow); }
-        ::-webkit-scrollbar-thumb { background: var(--brand-red); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--brand-red-dark); }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--brand-yellow); }
+    ::-webkit-scrollbar-thumb { background: var(--brand-red); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--brand-red-dark); }
 
-        body {
-            background-color: var(--brand-yellow);
-            color: #7f1d1d;
-            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
+    /* Estilo do Body */
+    body {
+        background-color: var(--brand-yellow);
+        color: #7f1d1d;
+        font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
 
-        /* Animação pulsante */
-        .animate-pulse-green { animation: pulse-green 2s infinite; }
-        @keyframes pulse-green {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    /* Animação pulsante */
+    .animate-pulse-green { animation: pulse-green 2s infinite; }
+    @keyframes pulse-green {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    /* Correção forçada para o tamanho da imagem dos cartões (AGORA VAI FUNCIONAR) */
+    .cartoes-fixo {
+        width: 100% !important; 
+        max-width: 280px !important; 
+        height: auto !important; 
+        display: block !important; 
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* Ajuste para telas maiores, se necessário */
+    @media (min-width: 768px) {
+        .cartoes-fixo {
+            max-width: 400px !important; 
         }
-    </style>
+    }
+</style>
 <script type="importmap">
 {
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/"
-  }
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/"
+  }
 }
 </script>
 </head>
-     <style>
-        /* Cores da Marca */
-        :root {
-            --brand-yellow: #EED117;
-            --brand-red: #E7252A;
-            --brand-red-dark: #C01E22;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--brand-yellow); }
-        ::-webkit-scrollbar-thumb { background: var(--brand-red); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--brand-red-dark); }
-/* Correção forçada para o tamanho da imagem dos cartões */
-.cartoes-fixo {
-    width: 100% !important; /* Permite que o max-width atue */
-    max-width: 280px !important; /* Limita o tamanho no celular */
-    height: auto !important; /* Mantém a proporção */
-    display: block !important; /* Garante centralização */
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-/* Ajuste para telas maiores, se necessário */
-@media (min-width: 768px) {
-    .cartoes-fixo {
-        max-width: 400px !important; /* Aumenta um pouco em tablets/PC */
-    }
-}
-        body {
 <body class="flex flex-col min-h-screen relative overflow-x-hidden">
 
     <!-- HERO SECTION -->
