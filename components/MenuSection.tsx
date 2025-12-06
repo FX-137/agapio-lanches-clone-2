@@ -35,7 +35,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ category, businessInfo
           >
             {/* Optional Image with Badge */}
             {item.image && (
-              <div className="w-full h-64 mb-3 overflow-hidden rounded border-2 border-[#E7252A] relative">
+              <div className="w-full h-64 md:h-96 mb-3 overflow-hidden rounded border-2 border-[#E7252A] relative">
                 {category.id === 'mais_pedidos' && (
                   <div className="absolute top-2 right-2 bg-[#E7252A] text-[#EED117] text-[10px] font-black px-2 py-0.5 rounded shadow-md border border-[#EED117] z-10 uppercase tracking-wide">
                     Mais Pedido

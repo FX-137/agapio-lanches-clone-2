@@ -7,6 +7,8 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ info }) => {
+  const mainWppMsg = encodeURIComponent("Olá, eu gostaria de fazer um pedido");
+
   return (
     <div className="w-full pt-10 pb-6 px-4 flex flex-col items-center justify-center text-center">
       
@@ -40,7 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ info }) => {
 
       {/* WhatsApp Main Button - With Pulse Animation */}
       <a 
-        href={`https://wa.me/${info.whatsapp}`}
+        href={`https://wa.me/${info.whatsapp}?text=${mainWppMsg}`}
         target="_blank"
         rel="noopener noreferrer"
         className="w-full max-w-sm bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg py-3 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green"
@@ -51,9 +53,11 @@ export const Hero: React.FC<HeroProps> = ({ info }) => {
 
       {/* Address & Hours */}
       <div className="flex flex-col items-center gap-1 text-[#E7252A] font-bold text-sm md:text-base">
-        <div className="flex items-center gap-1">
-            <MapPinIcon className="w-4 h-4" />
-            <span>{info.address}</span>
+        <div className="flex items-start justify-center gap-2 px-4 text-center">
+            <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center mt-0.5">
+                <MapPinIcon className="w-full h-full" />
+            </div>
+            <span className="text-center leading-tight">{info.address}</span>
         </div>
         <div className="uppercase mt-1 text-[#E7252A]">
           {info.openingHours.map((hour, idx) => (
