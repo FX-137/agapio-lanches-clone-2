@@ -59,9 +59,9 @@
 <script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.1/",
     "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/"
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/"
   }
 }
 </script>
@@ -352,9 +352,11 @@
                 </a>
 
                 <div class="flex flex-col items-center gap-1 text-[#E7252A] font-bold text-sm md:text-base">
-                    <div class="flex items-center justify-center gap-2">
-                        <span class="w-5 h-5 flex-shrink-0 flex items-center justify-center">${ICONS.mapPin}</span>
-                        <span>${BUSINESS_INFO.address}</span>
+                    <div class="flex items-center justify-center gap-2 px-4 text-center">
+                        <div class="w-5 h-5 flex-shrink-0 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
+                            ${ICONS.mapPin}
+                        </div>
+                        <span class="text-center leading-tight">${BUSINESS_INFO.address}</span>
                     </div>
                     <div class="uppercase mt-1 text-[#E7252A]">
                         ${hoursHtml}
