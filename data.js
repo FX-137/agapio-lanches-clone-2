@@ -489,7 +489,7 @@ export const MENU_DATA: MenuCategory[] = [
         name: "Xis Bacon",
         description: "Pão massinha, hambúrguer bovino, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
         price: 25.00,
-        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfoVp1-TVrZ6kPWf8omXJQBL1NQq6W8fqIW3vLF6-WUiBh-O6iz69EEew-WbRceCXdAfI_HS551-4I0CZcDX7EVBkgczeaYYcMpxlSwUf2ULdznSzCoC1_fiZm3C8ftWFgYPaheQxbWogfmxYeLVmXbtLcK06S6lsg3jbNFjn4w_iXqfm46bhZDDCcdjI/s1184/xis-bacon%20oficial%202.png"
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5Eva6DwXZRmfzFR_xEsyHfDZk65B8TqQZIJSMFKqArs51L2AcCpaboQ-6Mm3UPFdmIBY86GfjNhF5CVCTyWR1KOg4bwQPfeoRz9n14pklJ8GmDD5xLOnVdW5oozyirMxGHWw4OS5f8UbJktde2u0XbvDKGSy5z-wtSuorqWzyj7JHJA8jOsmfdxjzMw8/s1536/Novo%20Xis%20bacon.png"
       }
     ]
   }
