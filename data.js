@@ -468,7 +468,7 @@ export const MENU_DATA: MenuCategory[] = [
         name: "Xis Salada",
         description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.",
         price: 18.00,
-        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQHSAXrHpOYIeCTrCDB5_I2uvlEQQ7qkgPDk2brkNxDCa_ZWHjQvrlyzyf7Z_CJcYMBhlBhGCa6hburbv7luVY__3-PvImdJQvFTVjlzW8Wm_KXls-OhZeQbNTeV8MwrlGAedZQwr-Ewkk7lEEENJJ73-DiVhFouqxUt4kWMUCkxcoW2G4gX0gL6kyD6U/s1536/Novo%20Xis%20salada.png"
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTWDzcUULQ7kGgZoQVPt35VlKb_LA9bi6uScAiOfmxBTbVS2RO7PmyCngL-hnc1AbWWohujnVQ5itW_9c-LyYpumIJ7JhI247weB4XmKMeZQLRve0zJU0CnPiumx3x00kghFr46zwCTF3k4evN4JHrHPWjLpxzHKGuNtklGnRFlqN2zERu_YMpp4b_P1A/s1536/Xis%20salada%20cenario%203.png"
       },
       {
         id: "MP2",
