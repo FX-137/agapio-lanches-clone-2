@@ -475,7 +475,7 @@ export const MENU_DATA: MenuCategory[] = [
         name: "Big Agápio",
         description: "Pão massinha, 2 hambúrgueres bovinos, tomate, alface, milho, ervilha, palmito, pepino, presunto, queijo, ovo e maionese.",
         price: 30.00,
-        image: " https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTkS-tpqWFbQJ90d0AhYD8aFPNvaEr17HQVwyFwDvhRbTutHAoYLLJ68IU80sQdOB-njylmFm-C5-dS8QkktQhwkpLXnpBdF18C_kMVDDm_5zakHs_uQHfx62ilw3-mY2pZZp3Ub-QLD-njQEix0sSBK40KupsY4j9_ABrouQVI53CxLQM0g41BXhMwXk/s1536/Big%20agapio%20chat.png"
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTkS-tpqWFbQJ90d0AhYD8aFPNvaEr17HQVwyFwDvhRbTutHAoYLLJ68IU80sQdOB-njylmFm-C5-dS8QkktQhwkpLXnpBdF18C_kMVDDm_5zakHs_uQHfx62ilw3-mY2pZZp3Ub-QLD-njQEix0sSBK40KupsY4j9_ABrouQVI53CxLQM0g41BXhMwXk/s1536/Big%20agapio%20chat.png"
       },
       {
         id: "MP3",

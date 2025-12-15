@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MenuCategory, BusinessInfo } from '../types';
 import { WhatsappIcon } from './Icons';
@@ -17,7 +16,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ category, businessInfo
   };
 
   return (
-    <section className="w-full max-w-6xl mx-auto" id={category.id}>
+    <section className="w-full max-w-6xl mx-auto scroll-mt-24" id={category.id}>
       {/* Category Header Bar - Red with Yellow Text */}
       <div className="bg-[#E7252A] rounded-lg shadow-md mb-4 py-2 px-4 text-center border-2 border-[#C01E22]">
         <h2 className="text-2xl md:text-3xl font-black text-[#EED117] uppercase tracking-wider drop-shadow-sm">
@@ -25,15 +24,15 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ category, businessInfo
         </h2>
       </div>
       
-      {/* Items Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+      {/* Items Grid with items-stretch to match reference */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 items-stretch">
         {category.items.map((item) => (
           <div 
             key={item.id} 
             onClick={() => handleOrder(item.name)}
-            className="flex flex-col h-full cursor-pointer group relative bg-[#EED117] border-2 border-[#E7252A] rounded-lg p-3 pt-4 shadow-[2px_2px_0px_rgba(231,37,42,0.2)] hover:shadow-[4px_4px_0px_rgba(231,37,42,0.4)] hover:bg-[#FEF08A] hover:-translate-y-0.5 transition-all duration-200"
+            className="flex flex-col h-full cursor-pointer group relative bg-[#EED117] border-2 border-[#E7252A] rounded-lg p-3 pt-4 shadow-[2px_2px_0px_rgba(231,37,42,0.2)] hover:shadow-[4px_4px_0px_rgba(231,37,42,0.4)] hover:bg-[#FEF08A] hover:-translate-y-1.5 transition-all duration-200"
           >
-            {/* Optional Image with Badge */}
+            {/* Optional Image with Badge - Fixed height classes ensure landscape/cenario look */}
             {item.image && (
               <div className="w-full h-64 md:h-96 mb-3 overflow-hidden rounded border-2 border-[#E7252A] relative">
                 {category.id === 'mais_pedidos' && (
@@ -44,6 +43,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ category, businessInfo
                 <img 
                   src={item.image} 
                   alt={item.name} 
+                  loading="lazy"
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
