@@ -6,6 +6,10 @@
     <title>Cardápio Agapio Lanches</title>
     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFTznbj8hGOxa8oY7w9On6zmw6VmW6y4kr1lo4M7YG3vNgAVk7PlnlSHjpRanOwBTt8Cf6wvdDkHtBGRIymydYivyhV8d5RxIu-g4gMsqY2i77rRFVYDf25L9IYgPQS5axqc1hNWX_4_tvupmqH37dImY8h57iFPvDoa6x3kDZE2rKfYLjeLutb1BPcU/s1600/A2.png" type="image/png" />
     
+    <!-- Bibliotecas Externas -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -47,7 +51,6 @@
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
@@ -55,6 +58,414 @@
 </head>
 <body class="flex flex-col min-h-screen relative overflow-x-hidden">
     <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- DADOS ---
+        const BUSINESS_INFO = {
+            name: "Cardápio Agapio Lanches",
+            address: "Av. José de Alencar, 869 - Menino Deus, Porto Alegre",
+            googleMapsQuery: "Av.+José+de+Alencar,+869",
+            phone: "(51) 3026-0902",
+            secondaryPhone: "(51) 99214-1406",
+            whatsapp: "5551992141406",
+            devWhatsapp: "5551992496479",
+            openingHours: ["ABERTO DE SEGUNDA À DOMINGO DAS 11H À MEIA-NOITE"]
+        };
+
+        const MENU_DATA = [
+            {
+                id: "mais_pedidos",
+                title: "Lanches Mais Pedidos",
+                items: [
+                    { id: "MP1", name: "Xis Salada", description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 18.00, image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTWDzcUULQ7kGgZoQVPt35VlKb_LA9bi6uScAiOfmxBTbVS2RO7PmyCngL-hnc1AbWWohujnVQ5itW_9c-LyYpumIJ7JhI247weB4XmKMeZQLRve0zJU0CnPiumx3x00kghFr46zwCTF3k4evN4JHrHPWjLpxzHKGuNtklGnRFlqN2zERu_YMpp4b_P1A/s1536/Xis%20salada%20cenario%203.png" },
+                    { id: "MP2", name: "Big Agápio", description: "Pão massinha, 2 hambúrgueres bovinos, tomate, alface, milho, ervilha, palmito, pepino, presunto, queijo, ovo e maionese.", price: 30.00, image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTkS-tpqWFbQJ90d0AhYD8aFPNvaEr17HQVwyFwDvhRbTutHAoYLLJ68IU80sQdOB-njylmFm-C5-dS8QkktQhwkpLXnpBdF18C_kMVDDm_5zakHs_uQHfx62ilw3-mY2pZZp3Ub-QLD-njQEix0sSBK40KupsY4j9_ABrouQVI53CxLQM0g41BXhMwXk/s1536/Big%20agapio%20chat.png" },
+                    { id: "MP3", name: "Bauru Master", description: "Pão cervejinha, contrafilé, provolone, catupiry, tomate, alface, queijos, ovo, presunto, bacon e maionese.", price: 36.00, image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj0iQ5YOoVU23DM1qtztSFCbd7hQFgausdqeuJ8EqdpfMdeGKWdOI7T5QWqHI45fmo8Px9Tp0q_-l4V_IRiuuu43E5IPZ6AR7O8olgvQC92UkkZ2bVXABzp5rqU61-gOLYP3Sug-i8O1tC7dzBVW40U4l8Ie55yAv7WgtuRX21xy5BP9C3jdmP_tiefDJo/s1536/Bauru%20master%20chat.png" },
+                    { id: "MP4", name: "Xis Bacon", description: "Pão massinha, hambúrguer bovino, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 25.00, image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNnOVYzmQMexWvd8Q93-15Wi4IS2c0k6UIAp80TLzTiJjoaU6xqiNT89b1Y9TvEuZoK0BMVk9Dws4oOLCrtFa5tYbqzVKAZRtgr9m8wuRlSUy5qe6usQNZ6lImrch2AW8GQPL84jArR4jjwXW1EN68qnyIXak23tLW-3HtlBH3N3HWmh4i4zMFa4rgvAw/s1536/Xis%20bacon%20cenario.png" }
+                ]
+            },
+            {
+                id: "xis_tradicionais",
+                title: "Lanches Tradicionais",
+                items: [
+                    { id: "01", name: "Xis Salada", description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 18.00 },
+                    { id: "02", name: "Xis Salada Simples", description: "Hambúrguer bovino, maionese, queijo e ovo.", price: 14.00 },
+                    { id: "03", name: "Xis Strogonoff", description: "Pão massinha, contrafilé, tomate, alface, champignon, batata palha, queijo, ovo, maionese e molho especial.", price: 32.00 },
+                    { id: "04", name: "Xis da Casa", description: "Pão massinha, hambúrguer bovino, alface, tomate, milho, ervilha, pepino, maionese, palmito, presunto, queijo e ovo.", price: 24.00 },
+                    { id: "05", name: "Xis Frango", description: "Pão massinha, peito de frango, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 19.00 },
+                    { id: "06", name: "Xis Coração", description: "Pão massinha, coração, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "07", name: "Xis Bacon", description: "Pão massinha, hambúrguer bovino, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "08", name: "Xis Calabresa", description: "Pão massinha, calabresa, tomate, alface, milho, ervilha, queijo, ovo, e maionese.", price: 19.00 },
+                    { id: "09", name: "Xis Lombo", description: "Pão massinha, lombo, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 19.00 },
+                    { id: "10", name: "Xis Misto", description: "Pão massinha, coração, calabresa, contrafilé, bacon, tomate, alface, milho, ervilha, queijo, ovo e maionese.", price: 27.00 },
+                    { id: "11", name: "Xis Acebolado", description: "Pão massinha, bife de hambúrguer, tomate, alface, milho, ervilha, queijo, ovo, maionese e cebola.", price: 20.00 }
+                ]
+            },
+            {
+                id: "dogs_torradas",
+                title: "Cachorros e Torradas",
+                items: [
+                    { id: "12", name: "Cachorro Quente", description: "Pão de cachorro, salsicha, presunto, tomate, alface, milho, ervilha, queijo e maionese.", price: 14.00 },
+                    { id: "13", name: "Cachorro Quente Simples", description: "2 salsichas, maionese, catchup, batata palha e queijo.", price: 13.00 },
+                    { id: "14", name: "Dog Linguiça", description: "Pão de cachorro, linguiça calabresa, presunto, tomate, alface, milho, ervilha, queijo e maionese.", price: 21.00 },
+                    { id: "15", name: "Dog Coração", description: "Pão de cachorro, alface, tomate, milho, ervilha, maionese, coração e queijo.", price: 9.00 },
+                    { id: "16", name: "Torrada", description: "Três fatias de pão de forma, 2 fatias de queijo, 2 fatias de presunto e maionese.", price: 13.00 },
+                    { id: "17", name: "Prensado 1", description: "Pão de xis, 2 fatias de queijo, 2 fatias de presunto, ovo e maionese.", price: 14.00 },
+                    { id: "18", name: "Prensado 2", description: "Pão de xis, alface, tomate, milho, ervilha, 2 fatias de queijo, 2 fatias de presunto, ovo e maionese.", price: 13.00 },
+                    { id: "19", name: "Sambidi", description: "Sanduíche frio: 3 fatias de pão de forma, 2 fatias de queijo, 2 de presunto, alface, tomate, palmito, pepino e maionese.", price: 17.00 }
+                ]
+            },
+            {
+                id: "baurus",
+                title: "Baurus",
+                items: [
+                    { id: "20", name: "Bauru Mercosul", description: "Pão cervejinha, contrafilé, tomate, alface, queijo, ovo, presunto, bacon e maionese.", price: 30.00 },
+                    { id: "21", name: "Bauru Master", description: "Pão cervejinha, contrafilé, provolone, catupiry, tomate, alface, queijos, ovo, presunto, bacon e maionese.", price: 36.00 },
+                    { id: "22", name: "Bauru Contrafilé Tradicional", description: "Pão cervejinha, contrafilé, lombo, tomate, alface, queijo, ovo e maionese.", price: 28.00 },
+                    { id: "23", name: "Bauru Peito de Frango", description: "Pão cervejinha, peito de frango, tomate, alface, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "24", name: "Bauru Peito de Frango Master", description: "Pão cervejinha, peito de frango, tomate, alface, queijo, provolone, catupiry, ovo e maionese.", price: 30.00 }
+                ]
+            },
+            {
+                id: "especiais",
+                title: "Lanches Especiais",
+                items: [
+                    { id: "25", name: "Xis Frango com Catupiry", description: "Pão massinha, peito de frango, tomate, alface, milho, ervilha, catupiry, ovo e maionese.", price: 25.90 },
+                    { id: "26", name: "Xis Frango a Punta Del Este", description: "Pão massinha, filé de frango em pedaços, tomate seco, nata, alcaparras, champignon, queijo gorgonzola e ovo.", price: 32.00 },
+                    { id: "27", name: "Xis Frango C/ Cheddar", description: "Pão massinha, peito de frango, queijo cheddar, tomate alface, milho, ervilha, queijo, ovo e maionese.", price: 25.90 },
+                    { id: "28", name: "Xis Filadélia", description: "Pão cervejinha, contrafilé, champignon, cebola, pimentão, queijo, ovo e maionese.", price: 28.90 },
+                    { id: "29", name: "Xis Gaúcho", description: "Pão cervejinha, contrafilé, lombo, salsichão, cebola, pimentão, tomate em rodelas, queijo, ovo e maionese.", price: 28.90 },
+                    { id: "30", name: "Xis 4 Queijos", description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijos: provolone, gorgonzola, queijo prato, cheddar, ovo e maionese.", price: 28.00 },
+                    { id: "31", name: "Xis 5 Queijos", description: "Pão massinha, hambúrguer bovino, tomate, alface, milho, ervilha, queijos: provolone, gorgonzola, queijo prato, cheddar, catupiry, ovo e maionese.", price: 28.00 },
+                    { id: "32", name: "Big Agápio", description: "Pão massinha, 2 hambúrgueres bovinos, tomate, alface, milho, ervilha, palmito, pepino, presunto, queijo, ovo e maionese.", price: 30.00 },
+                    { id: "33", name: "Xis Contrafilé", description: "Pão massinha, contrafilé, alface, tomate, milho, ervilha, queijo, ovo e maionese.", price: 28.00 },
+                    { id: "34", name: "Xis Contrafilé 4 Queijos", description: "Pão de xis, maionese, contrafilé em pedaços, provolone, gorgonzola, queijo prato, cheddar, ovo, alface, tomate, ervilha e milho.", price: 35.00 },
+                    { id: "35", name: "Xis Contrafilé 5 Queijos", description: "Pão de xis, maionese, contrafilé em pedaços, provolone, gorgonzola, queijo prato, cheddar, catupiry, ovo, alface, tomate, ervilha e milho.", price: 38.00 },
+                    { id: "36", name: "Xis Mega", description: "Pão massinha, calabresa, champignon, tomate, alface, milho, ervilha, maionese, 2 fatias de queijo e ovo.", price: 32.00 },
+                    { id: "37", name: "Xis Passo Fundo", description: "Pão massinha, iscas de contrafilé ou frango, bacon, milho, ervilha, alface, tomate, palmito, aspargos, maionese, queijo e ovo.", price: 25.00 },
+                    { id: "38", name: "Xis Erechim", description: "Pão massinha, coração, cebola, alho, orégano, queijo, tomate, ovo e maionese.", price: 17.00 },
+                    { id: "39", name: "Xis Vegetariano", description: "Pão massinha, tomate, alface, milho, ervilha, palmito, pepino, cebola, pimentão, champignon, maionese, queijo e ovo.", price: 24.00 },
+                    { id: "40", name: "Xis Vegetariano 2", description: "Pão massinha, tomate, alface, milho, ervilha, palmito, pepino, champignon, maionese, queijo e ovo.", price: 24.90 },
+                    { id: "41", name: "Xis Pantaneiro", description: "Pão massinha, peito de frango, bacon, alho, alface, tomate, queijo, ovo e maionese.", price: 24.00 },
+                    { id: "42", name: "Xis Suprema", description: "Pão massinha, calabresa, champignon, azeitona preta, cebola, pimentão, queijo, ovo e maionese.", price: 25.00 },
+                    { id: "43", name: "Xis Lombo aos Queijos", description: "Pão massinha, filé de lombo, alface, tomate, queijos: parmesão ralado, prato e catupiry e ovo.", price: 29.00 },
+                    { id: "44", name: "Xis Sigo", description: "Pão massinha, lombo, frango, contrafilé, coração, bacon, provolone, ovo, queijo e maionese.", price: 29.90 },
+                    { id: "45", name: "Xis Michelona", description: "Pão massinha, contrafilé, coração, champignon, palmito, pepino, tomate, alface, queijo, ovo e maionese.", price: 29.00 },
+                    { id: "46", name: "Xis Portuguesa", description: "Pão cervejinha, contrafilé, cebola, pimentão, tomate em rodelas, azeitona, queijo, ovo e maionese.", price: 29.00 },
+                    { id: "47", name: "Penta 1", description: "Pão cervejinha, contrafilé, lombo, frango, coração, bacon, tomate e cebola na chapa, queijo, ovo e maionese.", price: 29.00 },
+                    { id: "48", name: "Penta 2", description: "Pão massinha, contrafilé, lombo, frango, coração, bacon, tomate, alface, palmito, queijo, ovo e maionese.", price: 29.90 },
+                    { id: "49", name: "Xis Wesley", description: "Pão de xis, maionese, hamburguer bovino, pepino, queijo, ovo, alface e molho rosê.", price: 17.00 },
+                    { id: "50", name: "Xis Mc Luíza", description: "Pão de xis, hamburguer bovino, bacon em tiras, tomate, alface, cebola na chapa, maionese e cheddar.", price: 24.00 }
+                ]
+            },
+            {
+                id: "extras",
+                title: "Porções e Extras",
+                items: [
+                    { id: "E1", name: "Batata Combo", description: "Porção de batata frita.", price: 5.00 },
+                    { id: "E2", name: "Porções Extra", description: "Bacon, alcaparras, tomates seco, cheddar, catupiry, aspargos, cebola, provolone, palmito.", price: 6.00 },
+                    { id: "E3", name: "Ovo Extra", description: "Ovo adicional.", price: 3.00 }
+                ]
+            },
+            {
+                id: "picadinhos",
+                title: "Picadinhos",
+                items: [
+                    { id: "P1", name: "Picadinho de Frango", description: "Porção de picadinho de frango.", price: 28.00 },
+                    { id: "P2", name: "Picadinho de Coração", description: "Porção de picadinho de coração.", price: 35.00 },
+                    { id: "P3", name: "Fritas", description: "Porção de batatas fritas.", price: 23.00 }
+                ]
+            },
+            {
+                id: "alaminutas",
+                title: "Alaminutas",
+                items: [
+                    { id: "A1", name: "Alaminuta de Carne", description: "Arroz, batata frita e carne.", price: 24.00 },
+                    { id: "A2", name: "Alaminuta de Frango", description: "Arroz, batata frita e frango.", price: 20.90 },
+                    { id: "A3", name: "Alaminuta de Lombo", description: "Arroz, batata frita e lombo.", price: 19.90 },
+                    { id: "A4", name: "Alaminuta de Filé", description: "Arroz, batata frita e filé.", price: 45.00 }
+                ]
+            },
+            {
+                id: "combos",
+                title: "Combos",
+                items: [
+                    { id: "C1", name: "Combo 1", description: "2 Xis Salada + Fritas 250gr.", price: 35.00 },
+                    { id: "C2", name: "Combo 2", description: "1 Xis Salada ou 1 Xis Calabresa + 1 Refri Fruki Lata + 1 Batata Mini.", price: 23.90 }
+                ]
+            },
+            {
+                id: "bebidas",
+                title: "Bebidas",
+                items: [
+                    { id: "B1", name: "Refrigerante Lata 350ml", description: "Coca-cola, Guaraná, Sprite, Fanta.", price: 6.00 },
+                    { id: "B2", name: "Refrigerante 2L", description: "Coca-cola ou Guaraná.", price: 14.00 },
+                    { id: "B3", name: "Água Mineral 500ml", description: "Com ou sem gás.", price: 4.00 }
+                ]
+            }
+        ];
+
+        // --- COMPONENTES ---
+
+        const Icons = {
+            Whatsapp: ({ className }) => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className={className}>
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.304-5.252l.002-.001a9.88 9.88 0 019.852-9.882c2.628 0 5.105 1.026 6.963 2.883a9.845 9.845 0 012.886 6.964 9.88 9.88 0 01-9.852 9.882l-.001.037z" />
+                </svg>
+            ),
+            Phone: ({ className }) => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+            ),
+            Map: ({ className }) => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+            ),
+            Nav: ({ className }) => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                </svg>
+            )
+        };
+
+        const Hero = ({ info }) => {
+            const mainWppMsg = encodeURIComponent("Olá, eu gostaria de fazer um pedido");
+            return (
+                <div className="w-full pt-10 pb-6 px-4 flex flex-col items-center justify-center text-center">
+                    <h1 className="text-4xl md:text-6xl font-black text-[#E7252A] mb-2 uppercase tracking-tight leading-none drop-shadow-sm">
+                        {info.name}<span className="text-2xl align-top">®</span>
+                    </h1>
+                    <p className="text-[#E7252A] text-lg font-bold mb-6">Desde 1982</p>
+                    <div className="flex flex-wrap justify-center gap-3 mb-4 w-full">
+                        <a href={`tel:${info.phone.replace(/\D/g, '')}`} className="flex items-center gap-2 bg-[#E7252A] hover:bg-[#C01E22] text-[#EED117] font-bold text-sm md:text-base py-2 px-5 rounded shadow-sm border border-[#C01E22]">
+                            <Icons.Phone className="w-4 h-4" />
+                            {info.phone}
+                        </a>
+                        <a href={`tel:${info.secondaryPhone.replace(/\D/g, '')}`} className="flex items-center gap-2 bg-[#E7252A] hover:bg-[#C01E22] text-[#EED117] font-bold text-sm md:text-base py-2 px-5 rounded shadow-sm border border-[#C01E22]">
+                            <Icons.Phone className="w-4 h-4" />
+                            {info.secondaryPhone}
+                        </a>
+                    </div>
+                    <a href={`https://wa.me/${info.whatsapp}?text=${mainWppMsg}`} target="_blank" rel="noopener noreferrer" className="w-full max-w-sm bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg py-3 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green">
+                        <Icons.Whatsapp className="w-6 h-6" />
+                        Pedir pelo WhatsApp
+                    </a>
+                    <div className="flex flex-col items-center gap-1 text-[#E7252A] font-bold text-sm md:text-base">
+                        <div className="flex items-start justify-center gap-2 px-4 text-center">
+                            <Icons.Map className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                            <span className="text-center leading-tight">{info.address}</span>
+                        </div>
+                        <div className="uppercase mt-1 text-[#E7252A]">
+                            {info.openingHours.map((h, i) => <div key={i}>{h}</div>)}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const CategoryNav = ({ categories }) => {
+            const scrollRef = useRef(null);
+            
+            const scrollTo = (id) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const offset = 80;
+                    window.scrollTo({ top: element.offsetTop - offset, behavior: 'smooth' });
+                }
+            };
+
+            const scrollNav = (direction) => {
+                if (scrollRef.current) {
+                    scrollRef.current.scrollBy({ left: direction === 'left' ? -200 : 200, behavior: 'smooth' });
+                }
+            };
+
+            return (
+                <div className="sticky top-0 z-40 bg-[#EED117] shadow-md border-b-2 border-[#E7252A] w-full flex items-center group">
+                    <button onClick={() => scrollNav('left')} className="hidden md:flex items-center justify-center h-full px-2 bg-gradient-to-r from-[#EED117] to-transparent text-[#E7252A] hover:scale-110 z-10">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <div ref={scrollRef} className="flex px-4 py-3 gap-3 overflow-x-auto no-scrollbar scroll-smooth flex-grow">
+                        {categories.map((cat) => (
+                            <button key={cat.id} onClick={() => scrollTo(cat.id)} className="px-4 py-1.5 rounded-full border-2 border-[#E7252A] text-[#E7252A] font-bold text-sm uppercase whitespace-nowrap bg-white/50 hover:bg-[#E7252A] hover:text-[#EED117] transition-all shadow-sm">
+                                {cat.title}
+                            </button>
+                        ))}
+                    </div>
+                    <button onClick={() => scrollNav('right')} className="hidden md:flex items-center justify-center h-full px-2 bg-gradient-to-l from-[#EED117] to-transparent text-[#E7252A] hover:scale-110 z-10">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+            );
+        };
+
+        const MenuSection = ({ category, info }) => (
+            <section className="w-full max-w-[1600px] mx-auto scroll-mt-24" id={category.id}>
+                <div className="bg-[#E7252A] rounded-lg shadow-md mb-4 py-2 px-4 text-center border-2 border-[#C01E22]">
+                    <h2 className="text-2xl md:text-3xl font-black text-[#EED117] uppercase tracking-wider">{category.title}</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 items-stretch">
+                    {category.items.map((item) => (
+                        <div key={item.id} onClick={() => window.open(`https://wa.me/${info.whatsapp}?text=Gostaria de pedir um ${item.name}`, '_blank')} className="flex flex-col h-full cursor-pointer group bg-[#EED117] border-2 border-[#E7252A] rounded-lg p-3 pt-4 shadow-[2px_2px_0px_rgba(231,37,42,0.2)] hover:shadow-[4px_4px_0px_rgba(231,37,42,0.4)] hover:bg-[#FEF08A] hover:-translate-y-0.5 transition-all">
+                            {item.image && (
+                                <div className="w-full aspect-video mb-3 overflow-hidden rounded border-2 border-[#E7252A] relative bg-[#EED117]">
+                                    {category.id === 'mais_pedidos' && <div className="absolute top-2 right-2 bg-[#E7252A] text-[#EED117] text-[10px] font-black px-2 py-0.5 rounded shadow-md border border-[#EED117] z-10 uppercase">Mais Pedido</div>}
+                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500" />
+                                </div>
+                            )}
+                            <div className="flex justify-between items-baseline mb-2">
+                                <h3 className="text-lg font-black text-[#E7252A] uppercase">{item.name}</h3>
+                                <div className="bg-[#E7252A] text-[#EED117] px-2 py-0.5 rounded font-black text-lg">R$ {item.price.toFixed(2).replace('.', ',')}</div>
+                            </div>
+                            <p className="text-[#E7252A] text-sm font-bold flex-grow">{item.description}</p>
+                            <div className="mt-3 flex justify-end items-center gap-1.5 opacity-90">
+                                <span className="text-[10px] text-[#E7252A] font-black uppercase">Clique para pedir</span>
+                                <div className="bg-[#22c55e] rounded-full p-1"><Icons.Whatsapp className="w-3 h-3 text-white" /></div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        );
+
+        const CookieConsent = () => {
+            const [isVisible, setIsVisible] = useState(false);
+
+            useEffect(() => {
+                const consent = localStorage.getItem('agapio-cookie-consent-v4');
+                if (!consent) {
+                    const timer = setTimeout(() => setIsVisible(true), 1500);
+                    return () => clearTimeout(timer);
+                }
+            }, []);
+
+            const accept = () => {
+                localStorage.setItem('agapio-cookie-consent-v4', 'accepted');
+                setIsVisible(false);
+            };
+
+            if (!isVisible) return null;
+
+            return (
+                <div className="fixed bottom-4 left-4 right-4 z-[100] animate-slide-up">
+                    <div className="max-w-4xl mx-auto bg-[#1a1a1a] border-2 border-[#E7252A] rounded-2xl shadow-2xl p-6 flex flex-col md:flex-row items-center gap-6 text-white">
+                        <div className="flex-shrink-0">
+                            <svg className="w-12 h-12 text-[#EED117]" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <circle cx="8" cy="8.5" r="1.5"/><circle cx="12" cy="7" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="14.5" cy="13.5" r="1.5"/><circle cx="9" cy="16" r="1.5"/>
+                            </svg>
+                        </div>
+                        <div className="flex-grow text-center md:text-left">
+                            <h4 className="text-[#EED117] font-black uppercase mb-1">Privacidade & Cookies</h4>
+                            <p className="text-sm">Utilizamos cookies para garantir a melhor experiência. Ao continuar, você concorda com nossos termos.</p>
+                        </div>
+                        <div className="flex gap-3">
+                            <button onClick={() => setIsVisible(false)} className="px-6 py-2 rounded-xl border-2 border-[#E7252A] text-[#E7252A] font-bold text-sm uppercase">Recusar</button>
+                            <button onClick={accept} className="px-8 py-2 rounded-xl bg-[#E7252A] text-[#1a1a1a] font-black text-sm uppercase">Aceitar</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [modal, setModal] = useState(null);
+
+            return (
+                <div className="min-h-screen flex flex-col relative w-full overflow-x-hidden bg-[#EED117]">
+                    <Hero info={BUSINESS_INFO} />
+                    <CategoryNav categories={MENU_DATA} />
+                    <main className="w-full px-2 md:px-4 py-6 space-y-12 max-w-[1600px] mx-auto">
+                        <div className="space-y-16">
+                            {MENU_DATA.map(cat => <MenuSection key={cat.id} category={cat} info={BUSINESS_INFO} />)}
+                        </div>
+                        <div className="w-full max-w-[1600px] mx-auto mt-8 flex justify-center">
+                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEin2r0kT4FAtOeGB7XCV0nSHYOj0rBHIxkryrP0Jc70iuSP028aXlAYkPhtfr5GopTpIdO2w5rKYfwe0lMuWLNz6rTL3fNsmctbl3OMX7EaeqNVK3KWLYohJ1K79ywC5qtCUw-m0jCaPgAcbMZZDL8382Y0TU-gEXxwgK3NKyrCdqu3fgw9Mnxnx7sMbxY/s1084/Tarja%20pronta.png" className="w-full max-w-[280px] md:max-w-[600px] h-auto" />
+                        </div>
+                        <div className="w-full max-w-[1600px] mx-auto mt-8">
+                            <div className="bg-[#E7252A] rounded-t-lg py-2 px-4 text-center"><h2 className="text-xl font-black text-[#EED117] uppercase">NOSSA LOCALIZAÇÃO</h2></div>
+                            <div className="border-x-2 border-b-2 border-[#E7252A] bg-[#EED117] p-4 rounded-b-lg">
+                                <div className="w-full h-64 border-2 border-[#E7252A] rounded bg-gray-200 mb-4 overflow-hidden">
+                                    <iframe width="100%" height="100%" loading="lazy" src={`https://maps.google.com/maps?q=${BUSINESS_INFO.googleMapsQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`} />
+                                </div>
+                                <div className="flex justify-center">
+                                    <a href={`https://www.google.com/maps/search/?api=1&query=${BUSINESS_INFO.googleMapsQuery}`} target="_blank" className="flex items-center gap-2 bg-[#E7252A] text-[#EED117] font-bold py-3 px-8 rounded shadow-md"><Icons.Nav className="w-5 h-5" />Como chegar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                    {/* Footer */}
+                    <div className="bg-[#EED117] border-t-2 border-[#E7252A] py-6 text-sm text-[#E7252A]">
+                        <div className="max-w-[1600px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                            <div className="font-bold">&copy; {new Date().getFullYear()} {BUSINESS_INFO.name}. Todos os direitos reservados.</div>
+                            <div className="flex gap-4 font-bold uppercase tracking-widest text-[10px]">
+                                <button onClick={() => setModal('terms')} className="hover:text-[#C01E22]">Termos de Uso</button>
+                                <span>|</span>
+                                <button onClick={() => setModal('privacy')} className="hover:text-[#C01E22]">Politica de Privacidade</button>
+                            </div>
+                        </div>
+                    </div>
+                    <footer className="bg-[#EED117] text-[#E7252A] py-3 border-t border-[#E7252A]/30">
+                        <div className="max-w-[1600px] mx-auto px-4 flex items-center justify-center gap-2">
+                            <div className="text-[9px] font-bold uppercase tracking-wide">Criado por <span className="text-[#C01E22]">FCL</span></div>
+                            <a href={`https://wa.me/${BUSINESS_INFO.devWhatsapp}?text=Olá Fernando`} target="_blank" className="flex items-center gap-1 hover:scale-110 transition-all">
+                                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDjkkz_vlntJDY40iwAVZC60A5F5b6IwN5GpInCRMUiOo-kZ6ANNWSX1GG6sN7bYDKQmiD7P6n2fWaMBMlnSOOYLd3vItbVV4MJYff8ly1_P9mhagS_vdRYHBh5mrwYQdOrn0Yb5866Dz3uzghrVw3dOuk00FdKJHjBXVUaNLQoW7hJmy79HNkh6DVqmc/s1600/whatsapp1.png" className="w-4 h-4" />
+                                <span className="text-[9px] font-bold">Contato</span>
+                            </a>
+                        </div>
+                    </footer>
+
+                    <CookieConsent />
+
+                    {/* Legal Modal */}
+                    {modal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                            <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-2xl">
+                                <div className="p-6 bg-[#EED117] flex justify-between items-center rounded-t-2xl">
+                                    <h2 className="text-2xl font-bold text-[#E7252A]">{modal === 'privacy' ? 'Privacidade' : 'Termos'}</h2>
+                                    <button onClick={() => setModal(null)} className="text-[#E7252A] font-bold text-2xl">✕</button>
+                                </div>
+                                <div className="p-6 overflow-y-auto text-gray-700 whitespace-pre-line">
+                                    {modal === 'privacy' ? 
+`1. Coleta de Dados
+A Agapio Lanches respeita a sua privacidade. Não coletamos dados pessoais através deste site estático, exceto aqueles que você voluntariamente compartilha ao iniciar uma conversa no WhatsApp.
+
+2. Uso das Informações
+As informações fornecidas no chat (endereço, telefone, nome) são utilizadas exclusivamente para o processamento e entrega do seu pedido.
+
+3. Cookies
+Este site utiliza cookies técnicos essenciais para o funcionamento básico. Não utilizamos cookies de rastreamento publicitário.
+
+4. Contato
+Para questões sobre privacidade, entre em contato através do nosso número oficial.` 
+: 
+`1. Aceitação dos Termos
+Ao acessar o cardápio da Agapio Lanches, você concorda com estes termos.
+
+2. Pedidos
+Os pedidos via WhatsApp estão sujeitos à confirmação de disponibilidade.
+
+3. Preços
+Sujeitos a alteração sem aviso prévio. O preço válido é o confirmado no fechamento do pedido.
+
+4. Entregas
+Consulte taxas e áreas de entrega diretamente com o estabelecimento.`}
+                                </div>
+                                <div className="p-4 border-t flex justify-end"><button onClick={() => setModal(null)} className="bg-[#E7252A] text-white px-6 py-2 rounded font-bold">Fechar</button></div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
