@@ -7,12 +7,13 @@ import { Footer } from './components/Footer';
 import { LegalModal } from './components/LegalModal';
 import { PaymentMethods } from './components/PaymentMethods';
 import { CategoryNav } from './components/CategoryNav';
+import { CookieConsent } from './components/CookieConsent';
 
 function App() {
   const [activeLegal, setActiveLegal] = useState<'privacy' | 'terms' | null>(null);
 
   return (
-    <div className="min-h-screen flex flex-col relative w-full overflow-x-hidden bg-[var(--brand-yellow)]">
+    <div className="min-h-screen flex flex-col relative w-full overflow-x-hidden bg-[#EED117]">
       
       {/* Hero Section */}
       <Hero info={BUSINESS_INFO} />
@@ -20,7 +21,7 @@ function App() {
       {/* Sticky Navigation */}
       <CategoryNav categories={MENU_DATA} />
 
-      <main className="w-full px-2 md:px-4 py-6 space-y-12 max-w-6xl mx-auto">
+      <main className="w-full px-2 md:px-4 py-6 space-y-12 max-w-[1600px] mx-auto">
         
         <div className="space-y-16">
           {MENU_DATA.map((category) => (
@@ -47,6 +48,9 @@ function App() {
         onClose={() => setActiveLegal(null)} 
         type={activeLegal || 'privacy'} 
       />
+
+      {/* Cookie Notice */}
+      <CookieConsent />
 
     </div>
   );

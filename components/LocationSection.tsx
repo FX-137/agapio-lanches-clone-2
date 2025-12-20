@@ -10,7 +10,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ info }) => {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${info.googleMapsQuery}`;
 
   return (
-    <div className="w-full max-w-6xl mx-auto mt-8">
+    <div className="w-full max-w-[1600px] mx-auto mt-8">
       {/* Header Bar */}
       <div className="bg-[#E7252A] rounded-t-lg py-2 px-4 text-center">
         <h2 className="text-xl font-black text-[#EED117] uppercase tracking-wider">
