@@ -2,10 +2,27 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Cardápio Agapio Lanches</title>
-    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFTznbj8hGOxa8oY7w9On6zmw6VmW6y4kr1lo4M7YG3vNgAVk7PlnlSHjpRanOwBTt8Cf6wvdDkHtBGRIymydYivyhV8d5RxIu-g4gMsqY2i77rRFVYDf25L9IYgPQS5axqc1hNWX_4_tvupmqH37dImY8h57iFPvDoa6x3kDZE2rKfYLjeLutb1BPcU/s1600/A2.png" type="image/png" />
     
+    <!-- Configurações de Favicon e App -->
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFTznbj8hGOxa8oY7w9On6zmw6VmW6y4kr1lo4M7YG3vNgAVk7PlnlSHjpRanOwBTt8Cf6wvdDkHtBGRIymydYivyhV8d5RxIu-g4gMsqY2i77rRFVYDf25L9IYgPQS5axqc1hNWX_4_tvupmqH37dImY8h57iFPvDoa6x3kDZE2rKfYLjeLutb1BPcU/s1600/A2.png" type="image/png" />
+    <link rel="shortcut icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFTznbj8hGOxa8oY7w9On6zmw6VmW6y4kr1lo4M7YG3vNgAVk7PlnlSHjpRanOwBTt8Cf6wvdDkHtBGRIymydYivyhV8d5RxIu-g4gMsqY2i77rRFVYDf25L9IYgPQS5axqc1hNWX_4_tvupmqH37dImY8h57iFPvDoa6x3kDZE2rKfYLjeLutb1BPcU/s1600/A2.png" type="image/png" />
+    <link rel="apple-touch-icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFTznbj8hGOxa8oY7w9On6zmw6VmW6y4kr1lo4M7YG3vNgAVk7PlnlSHjpRanOwBTt8Cf6wvdDkHtBGRIymydYivyhV8d5RxIu-g4gMsqY2i77rRFVYDf25L9IYgPQS5axqc1hNWX_4_tvupmqH37dImY8h57iFPvDoa6x3kDZE2rKfYLjeLutb1BPcU/s1600/A2.png" />
+    
+    <!-- Meta tags para Mobile e PWA -->
+    <meta name="theme-color" content="#E7252A" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Tags de Compartilhamento (Open Graph / WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Agapio Lanches - Cardápio Digital" />
+    <meta property="og:description" content="Os melhores xis, baurus e cachorros de Porto Alegre desde 1982. Peça agora pelo WhatsApp!" />
+    <meta property="og:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTWDzcUULQ7kGgZoQVPt35VlKb_LA9bi6uScAiOfmxBTbVS2RO7PmyCngL-hnc1AbWWohujnVQ5itW_9c-LyYpumIJ7JhI247weB4XmKMeZQLRve0zJU0CnPiumx3x00kghFr46zwCTF3k4evN4JHrHPWjLpxzHKGuNtklGnRFlqN2zERu_YMpp4b_P1A/s1536/Xis%20salada%20cenario%203.png" />
+    <meta property="og:url" content="https://agapiolanches.com.br" />
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -241,8 +258,8 @@
                             ${info.secondaryPhone}
                         </a>
                     </div>
-                    <a href="https://wa.me/${info.whatsapp}?text=${mainWppMsg}" target="_blank" rel="noopener noreferrer" class="w-full max-w-sm bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg py-3 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green">
-                        <${Icons.Whatsapp} className="w-6 h-6" />
+                    <a href="https://wa.me/${info.whatsapp}?text=${mainWppMsg}" target="_blank" rel="noopener noreferrer" class="w-full max-w-[280px] bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-base py-2.5 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green transition-transform active:scale-95">
+                        <${Icons.Whatsapp} className="w-5 h-5" />
                         Pedir pelo WhatsApp
                     </a>
                     <div class="flex flex-col items-center gap-1 text-[#E7252A] font-bold text-sm md:text-base">

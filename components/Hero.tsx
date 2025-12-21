@@ -40,14 +40,14 @@ export const Hero: React.FC<HeroProps> = ({ info }) => {
         )}
       </div>
 
-      {/* WhatsApp Main Button - With Pulse Animation */}
+      {/* WhatsApp Main Button - Resized to be more balanced */}
       <a 
         href={`https://wa.me/${info.whatsapp}?text=${mainWppMsg}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full max-w-sm bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg py-3 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green"
+        className="w-full max-w-[280px] bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-base py-2.5 px-6 rounded shadow-md mb-6 flex items-center justify-center gap-2 animate-pulse-green transition-transform active:scale-95"
       >
-        <WhatsappIcon className="w-6 h-6" />
+        <WhatsappIcon className="w-5 h-5" />
         Pedir pelo WhatsApp
       </a>
 
