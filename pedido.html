@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Assistente Agápio - v12</title>
+    <title>Assistente Agápio - v12.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
@@ -12,6 +12,8 @@
         .btn-option { transition: all 0.2s; border: 2px solid #e5e7eb; }
         .btn-option:active { transform: scale(0.98); border-color: #E7252A; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .pulse-border { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { border-color: #e5e7eb; } 50% { border-color: #E7252A; } 100% { border-color: #e5e7eb; } }
     </style>
 </head>
 <body class="bg-[#EED117] min-h-screen flex items-center justify-center p-4 font-sans text-slate-800">
@@ -19,7 +21,7 @@
     <div class="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-[#E7252A] relative">
         
         <div class="bg-gray-50 flex items-center justify-center border-b-2 border-dashed border-gray-300 overflow-hidden">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj0mRPtq0UnX8nGDV8aCxSbqQEfo0eTRYP8Pxqzj3CAebd3bSRK7gaxN3ioR3UzAfWgg0EXVsnDLRvUu5zbHUGlldV5pbmCu2SeAN1u1cRUpTmN0IC694ESVQV1rJq81lTjtgPN25WV9l44dNhd1Rv-mDBXyayhsRRPrZgQz1ceA-VBWsglPa1NzSmBh1w/s1000/Agapio%20banner%204.webp" 
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEicFkFEdamJ752pXJX8LIi3xOPJDIfj_Op1bp259kBxz1EGmE5hJLiw5rnMc2pDeyXHsTKuotBDx-CMQsI-O9ngHqv5v3kkYLxeP438bneTK2_zRjHh3V8Pa223pyIPnNxl4-RnaPxwsIM_owdrwRU4Bs462gK3BQr_gifCBAv-T2-N73lHvNwIx0ym7fM/s1600/Agapio%20banner.webp" 
                  class="w-full h-auto block" alt="Agápio Lanches">
         </div>
 
@@ -39,12 +41,12 @@
             </div>
 
             <div id="step2" class="step">
-                <p class="font-bold mb-4 text-center italic text-sm">Escolha um item: 🍔🥤</p>
+                <p class="font-bold mb-4 text-center italic text-sm italic">O que vamos pedir hoje? 🍔🥤</p>
                 <div class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left">
                     <button onclick="selectItem('Xis Salada', 18.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Salada <span>R$ 18,00</span></button>
                     <button onclick="selectItem('Xis Tudo', 25.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Tudo <span>R$ 25,00</span></button>
                     <button onclick="selectItem('Coca-Cola Lata', 6.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-blue-50 italic">Coca-Cola Lata <span>R$ 6,00</span></button>
-                    <button onclick="selectItem('Cerveja Latão', 10.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-blue-50 italic">Cerveja Latão <span>R$ 10,00</span></button>
+                    <button onclick="selectItem('Cerveja Latão', 10.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-blue-50 italic text-sm">Cerveja Latão <span>R$ 10,00</span></button>
                     <button onclick="selectItem('Porção Mix', 45.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Porção Mix <span>R$ 45,00</span></button>
                 </div>
             </div>
@@ -56,17 +58,17 @@
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder="Observações (ex: sem cebola)"></textarea>
-                <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md">Adicionar ao Pedido</button>
+                <p class="text-[10px] font-bold text-gray-400 mb-2 uppercase text-left ml-1">Observações:</p>
+                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder="Ex: Sem cebola, carne bem passada..."></textarea>
+                <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold">Adicionar ao Pedido</button>
             </div>
 
             <div id="stepCarrinho" class="step">
                 <p class="font-bold mb-4 text-center italic text-sm">Seu Pedido até agora:</p>
-                <div id="listaCarrinho" class="space-y-2 mb-6 max-h-[180px] overflow-y-auto pr-1 no-scrollbar">
-                    </div>
+                <div id="listaCarrinho" class="space-y-2 mb-6 max-h-[180px] overflow-y-auto pr-1 no-scrollbar"></div>
                 <div class="grid grid-cols-1 gap-3">
                     <button onclick="goStep(2)" class="w-full bg-gray-100 text-gray-700 py-3 rounded-2xl font-black uppercase border-2 border-gray-200">+ Escolher mais itens</button>
-                    <button onclick="goStep(4)" class="w-full bg-green-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg">Finalizar e Endereço</button>
+                    <button onclick="goStep(4)" class="w-full bg-green-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg">Finalizar Pedido</button>
                 </div>
             </div>
 
@@ -75,25 +77,29 @@
                     <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/></svg>
                     <p class="font-bold text-sm italic">Onde entregamos?</p>
                 </div>
-                <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold outline-none" placeholder="Rua e Número">
-                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none" placeholder="Ref/Apto">
-                <div class="grid grid-cols-1 gap-2 max-h-[140px] overflow-y-auto no-scrollbar">
-                    <button onclick="selectBairro('Azenha', 9.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Azenha <span>+R$ 9,00</span></button>
-                    <button onclick="selectBairro('Centro', 11.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Centro <span>+R$ 11,00</span></button>
-                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm">Vou Retirar</button>
+                <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold outline-none focus:border-[#E7252A]" placeholder="Rua e Número">
+                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="Apto/Bloco/Referência">
+                
+                <p class="text-[10px] text-center mb-2 font-black text-red-600 uppercase tracking-widest leading-tight animate-bounce">👇 Escolha seu Bairro abaixo:</p>
+                <div class="grid grid-cols-1 gap-2 max-h-[140px] overflow-y-auto no-scrollbar p-1">
+                    <button onclick="selectBairro('Azenha', 9.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Azenha <span>+R$ 9,00</span></button>
+                    <button onclick="selectBairro('Centro', 11.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Centro <span>+R$ 11,00</span></button>
+                    <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Menino Deus <span>+R$ 8,00</span></button>
+                    <button onclick="selectBairro('Santana', 10.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Santana <span>+R$ 10,00</span></button>
+                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm italic">Vou Retirar no Local (Grátis)</button>
                 </div>
             </div>
 
             <div id="step5" class="step">
-                <p class="font-bold mb-4 text-center italic text-sm">Pagamento: 💳</p>
-                <div class="grid grid-cols-1 gap-2 mb-4">
+                <p class="font-bold mb-4 text-center italic text-sm">Forma de Pagamento: 💳</p>
+                <div class="grid grid-cols-1 gap-2 mb-4 text-sm italic">
                     <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Pix</button>
-                    <button onclick="finishOrder('Cartão')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-sm">Cartão (Crédito/Débito)</button>
-                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline text-sm">Dinheiro (Troco?)</button>
+                    <button onclick="finishOrder('Cartão')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão (Crédito/Débito)</button>
+                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline">Dinheiro (Troco?)</button>
                 </div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" class="mx-auto w-full max-w-[250px] mb-4">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" class="mx-auto w-full max-w-[280px] mb-4">
                 <div class="p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-                    <div class="flex justify-between text-xl font-black text-[#E7252A] italic"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
+                    <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
                 </div>
             </div>
         </div>
@@ -116,29 +122,29 @@
             }
         };
 
-        function saveUserAndNext() {
-            userData.nome = document.getElementById('nome').value;
-            userData.tel = document.getElementById('telefone').value;
-            if(!userData.nome || !userData.tel) return alert("Preencha seus dados!");
-            updateLS(); goStep(2);
-        }
-
         function selectItem(nome, preco) {
             tempItem = { nome, preco, qty: 1 };
             document.getElementById('itemNome').innerText = nome;
             document.getElementById('qty').innerText = 1;
             document.getElementById('itemObs').value = '';
+            document.getElementById('itemObs').placeholder = "Ex: Sem cebola, carne bem passada...";
             goStep(3);
         }
 
         function updateQty(val) {
             tempItem.qty = Math.max(1, tempItem.qty + val);
             document.getElementById('qty').innerText = tempItem.qty;
+            const campoObs = document.getElementById('itemObs');
+            if(tempItem.qty > 1) {
+                campoObs.placeholder = "Como você pediu mais de um item, especifique os detalhes de cada um (Ex: Um sem cebola e o outro sem milho).";
+            } else {
+                campoObs.placeholder = "Ex: Sem cebola, carne bem passada...";
+            }
         }
 
         function addToCart() {
             const obs = document.getElementById('itemObs').value;
-            carrinho.push({ ...tempItem, obs: obs || 'Sem obs' });
+            carrinho.push({ ...tempItem, obs: obs || 'Sem observações' });
             renderCarrinho();
             goStep('Carrinho');
         }
@@ -151,9 +157,9 @@
                     <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-200 text-sm">
                         <div class="text-left">
                             <p class="font-bold">${item.qty}x ${item.nome}</p>
-                            <p class="text-[10px] text-gray-400 italic">${item.obs}</p>
+                            <p class="text-[10px] text-gray-400 italic font-medium leading-tight">${item.obs}</p>
                         </div>
-                        <button onclick="removeItem(${index})" class="text-red-500 font-bold ml-2">X</button>
+                        <button onclick="removeItem(${index})" class="text-red-500 font-bold ml-2 w-8 h-8 flex items-center justify-center bg-red-50 rounded-full">×</button>
                     </div>`;
             });
         }
@@ -168,12 +174,19 @@
             userData.bairro = b; userData.taxa = taxa;
             userData.rua = document.getElementById('rua').value;
             userData.ponto = document.getElementById('ponto').value;
-            if(b !== 'Retirada' && !userData.rua) return alert("Informe o endereço!");
+            if(b !== 'Retirada' && !userData.rua) return alert("Por favor, preencha a Rua e Número!");
             updateLS();
             
             let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
             document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2)}`;
             goStep(5);
+        }
+
+        function saveUserAndNext() {
+            userData.nome = document.getElementById('nome').value;
+            userData.tel = document.getElementById('telefone').value;
+            if(!userData.nome || !userData.tel) return alert("Preencha nome e WhatsApp!");
+            updateLS(); goStep(2);
         }
 
         function updateLS() {
@@ -195,6 +208,7 @@
 
         function prevStep() {
             if(currentStep === 'Carrinho') goStep(2);
+            else if(currentStep === 4) goStep('Carrinho');
             else if(currentStep > 1) goStep(currentStep - 1);
         }
 
@@ -203,16 +217,16 @@
             let total = subtotal + userData.taxa;
             let troco = "";
             if(pag === 'Dinheiro') {
-                let vt = prompt("Troco para quanto?");
+                let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto? (Apenas números)`);
                 if(vt) troco = ` (Troco para R$ ${vt})`;
             }
 
-            let itensMsg = carrinho.map(i => `📦 ${i.qty}x ${i.nome}\n📝 ${i.obs}`).join('\n\n');
-            let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n------------------------------------------\n👤 ${userData.nome}\n📞 ${userData.tel}\n📍 ${userData.bairro !== 'Retirada' ? userData.rua + ' - ' + userData.bairro : 'Retirada'}\n🏠 Ref: ${userData.ponto || '-'}\n------------------------------------------\n${itensMsg}\n------------------------------------------\n💳 ${pag}${troco}\n✅ *TOTAL: R$ ${total.toFixed(2)}*`;
+            let itensMsg = carrinho.map(i => `📦 *${i.qty}x ${i.nome}*\n📝 ${i.obs}`).join('\n\n');
+            let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n------------------------------------------\n👤 ${userData.nome}\n📞 ${userData.tel}\n📍 ${userData.bairro !== 'Retirada' ? userData.rua + ' - ' + userData.bairro : 'Retirada'}\n🏠 Ref: ${userData.ponto || '-'}\n------------------------------------------\n${itensMsg}\n------------------------------------------\n💳 *Pagamento:* ${pag}${troco}\n✅ *TOTAL: R$ ${total.toFixed(2)}*`;
             window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
         }
 
-        function clearMemory() { if(confirm("Limpar dados?")) { localStorage.clear(); location.reload(); } }
+        function clearMemory() { if(confirm("Apagar dados salvos?")) { localStorage.clear(); location.reload(); } }
     </script>
 </body>
 </html>
