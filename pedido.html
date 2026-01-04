@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Assistente Agápio - Pedido</title>
+    <title>Assistente Agápio - Pedido v3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
         .step.active { display: block; animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
         .btn-option { transition: all 0.2s; border: 2px solid #e5e7eb; }
-        .btn-option:active { transform: scale(0.98); }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .btn-option:active { transform: scale(0.98); border-color: #E7252A; }
     </style>
 </head>
 <body class="bg-[#EED117] min-h-screen flex items-center justify-center p-4 font-sans">
 
     <div class="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-[#E7252A] relative">
         
-        <div class="bg-gray-100 h-32 flex items-center justify-center border-b-2 border-dashed border-gray-300">
-            <img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="h-20 opacity-50" alt="Entrega">
+        <div class="bg-gray-50 h-32 flex items-center justify-center border-b-2 border-dashed border-gray-300">
+            <img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="h-16 opacity-40" alt="Entrega">
         </div>
 
-        <button id="btnVoltar" onclick="prevStep()" class="hidden absolute top-4 left-4 bg-white/80 p-2 rounded-full shadow-md z-10">
+        <button id="btnVoltar" onclick="prevStep()" class="hidden absolute top-4 left-4 bg-white p-2 rounded-full shadow-md z-10 border border-gray-200">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#E7252A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
             </svg>
@@ -30,45 +29,52 @@
 
         <div class="p-6">
             <div id="step1" class="step active">
-                <h2 class="text-xl font-black text-center mb-2">BEM-VINDO!</h2>
-                <p id="msgBoasVindas" class="text-center text-sm mb-6 text-gray-600">Para agilizar, preencha seus dados uma única vez.</p>
-                <input type="text" id="nome" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold focus:border-[#E7252A] outline-none" placeholder="Seu Nome">
-                <input type="tel" id="telefone" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A] outline-none" placeholder="Seu WhatsApp (com DDD)">
-                <button onclick="saveUserAndNext()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg hover:bg-red-700 transition">Continuar</button>
+                <h2 class="text-xl font-black text-center mb-6 uppercase italic text-[#E7252A]">Seus Dados</h2>
+                <input type="text" id="nome" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
+                <input type="tel" id="telefone" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
+                <button onclick="saveUserAndNext()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg">Escolher Lanche</button>
             </div>
 
             <div id="step2" class="step">
-                <p class="font-bold mb-4 text-center">Escolha seu lanche principal: 🍔</p>
-                <div class="grid grid-cols-1 gap-2 max-h-80 overflow-y-auto no-scrollbar">
-                    <button onclick="selectLanche('Xis Salada')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Salada <span>R$ 18</span></button>
-                    <button onclick="selectLanche('Xis Tudo')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Tudo <span>R$ 25</span></button>
-                    <button onclick="selectLanche('Xis Galinha')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Galinha <span>R$ 20</span></button>
-                    <button onclick="selectLanche('Bauru de Carne')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Bauru de Carne <span>R$ 32</span></button>
-                    <button onclick="selectLanche('Big Agápio')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Big Agápio <span>R$ 30</span></button>
-                    <button onclick="selectLanche('Porção Mix')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Porção Mix <span>R$ 45</span></button>
+                <p class="font-bold mb-4 text-center">O que você deseja pedir? 🍔</p>
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="selectLanche('Xis Salada', 18.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
+                    <button onclick="selectLanche('Xis Tudo', 25.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
+                    <button onclick="selectLanche('Xis Galinha', 20.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Galinha <span>R$ 20,00</span></button>
+                    <button onclick="selectLanche('Bauru de Carne', 32.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Bauru de Carne <span>R$ 32,00</span></button>
+                    <button onclick="selectLanche('Big Agápio', 30.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Big Agápio <span>R$ 30,00</span></button>
+                    <button onclick="selectLanche('Porção Mix', 45.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Porção Mix <span>R$ 45,00</span></button>
                 </div>
             </div>
 
             <div id="step3" class="step text-center">
                 <p class="font-bold mb-2">Quantidade de <span id="lancheEscolhido" class="text-[#E7252A]"></span>:</p>
                 <div class="flex items-center justify-center gap-6 mb-6">
-                    <button onclick="updateQty(-1)" class="bg-gray-200 w-10 h-10 rounded-full font-black">-</button>
-                    <span id="qty" class="text-2xl font-black">1</span>
-                    <button onclick="updateQty(1)" class="bg-gray-200 w-10 h-10 rounded-full font-black">+</button>
+                    <button onclick="updateQty(-1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">-</button>
+                    <span id="qty" class="text-3xl font-black">1</span>
+                    <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                <p class="font-bold mb-2">Algum detalhe para este lanche?</p>
-                <textarea id="detalhesLanche" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24" placeholder="Ex: Sem cebola, carne bem passada..."></textarea>
-                <button onclick="goStep(4)" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase">Confirmar Lanche</button>
+                <textarea id="detalhesLanche" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium" placeholder="Ex: Sem maionese, tirar cebola..."></textarea>
+                <button onclick="goStep(4)" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase">Próximo: Entrega</button>
             </div>
 
             <div id="step4" class="step">
-                <p class="font-bold mb-4 text-center">Onde entregamos hoje? 📍</p>
-                <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold" placeholder="Rua e Número">
-                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold" placeholder="Complemento (Apto, Bloco, etc)">
+                <p class="font-bold mb-4 text-center">Onde entregamos? 📍</p>
+                <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold focus:border-[#E7252A]" placeholder="Rua e Número">
+                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A]" placeholder="Complemento/Ponto Ref.">
                 <div class="grid grid-cols-1 gap-2">
-                    <button onclick="finishOrder('Menino Deus')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Menino Deus (+R$ 8)</button>
-                    <button onclick="finishOrder('Azenha')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Azenha (+R$ 7)</button>
-                    <button onclick="finishOrder('Retirada')" class="btn-option p-4 rounded-xl font-bold text-green-600 bg-green-50">Vou Retirar no Local</button>
+                    <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option p-4 rounded-xl font-bold bg-gray-50 flex justify-between">Menino Deus <span>+R$ 8,00</span></button>
+                    <button onclick="selectBairro('Azenha', 7.00)" class="btn-option p-4 rounded-xl font-bold bg-gray-50 flex justify-between">Azenha <span>+R$ 7,00</span></button>
+                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-4 rounded-xl font-bold text-green-600 bg-green-50">Vou Retirar no Local</button>
+                </div>
+            </div>
+
+            <div id="step5" class="step">
+                <p class="font-bold mb-4 text-center">Forma de Pagamento: 💳</p>
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="finishOrder('Pix')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Pix</button>
+                    <button onclick="finishOrder('Cartão')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Cartão (Levar Máquina)</button>
+                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Dinheiro</button>
                 </div>
             </div>
         </div>
@@ -76,30 +82,28 @@
 
     <script>
         let currentStep = 1;
-        let order = { nome: '', tel: '', lanche: '', qty: 1, detalhes: '', rua: '', ponto: '' };
+        let order = { nome: '', tel: '', lanche: '', valorUnit: 0, qty: 1, detalhes: '', rua: '', ponto: '', bairro: '', taxa: 0 };
 
-        // Ao carregar, verifica se já existe cadastro no navegador
         window.onload = () => {
             const savedUser = localStorage.getItem('agapio_user');
             if(savedUser) {
                 const user = JSON.parse(savedUser);
                 document.getElementById('nome').value = user.nome;
                 document.getElementById('telefone').value = user.tel;
-                document.getElementById('msgBoasVindas').innerText = `Que bom ver você de novo, ${user.nome}! Confira seus dados:`;
             }
         };
 
         function saveUserAndNext() {
             order.nome = document.getElementById('nome').value;
             order.tel = document.getElementById('telefone').value;
-            if(!order.nome || !order.tel) return alert("Preencha seu nome e telefone.");
-            
+            if(!order.nome || !order.tel) return alert("Preencha nome e telefone.");
             localStorage.setItem('agapio_user', JSON.stringify({nome: order.nome, tel: order.tel}));
             goStep(2);
         }
 
-        function selectLanche(l) {
+        function selectLanche(l, preco) {
             order.lanche = l;
+            order.valorUnit = preco;
             document.getElementById('lancheEscolhido').innerText = l;
             goStep(3);
         }
@@ -109,34 +113,58 @@
             document.getElementById('qty').innerText = order.qty;
         }
 
+        function selectBairro(b, taxa) {
+            order.bairro = b;
+            order.taxa = taxa;
+            order.rua = document.getElementById('rua').value;
+            order.ponto = document.getElementById('ponto').value;
+            if(b !== 'Retirada' && !order.rua) return alert("Informe a rua e número.");
+            goStep(5);
+        }
+
         function goStep(n) {
             currentStep = n;
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('step' + n).classList.add('active');
-            
-            // Mostrar/Esconder botão Voltar
             document.getElementById('btnVoltar').classList.toggle('hidden', n === 1);
         }
 
-        function prevStep() {
-            if(currentStep > 1) goStep(currentStep - 1);
-        }
+        function prevStep() { if(currentStep > 1) goStep(currentStep - 1); }
 
-        function finishOrder(bairro) {
-            order.rua = document.getElementById('rua').value;
-            order.ponto = document.getElementById('ponto').value;
+        function finishOrder(pagamento) {
             order.detalhes = document.getElementById('detalhesLanche').value || 'Sem observações';
-
-            if(bairro !== 'Retirada' && !order.rua) return alert("Por favor, informe a rua e número.");
-
-            let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n\n`;
-            msg += `*Cliente:* ${order.nome}\n`;
-            msg += `*Contato:* ${order.tel}\n\n`;
-            msg += `*Pedido:* ${order.qty}x ${order.lanche}\n`;
-            msg += `*Detalhes:* ${order.detalhes}\n\n`;
-            msg += `*Entrega:* ${bairro}\n`;
-            if(bairro !== 'Retirada') msg += `*Endereço:* ${order.rua} (${order.ponto})\n`;
             
+            const subtotal = order.valorUnit * order.qty;
+            const total = subtotal + order.taxa;
+
+            let trocoStr = "";
+            if(pagamento === 'Dinheiro') {
+                const valorTroco = prompt("Precisa de troco para quanto? (Deixe em branco se não precisar)");
+                if(valorTroco) trocoStr = ` (Troco para R$ ${valorTroco})`;
+            }
+
+            // Montagem Simétrica da Mensagem
+            let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*DADOS DO CLIENTE*\n`;
+            msg += `👤 Nome: ${order.nome}\n`;
+            msg += `📞 Tel: ${order.tel}\n`;
+            msg += `📍 End: ${order.bairro !== 'Retirada' ? order.rua + ' - ' + order.bairro : 'Retirada no Local'}\n`;
+            if(order.ponto) msg += `🏠 Ref: ${order.ponto}\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*DETALHES DO PEDIDO*\n`;
+            msg += `📦 Item: ${order.qty}x ${order.lanche}\n`;
+            msg += `📝 Obs: ${order.detalhes}\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*VALORES*\n`;
+            msg += `💰 Subtotal: R$ ${subtotal.toFixed(2)}\n`;
+            msg += `🛵 Taxa Entrega: R$ ${order.taxa.toFixed(2)}\n`;
+            msg += `✅ *TOTAL: R$ ${total.toFixed(2)}*\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*PAGAMENTO*\n`;
+            msg += `💳 Forma: ${pagamento}${trocoStr}\n`;
+            msg += `------------------------------------------\n`;
+
             const wppUrl = `https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`;
             window.open(wppUrl);
         }
