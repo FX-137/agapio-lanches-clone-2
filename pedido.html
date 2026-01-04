@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Assistente Agápio - v10</title>
+    <title>Assistente Agápio - v11</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
@@ -23,7 +23,7 @@
         </div>
 
         <button id="btnVoltar" onclick="prevStep()" class="hidden absolute top-4 left-4 bg-white w-10 h-10 rounded-full shadow-md z-20 flex items-center justify-center border border-gray-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#E7252A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <svg class="w-6 h-6 text-[#E7252A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
@@ -38,14 +38,14 @@
             </div>
 
             <div id="step2" class="step">
-                <p class="font-bold mb-4 text-center italic text-sm">O que vamos preparar hoje? 🍔</p>
-                <div class="grid grid-cols-1 gap-2 max-h-[280px] overflow-y-auto pr-1 no-scrollbar">
-                    <button onclick="selectLanche('Xis Salada', 18.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic text-left">Xis Salada <span>R$ 18,00</span></button>
-                    <button onclick="selectLanche('Xis Tudo', 25.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic text-left">Xis Tudo <span>R$ 25,00</span></button>
-                    <button onclick="selectLanche('Xis Galinha', 20.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic text-left">Xis Galinha <span>R$ 20,00</span></button>
-                    <button onclick="selectLanche('Bauru de Carne', 32.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic text-left">Bauru de Carne <span>R$ 32,00</span></button>
-                    <button onclick="selectLanche('Big Agápio', 30.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic text-left">Big Agápio <span>R$ 30,00</span></button>
-                    <button onclick="selectLanche('Porção Mix', 45.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic text-left">Porção Mix <span>R$ 45,00</span></button>
+                <p class="font-bold mb-4 text-center italic text-sm italic">O que vamos preparar hoje? 🍔</p>
+                <div class="grid grid-cols-1 gap-2 max-h-[280px] overflow-y-auto pr-1 no-scrollbar text-left">
+                    <button onclick="selectLanche('Xis Salada', 18.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Salada <span>R$ 18,00</span></button>
+                    <button onclick="selectLanche('Xis Tudo', 25.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Tudo <span>R$ 25,00</span></button>
+                    <button onclick="selectLanche('Xis Galinha', 20.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Galinha <span>R$ 20,00</span></button>
+                    <button onclick="selectLanche('Bauru de Carne', 32.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Bauru de Carne <span>R$ 32,00</span></button>
+                    <button onclick="selectLanche('Big Agápio', 30.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Big Agápio <span>R$ 30,00</span></button>
+                    <button onclick="selectLanche('Porção Mix', 45.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Porção Mix <span>R$ 45,00</span></button>
                 </div>
             </div>
 
@@ -56,44 +56,42 @@
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                <p class="text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-tighter text-left ml-1">Instruções do pedido:</p>
-                <textarea id="detalhesLanche" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-28 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder="Ex: Sem cebola, carne bem passada..."></textarea>
-                <button onclick="goStep(4)" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md">Próximo: Endereço</button>
+                <p class="text-[10px] font-bold text-gray-400 mb-2 uppercase text-left ml-1">Observações do pedido:</p>
+                <textarea id="detalhesLanche" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-28 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder="Ex: Sem cebola, bem passado..."></textarea>
+                <button onclick="goStep(4)" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold">Próximo: Endereço</button>
             </div>
 
             <div id="step4" class="step">
                 <div class="flex items-center justify-center gap-2 mb-4">
                     <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-bold text-center italic text-sm text-gray-700">Onde entregamos hoje?</p>
+                    <p class="font-bold text-center italic text-sm text-gray-700 font-bold italic">Onde entregamos hoje?</p>
                 </div>
                 <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold focus:border-[#E7252A] outline-none" placeholder="Rua e Número">
-                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A] outline-none" placeholder="Complemento (Apto, Bloco...)">
+                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A] outline-none" placeholder="Apto, Casa, Bloco...">
                 
                 <p class="text-[10px] text-center mb-2 font-black text-gray-400 uppercase tracking-widest leading-tight">Bairro (conferido no local):</p>
                 <div class="grid grid-cols-1 gap-2 max-h-[150px] overflow-y-auto pr-1 no-scrollbar">
-                    <button onclick="selectBairro('Azenha', 9.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Azenha <span>+R$ 9,00</span></button>
-                    <button onclick="selectBairro('Centro', 11.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Centro <span>+R$ 11,00</span></button>
-                    <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Menino Deus <span>+R$ 8,00</span></button>
-                    <button onclick="selectBairro('Santana', 10.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Santana <span>+R$ 10,00</span></button>
-                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm">Retirar no Local (Grátis)</button>
+                    <button onclick="selectBairro('Azenha', 9.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Azenha <span>+R$ 9,00</span></button>
+                    <button onclick="selectBairro('Centro', 11.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Centro <span>+R$ 11,00</span></button>
+                    <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Menino Deus <span>+R$ 8,00</span></button>
+                    <button onclick="selectBairro('Santana', 10.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Santana <span>+R$ 10,00</span></button>
+                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm italic">Vou Retirar no Local (Grátis)</button>
                 </div>
             </div>
 
             <div id="step5" class="step">
                 <p class="font-bold mb-4 text-center italic text-sm">Forma de Pagamento: 💳</p>
                 <div class="grid grid-cols-1 gap-2 mb-4">
-                    <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Pix</button>
-                    <button onclick="finishOrder('Cartão (Crédito)')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão de Crédito</button>
-                    <button onclick="finishOrder('Cartão (Débito)')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão de Débito</button>
-                    <button onclick="finishOrder('Banricompras')" class="btn-option p-3 rounded-xl font-bold bg-blue-50 text-blue-700 border-blue-200">Banricompras</button>
-                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline italic">Dinheiro (Troco?)</button>
+                    <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 italic">Pix</button>
+                    <button onclick="finishOrder('Cartão (Crédito)')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 italic text-sm">Cartão de Crédito</button>
+                    <button onclick="finishOrder('Cartão (Débito)')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 italic text-sm">Cartão de Débito</button>
+                    <button onclick="finishOrder('Banricompras')" class="btn-option p-3 rounded-xl font-bold bg-blue-50 text-blue-700 border-blue-200 italic text-sm">Banricompras</button>
+                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 italic text-sm underline">Dinheiro (Troco?)</button>
                 </div>
                 
-                <div class="bg-gray-100 p-2 rounded-xl flex items-center justify-center gap-3 opacity-60 mb-4 grayscale hover:grayscale-0 transition-all">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-3" alt="Visa">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-4" alt="Master">
-                    <img src="https://upload.wikimedia.org/wikipedia/pt/thumb/a/a2/Elo_logo.svg/1200px-Elo_logo.svg.png" class="h-3" alt="Elo">
-                    <img src="https://vagas.banrisul.com.br/wp-content/uploads/2022/11/banricompras.png" class="h-4" alt="Banri">
+                <div class="mb-4 text-center">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" 
+                         class="mx-auto w-full max-w-[280px] rounded-lg" alt="Bandeiras Aceitas">
                 </div>
 
                 <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200">
@@ -127,7 +125,7 @@
         function saveUserAndNext() {
             order.nome = document.getElementById('nome').value;
             order.tel = document.getElementById('telefone').value;
-            if(!order.nome || !order.tel) return alert("Preencha seus dados!");
+            if(!order.nome || !order.tel) return alert("Preencha nome e WhatsApp!");
             updateLS(); goStep(2);
         }
 
@@ -141,7 +139,7 @@
             order.qty = Math.max(1, order.qty + val);
             document.getElementById('qty').innerText = order.qty;
             document.getElementById('detalhesLanche').placeholder = order.qty > 1 
-                ? "Como você pediu mais de um, descreva os detalhes de cada (Ex: Um sem ovo e o outro sem milho)."
+                ? "Como você pediu mais de um lanche, especifique os detalhes de cada um (Ex: Um sem ovo e o outro sem milho)."
                 : "Ex: Sem cebola, carne bem passada...";
         }
 
@@ -149,7 +147,7 @@
             order.bairro = b; order.taxa = taxa;
             order.rua = document.getElementById('rua').value;
             order.ponto = document.getElementById('ponto').value;
-            if(b !== 'Retirada' && !order.rua) return alert("Informe a Rua e Número!");
+            if(b !== 'Retirada' && !order.rua) return alert("Precisamos da Rua e Número!");
             updateLS();
             const sub = order.valorUnit * order.qty;
             document.getElementById('resumoSub').innerText = `R$ ${sub.toFixed(2)}`;
