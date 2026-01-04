@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Assistente Agápio - v5</title>
+    <title>Assistente Agápio - v6</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
@@ -11,6 +11,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
         .btn-option { transition: all 0.2s; border: 2px solid #e5e7eb; }
         .btn-option:active { transform: scale(0.98); border-color: #E7252A; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-[#EED117] min-h-screen flex items-center justify-center p-4 font-sans text-slate-800">
@@ -32,12 +33,12 @@
                 <h2 class="text-xl font-black text-center mb-6 uppercase italic text-[#E7252A]">Seus Dados</h2>
                 <input type="text" id="nome" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
                 <input type="tel" id="telefone" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
-                <button onclick="saveUserAndNext()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg">Escolher Lanche</button>
+                <button onclick="saveUserAndNext()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg hover:shadow-red-200 transition-all">Escolher Lanche</button>
             </div>
 
             <div id="step2" class="step">
                 <p class="font-bold mb-4 text-center italic text-sm">O que vamos preparar hoje? 🍔</p>
-                <div class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-1">
+                <div class="grid grid-cols-1 gap-2 max-h-[280px] overflow-y-auto pr-1 no-scrollbar">
                     <button onclick="selectLanche('Xis Salada', 18.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
                     <button onclick="selectLanche('Xis Tudo', 25.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
                     <button onclick="selectLanche('Xis Galinha', 20.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Galinha <span>R$ 20,00</span></button>
@@ -54,33 +55,37 @@
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                <textarea id="detalhesLanche" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-28 font-medium text-sm" placeholder="Ex: Sem maionese, tirar cebola..."></textarea>
+                <p class="font-bold mb-2 text-sm text-gray-600 italic">Alguma observação?</p>
+                <textarea id="detalhesLanche" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-28 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder="Ex: Sem maionese, tirar cebola, carne bem passada..."></textarea>
                 <button onclick="goStep(4)" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md">Próximo: Endereço</button>
             </div>
 
             <div id="step4" class="step">
-                <p class="font-bold mb-4 text-center">Onde entregamos? 📍</p>
+                <p class="font-bold mb-4 text-center italic text-sm text-gray-700">Onde entregamos hoje? 📍</p>
                 <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold focus:border-[#E7252A] outline-none" placeholder="Rua e Número">
-                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A] outline-none" placeholder="Complemento (ex: Apto 202)">
-                <p class="text-[10px] text-center mb-2 font-bold text-gray-500 uppercase">Selecione o Bairro para calcular a entrega:</p>
-                <div class="grid grid-cols-1 gap-2">
-                    <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option p-4 rounded-xl font-bold bg-gray-50 flex justify-between">Menino Deus <span>+R$ 8,00</span></button>
-                    <button onclick="selectBairro('Azenha', 7.00)" class="btn-option p-4 rounded-xl font-bold bg-gray-50 flex justify-between">Azenha <span>+R$ 7,00</span></button>
-                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-4 rounded-xl font-bold text-green-600 bg-green-50">Vou Retirar no Local</button>
+                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A] outline-none" placeholder="Complemento (Apto, Bloco, Casa...)">
+                
+                <p class="text-[10px] text-center mb-2 font-black text-gray-400 uppercase tracking-widest">Selecione seu bairro:</p>
+                <div class="grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto pr-1 no-scrollbar">
+                    <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Menino Deus <span>+R$ 8,00</span></button>
+                    <button onclick="selectBairro('Azenha', 9.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Azenha <span>+R$ 9,00</span></button>
+                    <button onclick="selectBairro('Santana', 10.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Santana <span>+R$ 10,00</span></button>
+                    <button onclick="selectBairro('Centro', 11.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm">Centro <span>+R$ 11,00</span></button>
+                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm">Vou Retirar no Local (Grátis)</button>
                 </div>
             </div>
 
             <div id="step5" class="step">
-                <p class="font-bold mb-4 text-center">Forma de Pagamento: 💳</p>
+                <p class="font-bold mb-4 text-center">Como deseja pagar? 💳</p>
                 <div class="grid grid-cols-1 gap-2">
-                    <button onclick="finishOrder('Pix')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Pix</button>
-                    <button onclick="finishOrder('Cartão')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Cartão (Levar Máquina)</button>
-                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-4 rounded-xl font-bold bg-gray-50">Dinheiro</button>
+                    <button onclick="finishOrder('Pix')" class="btn-option p-4 rounded-xl font-bold bg-gray-50 hover:bg-white transition-all">Pix</button>
+                    <button onclick="finishOrder('Cartão')" class="btn-option p-4 rounded-xl font-bold bg-gray-50 hover:bg-white transition-all">Cartão (Levar Máquina)</button>
+                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-4 rounded-xl font-bold bg-gray-50 hover:bg-white transition-all text-orange-700 font-black italic">Dinheiro (Precisa de Troco?)</button>
                 </div>
                 <div class="mt-6 p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                    <div class="flex justify-between text-sm font-bold"><span>Subtotal:</span><span id="resumoSub">R$ 0,00</span></div>
-                    <div class="flex justify-between text-sm font-bold"><span>Entrega:</span><span id="resumoTaxa">R$ 0,00</span></div>
-                    <div class="flex justify-between text-lg font-black text-[#E7252A] mt-1 border-t pt-1"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
+                    <div class="flex justify-between text-xs font-bold text-gray-500 uppercase"><span>Subtotal:</span><span id="resumoSub">R$ 0,00</span></div>
+                    <div class="flex justify-between text-xs font-bold text-gray-500 uppercase"><span>Taxa de Entrega:</span><span id="resumoTaxa">R$ 0,00</span></div>
+                    <div class="flex justify-between text-xl font-black text-[#E7252A] mt-1 border-t-2 border-dashed pt-2 italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
                 </div>
             </div>
         </div>
@@ -104,9 +109,8 @@
         function saveUserAndNext() {
             order.nome = document.getElementById('nome').value;
             order.tel = document.getElementById('telefone').value;
-            if(!order.nome || !order.tel) return alert("Preencha nome e telefone.");
+            if(!order.nome || !order.tel) return alert("Preencha seu nome e telefone para continuar!");
             
-            // Salvando progresso parcial no LocalStorage
             let userData = JSON.parse(localStorage.getItem('agapio_user')) || {};
             userData.nome = order.nome;
             userData.tel = order.tel;
@@ -135,9 +139,8 @@
             order.taxa = taxa;
             order.rua = document.getElementById('rua').value;
             order.ponto = document.getElementById('ponto').value;
-            if(b !== 'Retirada' && !order.rua) return alert("Por favor, informe a rua e o número.");
+            if(b !== 'Retirada' && !order.rua) return alert("Precisamos saber a Rua e Número para a entrega!");
             
-            // Salva endereço na memória para a próxima compra
             let userData = JSON.parse(localStorage.getItem('agapio_user')) || {};
             userData.rua = order.rua;
             userData.ponto = order.ponto;
@@ -166,7 +169,7 @@
 
             let trocoStr = "";
             if(pagamento === 'Dinheiro') {
-                const valorTroco = prompt(`O TOTAL deu R$ ${total.toFixed(2)}.\n\nPrecisa de troco? Se sim, digite para quanto (Ex: 30, 50, 100).\n\n*Apenas números, sem vírgulas ou R$.*`);
+                const valorTroco = prompt(`O VALOR TOTAL deu R$ ${total.toFixed(2)}.\n\nPrecisa de troco? Se sim, digite o valor para quanto (Ex: 50, 100).\n\n(Apenas números, sem R$ ou vírgulas)`);
                 if(valorTroco) trocoStr = ` (Troco para R$ ${valorTroco})`;
             }
 
