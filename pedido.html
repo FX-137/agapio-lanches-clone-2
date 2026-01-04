@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Assistente Agápio - v11.1</title>
+    <title>Assistente Agápio - v11.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
@@ -19,7 +19,7 @@
     <div class="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-[#E7252A] relative">
         
         <div class="bg-gray-50 flex items-center justify-center border-b-2 border-dashed border-gray-300 overflow-hidden">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEicFkFEdamJ752pXJX8LIi3xOPJDIfj_Op1bp259kBxz1EGmE5hJLiw5rnMc2pDeyXHsTKuotBDx-CMQsI-O9ngHqv5v3kkYLxeP438bneTK2_zRjHh3V8Pa223pyIPnNxl4-RnaPxwsIM_owdrwRU4Bs462gK3BQr_gifCBAv-T2-N73lHvNwIx0ym7fM/s1600/Agapio%20banner.webp" 
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgaGI_259Y_u_NmRz54x7XleRS1bbbhAL4P1RALUijWj5Qwz9kYto2pXHZKSrhIESr7fUCBWupx-ldNszJg654numJtU_R6eq4ihw66uzTcfaJqEpcN5zkQ8n2ht-XNV8p-FBEzEO5YJimpC6cJt7zWAl8-KhwDoVSkalipR57N2XXSWm_PEmxzqvk7CUg/s1000/Agapio%20banner%202.webp" 
                  class="w-full h-auto block" alt="Agápio Lanches">
         </div>
 
@@ -71,7 +71,7 @@
                 <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A] outline-none" placeholder="Apto, Casa, Bloco...">
                 
                 <p class="text-[10px] text-center mb-2 font-black text-gray-400 uppercase tracking-widest leading-tight">Bairro (conferido no local):</p>
-                <div class="grid grid-cols-1 gap-2 max-h-[150px] overflow-y-auto pr-1 no-scrollbar">
+                <div class="grid grid-cols-1 gap-2 max-h-[150px] overflow-y-auto pr-1 no-scrollbar text-left">
                     <button onclick="selectBairro('Azenha', 9.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Azenha <span>+R$ 9,00</span></button>
                     <button onclick="selectBairro('Centro', 11.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Centro <span>+R$ 11,00</span></button>
                     <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Menino Deus <span>+R$ 8,00</span></button>
@@ -105,11 +105,10 @@
     </div>
 
     <script>
-        // O JavaScript permanece o mesmo da versão 11
         let currentStep = 1;
         let order = { nome: '', tel: '', lanche: '', valorUnit: 0, qty: 1, detalhes: '', rua: '', ponto: '', bairro: '', taxa: 0 };
-        window.onload = () => { loadLS(); };
-        function loadLS() {
+
+        window.onload = () => {
             const savedUser = localStorage.getItem('agapio_user');
             if(savedUser) {
                 const user = JSON.parse(savedUser);
@@ -118,23 +117,41 @@
                 document.getElementById('rua').value = user.rua || '';
                 document.getElementById('ponto').value = user.ponto || '';
             }
+        };
+
+        function clearMemory() {
+            if(confirm("Apagar dados salvos?")) { localStorage.removeItem('agapio_user'); location.reload(); }
         }
-        function clearMemory() { if(confirm("Apagar dados?")) { localStorage.removeItem('agapio_user'); location.reload(); } }
+
         function saveUserAndNext() {
             order.nome = document.getElementById('nome').value;
             order.tel = document.getElementById('telefone').value;
-            if(!order.nome || !order.tel) return alert("Preencha nome e WhatsApp!");
+            if(!order.nome || !order.tel) return alert("Preencha seus dados!");
             updateLS(); goStep(2);
         }
-        function selectLanche(l, preco) { order.lanche = l; order.valorUnit = preco; document.getElementById('lancheEscolhido').innerText = l; goStep(3); }
+
+        function selectLanche(l, preco) {
+            order.lanche = l; order.valorUnit = preco;
+            document.getElementById('lancheEscolhido').innerText = l;
+            goStep(3);
+        }
+
         function updateQty(val) {
             order.qty = Math.max(1, order.qty + val);
             document.getElementById('qty').innerText = order.qty;
-            document.getElementById('detalhesLanche').placeholder = order.qty > 1 ? "Descreva os detalhes de cada um." : "Ex: Sem cebola...";
+            
+            const campoObs = document.getElementById('detalhesLanche');
+            if(order.qty > 1) {
+                campoObs.placeholder = "Como você pediu mais de um lanche, especifique os detalhes de cada um (Ex: Um sem cebola e o outro sem milho).";
+            } else {
+                campoObs.placeholder = "Ex: Sem cebola, carne bem passada...";
+            }
         }
+
         function selectBairro(b, taxa) {
             order.bairro = b; order.taxa = taxa;
-            order.rua = document.getElementById('rua').value; order.ponto = document.getElementById('ponto').value;
+            order.rua = document.getElementById('rua').value;
+            order.ponto = document.getElementById('ponto').value;
             if(b !== 'Retirada' && !order.rua) return alert("Informe a Rua e Número!");
             updateLS();
             const sub = order.valorUnit * order.qty;
@@ -143,23 +160,34 @@
             document.getElementById('resumoTotal').innerText = `R$ ${(sub + order.taxa).toFixed(2)}`;
             goStep(5);
         }
+
         function updateLS() {
             localStorage.setItem('agapio_user', JSON.stringify({
-                nome: document.getElementById('nome').value, tel: document.getElementById('telefone').value,
-                rua: document.getElementById('rua').value, ponto: document.getElementById('ponto').value
+                nome: document.getElementById('nome').value,
+                tel: document.getElementById('telefone').value,
+                rua: document.getElementById('rua').value,
+                ponto: document.getElementById('ponto').value
             }));
         }
-        function goStep(n) { currentStep = n; document.querySelectorAll('.step').forEach(s => s.classList.remove('active')); document.getElementById('step' + n).classList.add('active'); document.getElementById('btnVoltar').classList.toggle('hidden', n === 1); }
+
+        function goStep(n) {
+            currentStep = n;
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + n).classList.add('active');
+            document.getElementById('btnVoltar').classList.toggle('hidden', n === 1);
+        }
+
         function prevStep() { if(currentStep > 1) goStep(currentStep - 1); }
+
         function finishOrder(pagamento) {
             order.detalhes = document.getElementById('detalhesLanche').value || 'Sem observações';
             const total = (order.valorUnit * order.qty) + order.taxa;
             let trocoStr = "";
             if(pagamento === 'Dinheiro') {
-                const vt = prompt(`TOTAL: R$ ${total.toFixed(2)}\nTroco para quanto?`);
+                const vt = prompt(`TOTAL: R$ ${total.toFixed(2)}\nTroco para quanto? (Apenas números)`);
                 if(vt) trocoStr = ` (Troco para R$ ${vt})`;
             }
-            let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n------------------------------------------\n👤 ${order.nome}\n📞 ${order.tel}\n📍 ${order.bairro !== 'Retirada' ? order.rua + ' - ' + order.bairro : 'Retirada'}\n🏠 Ref: ${order.ponto || '-'}\n------------------------------------------\n📦 ${order.qty}x ${order.lanche}\n📝 ${order.detalhes}\n------------------------------------------\n💳 ${pagamento}${trocoStr}\n✅ *TOTAL: R$ ${total.toFixed(2)}*\n------------------------------------------`;
+            let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n------------------------------------------\n*DADOS*\n👤 ${order.nome}\n📞 ${order.tel}\n📍 ${order.bairro !== 'Retirada' ? order.rua + ' - ' + order.bairro : 'Retirada'}\n🏠 Ref: ${order.ponto || '-'}\n------------------------------------------\n*PEDIDO*\n📦 ${order.qty}x ${order.lanche}\n📝 ${order.detalhes}\n------------------------------------------\n*PAGAMENTO*\n💳 ${pagamento}${trocoStr}\n✅ *TOTAL: R$ ${total.toFixed(2)}*\n------------------------------------------`;
             window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
         }
     </script>
