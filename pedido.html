@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Assistente Agápio - v12.1</title>
+    <title>Assistente Agápio - v12.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
@@ -37,17 +37,16 @@
                 <input type="text" id="nome" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
                 <input type="tel" id="telefone" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
                 <button onclick="saveUserAndNext()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-6">Começar Pedido</button>
-                <button onclick="clearMemory()" class="text-xs text-gray-400 underline">Limpar dados salvos</button>
             </div>
 
             <div id="step2" class="step">
-                <p class="font-bold mb-4 text-center italic text-sm italic">O que vamos pedir hoje? 🍔🥤</p>
+                <p class="font-bold mb-4 text-center italic text-sm">O que vamos pedir hoje? 🍔🥤</p>
                 <div class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left">
-                    <button onclick="selectItem('Xis Salada', 18.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Salada <span>R$ 18,00</span></button>
-                    <button onclick="selectItem('Xis Tudo', 25.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Tudo <span>R$ 25,00</span></button>
-                    <button onclick="selectItem('Coca-Cola Lata', 6.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-blue-50 italic">Coca-Cola Lata <span>R$ 6,00</span></button>
-                    <button onclick="selectItem('Cerveja Latão', 10.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-blue-50 italic text-sm">Cerveja Latão <span>R$ 10,00</span></button>
-                    <button onclick="selectItem('Porção Mix', 45.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Porção Mix <span>R$ 45,00</span></button>
+                    <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Salada <span>R$ 18,00</span></button>
+                    <button onclick="selectItem('Xis Tudo', 25.00, 'lanche')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Xis Tudo <span>R$ 25,00</span></button>
+                    <button onclick="selectItem('Coca-Cola Lata', 6.00, 'bebida')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-blue-50 italic">Coca-Cola Lata <span>R$ 6,00</span></button>
+                    <button onclick="selectItem('Cerveja Latão', 10.00, 'bebida')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-blue-50 italic text-sm">Cerveja Latão <span>R$ 10,00</span></button>
+                    <button onclick="selectItem('Porção Mix', 45.00, 'lanche')" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50 italic">Porção Mix <span>R$ 45,00</span></button>
                 </div>
             </div>
 
@@ -59,7 +58,7 @@
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
                 <p class="text-[10px] font-bold text-gray-400 mb-2 uppercase text-left ml-1">Observações:</p>
-                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder="Ex: Sem cebola, carne bem passada..."></textarea>
+                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder=""></textarea>
                 <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold">Adicionar ao Pedido</button>
             </div>
 
@@ -73,20 +72,14 @@
             </div>
 
             <div id="step4" class="step">
-                <div class="flex items-center justify-center gap-2 mb-4">
-                    <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/></svg>
-                    <p class="font-bold text-sm italic">Onde entregamos?</p>
-                </div>
+                <p class="font-bold text-sm italic text-center mb-4">Onde entregamos?</p>
                 <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold outline-none focus:border-[#E7252A]" placeholder="Rua e Número">
                 <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="Apto/Bloco/Referência">
-                
-                <p class="text-[10px] text-center mb-2 font-black text-red-600 uppercase tracking-widest leading-tight animate-bounce">👇 Escolha seu Bairro abaixo:</p>
+                <p class="text-[10px] text-center mb-2 font-black text-red-600 uppercase animate-bounce">👇 Escolha seu Bairro abaixo:</p>
                 <div class="grid grid-cols-1 gap-2 max-h-[140px] overflow-y-auto no-scrollbar p-1">
                     <button onclick="selectBairro('Azenha', 9.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Azenha <span>+R$ 9,00</span></button>
                     <button onclick="selectBairro('Centro', 11.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Centro <span>+R$ 11,00</span></button>
-                    <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Menino Deus <span>+R$ 8,00</span></button>
-                    <button onclick="selectBairro('Santana', 10.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Santana <span>+R$ 10,00</span></button>
-                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm italic">Vou Retirar no Local (Grátis)</button>
+                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm italic">Vou Retirar</button>
                 </div>
             </div>
 
@@ -94,10 +87,10 @@
                 <p class="font-bold mb-4 text-center italic text-sm">Forma de Pagamento: 💳</p>
                 <div class="grid grid-cols-1 gap-2 mb-4 text-sm italic">
                     <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Pix</button>
-                    <button onclick="finishOrder('Cartão')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão (Crédito/Débito)</button>
-                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline">Dinheiro (Troco?)</button>
+                    <button onclick="finishOrder('Cartão')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão</button>
+                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline">Dinheiro</button>
                 </div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" class="mx-auto w-full max-w-[280px] mb-4">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" class="mx-auto w-full max-w-[280px] mb-4 rounded-lg">
                 <div class="p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
                     <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
                 </div>
@@ -106,39 +99,35 @@
     </div>
 
     <script>
-        let currentStep = 1;
         let userData = { nome: '', tel: '', rua: '', ponto: '', bairro: '', taxa: 0 };
         let carrinho = [];
-        let tempItem = { nome: '', preco: 0, qty: 1 };
+        let tempItem = { nome: '', preco: 0, qty: 1, tipo: '' };
 
-        window.onload = () => {
-            const saved = localStorage.getItem('agapio_user');
-            if(saved) {
-                const u = JSON.parse(saved);
-                document.getElementById('nome').value = u.nome || '';
-                document.getElementById('telefone').value = u.tel || '';
-                document.getElementById('rua').value = u.rua || '';
-                document.getElementById('ponto').value = u.ponto || '';
-            }
-        };
-
-        function selectItem(nome, preco) {
-            tempItem = { nome, preco, qty: 1 };
+        function selectItem(nome, preco, tipo) {
+            tempItem = { nome, preco, qty: 1, tipo: tipo };
             document.getElementById('itemNome').innerText = nome;
             document.getElementById('qty').innerText = 1;
             document.getElementById('itemObs').value = '';
-            document.getElementById('itemObs').placeholder = "Ex: Sem cebola, carne bem passada...";
+            atualizarPlaceholder();
             goStep(3);
         }
 
         function updateQty(val) {
             tempItem.qty = Math.max(1, tempItem.qty + val);
             document.getElementById('qty').innerText = tempItem.qty;
-            const campoObs = document.getElementById('itemObs');
-            if(tempItem.qty > 1) {
-                campoObs.placeholder = "Como você pediu mais de um item, especifique os detalhes de cada um (Ex: Um sem cebola e o outro sem milho).";
+            atualizarPlaceholder();
+        }
+
+        function atualizarPlaceholder() {
+            const campo = document.getElementById('itemObs');
+            if (tempItem.tipo === 'bebida') {
+                campo.placeholder = "Alguma observação? (Ex: Gelada, copo com gelo...)";
             } else {
-                campoObs.placeholder = "Ex: Sem cebola, carne bem passada...";
+                if (tempItem.qty > 1) {
+                    campo.placeholder = "Como você pediu mais de um item, especifique os detalhes de cada um (Ex: Um sem cebola e o outro sem milho).";
+                } else {
+                    campo.placeholder = "Ex: Sem cebola, carne bem passada...";
+                }
             }
         }
 
@@ -157,7 +146,7 @@
                     <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-200 text-sm">
                         <div class="text-left">
                             <p class="font-bold">${item.qty}x ${item.nome}</p>
-                            <p class="text-[10px] text-gray-400 italic font-medium leading-tight">${item.obs}</p>
+                            <p class="text-[10px] text-gray-400 italic leading-tight">${item.obs}</p>
                         </div>
                         <button onclick="removeItem(${index})" class="text-red-500 font-bold ml-2 w-8 h-8 flex items-center justify-center bg-red-50 rounded-full">×</button>
                     </div>`;
@@ -174,9 +163,8 @@
             userData.bairro = b; userData.taxa = taxa;
             userData.rua = document.getElementById('rua').value;
             userData.ponto = document.getElementById('ponto').value;
-            if(b !== 'Retirada' && !userData.rua) return alert("Por favor, preencha a Rua e Número!");
+            if(b !== 'Retirada' && !userData.rua) return alert("Preencha a Rua e Número!");
             updateLS();
-            
             let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
             document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2)}`;
             goStep(5);
@@ -185,16 +173,14 @@
         function saveUserAndNext() {
             userData.nome = document.getElementById('nome').value;
             userData.tel = document.getElementById('telefone').value;
-            if(!userData.nome || !userData.tel) return alert("Preencha nome e WhatsApp!");
+            if(!userData.nome || !userData.tel) return alert("Preencha seus dados!");
             updateLS(); goStep(2);
         }
 
         function updateLS() {
             localStorage.setItem('agapio_user', JSON.stringify({
-                nome: document.getElementById('nome').value,
-                tel: document.getElementById('telefone').value,
-                rua: document.getElementById('rua').value,
-                ponto: document.getElementById('ponto').value
+                nome: document.getElementById('nome').value, tel: document.getElementById('telefone').value,
+                rua: document.getElementById('rua').value, ponto: document.getElementById('ponto').value
             }));
         }
 
@@ -202,14 +188,14 @@
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             const target = n === 'Carrinho' ? 'stepCarrinho' : 'step' + n;
             document.getElementById(target).classList.add('active');
-            currentStep = n;
+            window.currentStep = n;
             document.getElementById('btnVoltar').classList.toggle('hidden', n === 1);
         }
 
         function prevStep() {
-            if(currentStep === 'Carrinho') goStep(2);
-            else if(currentStep === 4) goStep('Carrinho');
-            else if(currentStep > 1) goStep(currentStep - 1);
+            if(window.currentStep === 'Carrinho') goStep(2);
+            else if(window.currentStep === 4) goStep('Carrinho');
+            else if(window.currentStep > 1) goStep(window.currentStep - 1);
         }
 
         function finishOrder(pag) {
@@ -217,16 +203,13 @@
             let total = subtotal + userData.taxa;
             let troco = "";
             if(pag === 'Dinheiro') {
-                let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto? (Apenas números)`);
+                let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto?`);
                 if(vt) troco = ` (Troco para R$ ${vt})`;
             }
-
             let itensMsg = carrinho.map(i => `📦 *${i.qty}x ${i.nome}*\n📝 ${i.obs}`).join('\n\n');
             let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n------------------------------------------\n👤 ${userData.nome}\n📞 ${userData.tel}\n📍 ${userData.bairro !== 'Retirada' ? userData.rua + ' - ' + userData.bairro : 'Retirada'}\n🏠 Ref: ${userData.ponto || '-'}\n------------------------------------------\n${itensMsg}\n------------------------------------------\n💳 *Pagamento:* ${pag}${troco}\n✅ *TOTAL: R$ ${total.toFixed(2)}*`;
             window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
         }
-
-        function clearMemory() { if(confirm("Apagar dados salvos?")) { localStorage.clear(); location.reload(); } }
     </script>
 </body>
 </html>
