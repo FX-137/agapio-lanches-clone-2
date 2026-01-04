@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Assistente Agápio - v4</title>
+    <title>Assistente Agápio - v5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
@@ -36,8 +36,8 @@
             </div>
 
             <div id="step2" class="step">
-                <p class="font-bold mb-4 text-center italic">O que vamos preparar hoje? 🍔</p>
-                <div class="grid grid-cols-1 gap-2">
+                <p class="font-bold mb-4 text-center italic text-sm">O que vamos preparar hoje? 🍔</p>
+                <div class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-1">
                     <button onclick="selectLanche('Xis Salada', 18.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
                     <button onclick="selectLanche('Xis Tudo', 25.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
                     <button onclick="selectLanche('Xis Galinha', 20.00)" class="btn-option p-4 rounded-xl font-bold flex justify-between bg-gray-50">Xis Galinha <span>R$ 20,00</span></button>
@@ -54,7 +54,6 @@
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                <p class="font-bold mb-2 text-sm text-gray-600">Observações do pedido:</p>
                 <textarea id="detalhesLanche" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-28 font-medium text-sm" placeholder="Ex: Sem maionese, tirar cebola..."></textarea>
                 <button onclick="goStep(4)" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md">Próximo: Endereço</button>
             </div>
@@ -63,6 +62,7 @@
                 <p class="font-bold mb-4 text-center">Onde entregamos? 📍</p>
                 <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold focus:border-[#E7252A] outline-none" placeholder="Rua e Número">
                 <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold focus:border-[#E7252A] outline-none" placeholder="Complemento (ex: Apto 202)">
+                <p class="text-[10px] text-center mb-2 font-bold text-gray-500 uppercase">Selecione o Bairro para calcular a entrega:</p>
                 <div class="grid grid-cols-1 gap-2">
                     <button onclick="selectBairro('Menino Deus', 8.00)" class="btn-option p-4 rounded-xl font-bold bg-gray-50 flex justify-between">Menino Deus <span>+R$ 8,00</span></button>
                     <button onclick="selectBairro('Azenha', 7.00)" class="btn-option p-4 rounded-xl font-bold bg-gray-50 flex justify-between">Azenha <span>+R$ 7,00</span></button>
@@ -94,8 +94,10 @@
             const savedUser = localStorage.getItem('agapio_user');
             if(savedUser) {
                 const user = JSON.parse(savedUser);
-                document.getElementById('nome').value = user.nome;
-                document.getElementById('telefone').value = user.tel;
+                document.getElementById('nome').value = user.nome || '';
+                document.getElementById('telefone').value = user.tel || '';
+                document.getElementById('rua').value = user.rua || '';
+                document.getElementById('ponto').value = user.ponto || '';
             }
         };
 
@@ -103,7 +105,13 @@
             order.nome = document.getElementById('nome').value;
             order.tel = document.getElementById('telefone').value;
             if(!order.nome || !order.tel) return alert("Preencha nome e telefone.");
-            localStorage.setItem('agapio_user', JSON.stringify({nome: order.nome, tel: order.tel}));
+            
+            // Salvando progresso parcial no LocalStorage
+            let userData = JSON.parse(localStorage.getItem('agapio_user')) || {};
+            userData.nome = order.nome;
+            userData.tel = order.tel;
+            localStorage.setItem('agapio_user', JSON.stringify(userData));
+            
             goStep(2);
         }
 
@@ -117,12 +125,9 @@
         function updateQty(val) {
             order.qty = Math.max(1, order.qty + val);
             document.getElementById('qty').innerText = order.qty;
-            
-            // Alteração dinâmica do placeholder
-            const placeholder = order.qty > 1 
+            document.getElementById('detalhesLanche').placeholder = order.qty > 1 
                 ? "Como você pediu mais de um lanche igual, especifique os detalhes de cada um (Ex: Um sem ovo e o outro sem milho)."
                 : "Ex: Sem maionese, tirar cebola, carne bem passada...";
-            document.getElementById('detalhesLanche').placeholder = placeholder;
         }
 
         function selectBairro(b, taxa) {
@@ -132,7 +137,12 @@
             order.ponto = document.getElementById('ponto').value;
             if(b !== 'Retirada' && !order.rua) return alert("Por favor, informe a rua e o número.");
             
-            // Atualiza os valores do resumo antes de mostrar o pagamento
+            // Salva endereço na memória para a próxima compra
+            let userData = JSON.parse(localStorage.getItem('agapio_user')) || {};
+            userData.rua = order.rua;
+            userData.ponto = order.ponto;
+            localStorage.setItem('agapio_user', JSON.stringify(userData));
+            
             const sub = order.valorUnit * order.qty;
             document.getElementById('resumoSub').innerText = `R$ ${sub.toFixed(2)}`;
             document.getElementById('resumoTaxa').innerText = `R$ ${order.taxa.toFixed(2)}`;
@@ -152,12 +162,11 @@
 
         function finishOrder(pagamento) {
             order.detalhes = document.getElementById('detalhesLanche').value || 'Sem observações';
-            const subtotal = order.valorUnit * order.qty;
-            const total = subtotal + order.taxa;
+            const total = (order.valorUnit * order.qty) + order.taxa;
 
             let trocoStr = "";
             if(pagamento === 'Dinheiro') {
-                const valorTroco = prompt(`O TOTAL deu R$ ${total.toFixed(2)}.\n\nPrecisa de troco para quanto? (Se não precisar, deixe em branco)`);
+                const valorTroco = prompt(`O TOTAL deu R$ ${total.toFixed(2)}.\n\nPrecisa de troco? Se sim, digite para quanto (Ex: 30, 50, 100).\n\n*Apenas números, sem vírgulas ou R$.*`);
                 if(valorTroco) trocoStr = ` (Troco para R$ ${valorTroco})`;
             }
 
@@ -174,7 +183,7 @@
             msg += `📝 Obs: ${order.detalhes}\n`;
             msg += `------------------------------------------\n`;
             msg += `*VALORES*\n`;
-            msg += `💰 Subtotal: R$ ${subtotal.toFixed(2)}\n`;
+            msg += `💰 Subtotal: R$ ${(order.valorUnit * order.qty).toFixed(2)}\n`;
             msg += `🛵 Taxa Entrega: R$ ${order.taxa.toFixed(2)}\n`;
             msg += `✅ *TOTAL: R$ ${total.toFixed(2)}*\n`;
             msg += `------------------------------------------\n`;
