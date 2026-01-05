@@ -92,13 +92,18 @@
                 </div>
             </div>
 
-            <div id="step5" class="step text-center">
-                <p class="font-bold mb-4 italic text-sm italic">Forma de Pagamento: 💳</p>
-                <div class="grid grid-cols-1 gap-2 mb-4 text-sm italic">
-                    <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Pix</button>
-                    <button onclick="finishOrder('Cartão')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão</button>
-                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline">Dinheiro (Troco?)</button>
-                </div>
+           <div id="step5" class="step text-center">
+    <p class="font-bold mb-4 italic text-sm italic">Forma de Pagamento: 💳</p>
+    <div class="grid grid-cols-1 gap-2 mb-4 text-sm italic">
+        <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Pix</button>
+        <button onclick="escolherCartao()" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão (Débito/Crédito/Banri)</button>
+        <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline">Dinheiro (Troco?)</button>
+    </div>
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" class="mx-auto w-full max-w-[280px] mb-4 rounded-lg">
+    <div class="p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+        <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
+    </div>
+</div>
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" class="mx-auto w-full max-w-[280px] mb-4 rounded-lg">
                 <div class="p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
                     <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
@@ -208,7 +213,23 @@
             else if(window.currentStep === 4) goStep('Carrinho');
             else if(window.currentStep > 1) goStep(window.currentStep - 1);
         }
+// ... outras funções acima ...
 
+function escolherCartao() {
+    const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras\n(Ou digite o nome)");
+    let cartaoEscolhido = "";
+    
+    if (tipo === "1") cartaoEscolhido = "Cartão de Débito";
+    else if (tipo === "2") cartaoEscolhido = "Cartão de Crédito";
+    else if (tipo === "3") cartaoEscolhido = "Banricompras";
+    else if (tipo) cartaoEscolhido = "Cartão: " + tipo;
+    else return; 
+
+    finishOrder(cartaoEscolhido);
+}
+
+function finishOrder(pag) {
+    // ... o resto da sua função finishOrder que já existe ...
         function finishOrder(pag) {
             let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
             let total = subtotal + userData.taxa;
