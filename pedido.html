@@ -213,31 +213,60 @@
         }
 
         // NOVA FUNÇÃO DE CARTÃO ADICIONADA AQUI
-        function escolherCartao() {
-            const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras\n(Ou digite o nome)");
-            let cartaoEscolhido = "";
-            
-            if (tipo === "1") cartaoEscolhido = "Cartão de Débito";
-            else if (tipo === "2") cartaoEscolhido = "Cartão de Crédito";
-            else if (tipo === "3") cartaoEscolhido = "Banricompras";
-            else if (tipo) cartaoEscolhido = "Cartão: " + tipo;
-            else return; 
+        // Função para detalhar o tipo de cartão
+function escolherCartao() {
+    const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras\n(Ou digite o nome)");
+    let cartaoEscolhido = "";
+    
+    if (tipo === "1") cartaoEscolhido = "Cartão de Débito";
+    else if (tipo === "2") cartaoEscolhido = "Cartão de Crédito";
+    else if (tipo === "3") cartaoEscolhido = "Banricompras";
+    else if (tipo) cartaoEscolhido = "Cartão: " + tipo;
+    else return; // Se o cliente cancelar, não faz nada
 
-            finishOrder(cartaoEscolhido);
-        }
+    finishOrder(cartaoEscolhido);
+}
 
-        function finishOrder(pag) {
-            let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
-            let total = subtotal + userData.taxa;
-            let troco = "";
-            if(pag === 'Dinheiro') {
-                let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto?`);
-                if(vt) troco = ` (Troco para R$ ${vt})`;
-            }
-            let itensMsg = carrinho.map(i => `📦 *${i.qty}x ${i.nome}*\n📝 ${i.obs}`).join('\n\n');
-            let msg = `*🍔 NOVO PEDIDO - AGÁPIO*\n------------------------------------------\n👤 ${userData.nome}\n📞 ${userData.tel}\n📍 ${userData.bairro !== 'Retirada' ? userData.rua + ' - ' + userData.bairro : 'Retirada'}\n🏠 Ref: ${userData.ponto || '-'}\n------------------------------------------\n${itensMsg}\n------------------------------------------\n💳 *Pagamento:* ${pag}${troco}\n✅ *TOTAL: R$ ${total.toFixed(2)}*`;
-            window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
-        }
+// Função de finalização com formatação de CUPOM
+function finishOrder(pag) {
+    let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
+    let total = subtotal + userData.taxa;
+    let troco = "";
+    
+    if(pag === 'Dinheiro') {
+        let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto?`);
+        if(vt) troco = ` (Troco para R$ ${vt})`;
+    }
+
+    // Formatação dos itens com recuo visual (estilo cupom)
+    let itensMsg = carrinho.map(i => {
+        return `✅ *${i.qty}x ${i.nome}*\n   └ Obs: ${i.obs}`;
+    }).join('\n\n');
+
+    // Montagem do Corpo da Mensagem (Cupom)
+    let msg = `*🍟 NOVO PEDIDO - AGÁPIO*\n`;
+    msg += `==============================\n`;
+    msg += `👤 *CLIENTE:* ${userData.nome}\n`;
+    msg += `📞 *CONTATO:* ${userData.tel}\n`;
+    msg += `==============================\n\n`;
+    msg += `${itensMsg}\n\n`;
+    msg += `==============================\n`;
+    msg += `📍 *ENTREGA:* ${userData.bairro !== 'Retirada' ? userData.bairro : 'Retirada no Local'}\n`;
+    
+    if(userData.bairro !== 'Retirada') {
+        msg += `🏠 *END:* ${userData.rua}\n`;
+        msg += `🏢 *REF:* ${userData.ponto || '-'}\n`;
+    }
+    
+    msg += `==============================\n`;
+    msg += `💳 *PAGAMENTO:* ${pag}${troco}\n`;
+    msg += `💰 *TOTAL: R$ ${total.toFixed(2)}*\n`;
+    msg += `==============================\n`;
+    msg += `_Pedido gerado via Assistente Virtual_`;
+
+    // Abre o WhatsApp com a mensagem formatada
+    window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
+}
 
         function clearMemory() { if(confirm("Deseja apagar seus dados salvos?")) { localStorage.clear(); location.reload(); } }
     </script>
