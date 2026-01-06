@@ -102,7 +102,7 @@
                     <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl bg-gray-50 text-orange-700 underline">Dinheiro (Troco?)</button>
                 </div>
                 <div class="p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-                    <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
+                    <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline uppercase"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
                 </div>
             </div>
         </div>
@@ -226,16 +226,34 @@
             let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
             let total = subtotal + userData.taxa;
             let troco = "";
+            
             if(pag === 'Dinheiro') {
-                let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto?`);
+                let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto?\n\nEscreva apenas números: ex; 30, 50, 100`);
                 if(vt) troco = ` (Troco para R$ ${vt})`;
             }
+
             let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
-            let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n------------------------------------------\n*CLIENTE:* ${userData.nome}\n*CONTATO:* ${userData.tel}\n------------------------------------------\n\n${itensMsg}\n\n------------------------------------------\n*ENTREGA:* ${userData.bairro !== 'Retirada' ? userData.bairro : 'Retirada no Local'}\n`;
+            
+            let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*CLIENTE:* ${userData.nome}\n`;
+            msg += `*CONTATO:* ${userData.tel}\n`;
+            msg += `------------------------------------------\n\n`;
+            msg += `${itensMsg}\n\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*ENTREGA:* ${userData.bairro !== 'Retirada' ? userData.bairro : 'Retirada no Local'}\n`;
+            
             if(userData.bairro !== 'Retirada') {
-                msg += `*END:* ${userData.rua}\n*REF:* ${userData.ponto || '-'}\n`;
+                msg += `*END:* ${userData.rua}\n`;
+                msg += `*REF:* ${userData.ponto || '-'}\n`;
             }
-            msg += `------------------------------------------\n*PAGAMENTO:* ${pag}${troco}\n*TOTAL: R$ ${total.toFixed(2)}*\n------------------------------------------\n_Pedido enviado via Assistente Virtual_`;
+            
+            msg += `------------------------------------------\n`;
+            msg += `*PAGAMENTO:* ${pag}${troco}\n`;
+            msg += `*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n`; // Valor total em negrito e com vírgula
+            msg += `------------------------------------------\n`;
+            msg += `_Pedido enviado via Assistente Virtual_`;
+            
             window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
         }
 
