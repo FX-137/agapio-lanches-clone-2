@@ -48,16 +48,11 @@
                     <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM5 9h10c.6 0 1 .4 1 1s-.4 1-1 1H5c-.6 0-1-.4-1-1s.4-1 1-1zm1 3h8v1H6v-1zM5 7c0-1.7 2.2-3 5-3s5 1.3 5 3H5z"></path>
                     </svg>
-                    <p class="font-bold text-center italic text-sm">O que vamos pedir hoje?</p>
-                </div>
-                <div class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left font-bold italic">
-                    <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
-                    <button onclick="selectItem('Xis Tudo', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
-                    <button onclick="selectItem('Coca-Cola Lata', 6.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50">Coca-Cola Lata <span>R$ 6,00</span></button>
-                    <button onclick="selectItem('Cerveja Latão', 10.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50 text-sm">Cerveja Latão <span>R$ 10,00</span></button>
-                    <button onclick="selectItem('Porção Mix', 45.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Porção Mix <span>R$ 45,00</span></button>
-                </div>
-            </div>
+                   <div id="step2" class="step">
+    <p class="font-bold text-center italic text-sm mb-4">O que vamos pedir hoje?</p>
+    <div id="listaProdutos" class="grid grid-cols-1 gap-2 max-h-[350px] overflow-y-auto no-scrollbar text-left font-bold italic">
+        </div>
+</div>
 
             <div id="step3" class="step text-center">
                 <p class="font-bold mb-2 text-lg">Quantidade de <span id="itemNome" class="text-[#E7252A]"></span>:</p>
