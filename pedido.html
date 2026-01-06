@@ -37,159 +37,94 @@
         <div class="p-6">
             <div id="step1" class="step active text-center">
                 <h2 class="text-xl font-black mb-6 uppercase italic text-[#E7252A]">Seus Dados</h2>
-                <input type="text" id="nome" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
-                <input type="tel" id="telefone" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
-                <button onclick="saveUserAndNext()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-6 font-bold">Começar Pedido</button>
+                <input type="text" id="userName" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
+                <input type="tel" id="userTel" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
+                
+                <button onclick="startOrder()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-6 font-bold italic">Começar Pedido</button>
                 <button onclick="clearMemory()" class="text-[10px] text-gray-400 underline uppercase font-bold">Limpar dados salvos</button>
             </div>
 
             <div id="step2" class="step">
-                <div class="flex items-center justify-center gap-2 mb-4">
-                    <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM5 9h10c.6 0 1 .4 1 1s-.4 1-1 1H5c-.6 0-1-.4-1-1s.4-1 1-1zm1 3h8v1H6v-1zM5 7c0-1.7 2.2-3 5-3s5 1.3 5 3H5z"></path>
-                    </svg>
-                   <div id="step2" class="step">
-    <p class="font-bold text-center italic text-sm mb-4">O que vamos pedir hoje?</p>
-    <div id="listaProdutos" class="grid grid-cols-1 gap-2 max-h-[350px] overflow-y-auto no-scrollbar text-left font-bold italic">
-        </div>
-</div>
+                <p class="font-bold text-center italic text-sm mb-4 uppercase">Cardápio</p>
+                <div id="listaProdutos" class="grid grid-cols-1 gap-2 max-h-[350px] overflow-y-auto no-scrollbar text-left font-bold italic">
+                    </div>
+            </div>
 
             <div id="step3" class="step text-center">
-                <p class="font-bold mb-2 text-lg">Quantidade de <span id="itemNome" class="text-[#E7252A]"></span>:</p>
+                <p class="font-bold mb-2 text-lg uppercase italic">Item: <span id="itemNome" class="text-[#E7252A]"></span></p>
                 <div class="flex items-center justify-center gap-6 mb-6">
                     <button onclick="updateQty(-1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">-</button>
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                <p class="text-[10px] font-bold text-gray-400 mb-2 uppercase text-left ml-1 italic">Observações:</p>
-                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder=""></textarea>
+                
+                <div class="flex justify-between items-end mb-1">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase italic ml-1">Observações:</p>
+                    <button onclick="chamarAtendenteExtra()" class="text-[9px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase">Extras?</button>
+                </div>
+                
+                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none" placeholder="Ex: Sem cebola, carne bem passada..."></textarea>
                 <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold italic">Adicionar ao Pedido</button>
             </div>
 
-            <div id="stepCarrinho" class="step">
-                <p class="font-bold mb-4 text-center italic text-sm">Seu Pedido (toque para remover):</p>
-                <div id="listaCarrinho" class="space-y-2 mb-6 max-h-[180px] overflow-y-auto pr-1 no-scrollbar"></div>
-                <div class="grid grid-cols-1 gap-3">
-                    <button onclick="goStep(2)" class="w-full bg-gray-100 text-gray-700 py-3 rounded-2xl font-black uppercase border-2 border-gray-200 italic">+ Mais itens</button>
-                    <button onclick="goStep(4)" class="w-full bg-green-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg italic">Ir para Entrega</button>
-                </div>
-            </div>
-
             <div id="step4" class="step">
-    <div class="flex items-center justify-center gap-2 mb-4">
-        <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/></svg>
-        <p class="font-bold text-sm italic">Onde entregamos?</p>
-    </div>
-    
-    <div id="listaBairros" class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto no-scrollbar mb-4">
-        </div>
-</div>
-
-<div id="step5" class="step">
-    <div id="areaEndereco"> <p class="text-[10px] font-bold text-gray-400 uppercase italic mb-1">Rua e Número:</p>
-        <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold text-sm outline-none focus:border-red-500">
-        
-        <p class="text-[10px] font-bold text-gray-400 uppercase italic mb-1">Ponto de Referência:</p>
-        <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-6 font-bold text-sm outline-none focus:border-red-500">
-    </div>
-
-    <p class="font-bold text-center italic text-sm mb-4 text-red-600">Forma de Pagamento:</p>
-    <div class="grid grid-cols-2 gap-2">
-        <button onclick="finishOrder('Dinheiro')" class="bg-gray-800 text-white py-4 rounded-2xl font-bold uppercase italic text-xs">Dinheiro</button>
-        <button onclick="escolherCartao()" class="bg-gray-800 text-white py-4 rounded-2xl font-bold uppercase italic text-xs">Cartão</button>
-    </div>
-</div>
-                <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold outline-none focus:border-[#E7252A]" placeholder="Rua e Número">
-                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="Apartamento ou Complemento">
-                <p class="text-[10px] text-center mb-2 font-black text-red-600 uppercase animate-bounce italic tracking-widest leading-tight">👇 Escolha seu Bairro abaixo:</p>
-                <div class="grid grid-cols-1 gap-2 max-h-[140px] overflow-y-auto no-scrollbar p-1 text-left">
-                    <button onclick="selectBairro('Azenha', 9.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Azenha <span>+R$ 9,00</span></button>
-                    <button onclick="selectBairro('Centro', 11.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Centro <span>+R$ 11,00</span></button>
-                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm italic">Vou Retirar no Local</button>
+                <div class="flex items-center justify-center gap-2 mb-4">
+                    <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                    <p class="font-bold text-sm italic uppercase">Onde entregamos?</p>
                 </div>
+                <div id="listaBairros" class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto no-scrollbar mb-4 font-bold italic">
+                    </div>
             </div>
 
-            <div id="step5" class="step text-center">
-                <p class="font-bold mb-4 italic text-sm italic">Forma de Pagamento: 💳</p>
-                <div class="grid grid-cols-1 gap-2 mb-4 text-sm italic">
-                    <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Pix</button>
-                    <button onclick="escolherCartao()" class="btn-option p-3 rounded-xl font-bold bg-gray-50">Cartão (Débito/Crédito/Banri)</button>
-                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl font-bold bg-gray-50 text-orange-700 underline">Dinheiro (Troco?)</button>
+            <div id="step5" class="step">
+                <div id="areaEndereco" class="mb-4">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase italic mb-1 ml-1 text-left">Rua e Número:</p>
+                    <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold text-sm outline-none focus:border-red-500">
+                    
+                    <p class="text-[10px] font-bold text-gray-400 uppercase italic mb-1 ml-1 text-left">Ponto de Referência:</p>
+                    <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-6 font-bold text-sm outline-none focus:border-red-500">
                 </div>
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHdFG-HBKb0S5XSfcnbeu6X5VR11sfeh0L06nJsosZWDfNTcSCLFTsXCv9gXSLPAibPyrraiGh6jSZtJJp_IzkUmHzMi4ckYN9Z96z8XbW_yH88AeUw10ry5n6FS3vQVgkEk1Iw_dBrV5nYHd9koA6dJa_G6sBtkrU7STn1zwEOeGMN_oUZRuPPKAd_j0/s1600/Cart%C3%B5es%204.png" class="mx-auto w-full max-w-[280px] mb-4 rounded-lg">
-                <div class="p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-                    <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
+
+                <p class="font-bold text-center italic text-sm mb-4 text-red-600 uppercase italic underline">Forma de Pagamento</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="finishOrder('Dinheiro')" class="bg-gray-800 text-white py-4 rounded-2xl font-bold uppercase italic text-xs">Dinheiro</button>
+                    <button onclick="escolherCartao()" class="bg-gray-800 text-white py-4 rounded-2xl font-bold uppercase italic text-xs">Cartão</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-    // --- 1. CENTRAL DE DADOS (EDITE AQUI OS PREÇOS E ITENS) ---
-    const cardapioData = [
-        { nome: 'Xis Salada', preco: 18.00, tipo: 'lanche' },
-        { id: 2, nome: "Xis Tudo", preco: 25.00, tipo: 'lanche' },
-        { id: 3, nome: "Cerveja Latão", preco: 10.00, tipo: 'bebida' },
-        { id: 4, nome: "Refrigerante Lata", preco: 6.00, tipo: 'bebida' }
-    ];
+        const cardapioData = [
+            { nome: 'Xis Salada', preco: 18.00, tipo: 'lanche' },
+            { nome: 'Xis Tudo', preco: 25.00, tipo: 'lanche' },
+            { nome: 'Cerveja Latão', preco: 10.00, tipo: 'bebida' },
+            { nome: 'Refrigerante Lata', preco: 6.00, tipo: 'bebida' }
+        ];
 
-    const bairrosData = [
-        { nome: 'Centro', taxa: 5.00 },
-        { nome: 'Bela Vista', taxa: 7.00 },
-        { nome: 'Retirada', taxa: 0.00 }
-    ];
+        const bairrosData = [
+            { nome: 'Centro', taxa: 5.00 },
+            { nome: 'Bela Vista', taxa: 7.00 },
+            { nome: 'Retirada', taxa: 0.00 }
+        ];
 
-    // Variáveis de controle
-    let carrinho = [];
-    let currentItem = null;
-    let qty = 1;
-    let userData = { nome: '', tel: '', bairro: '', rua: '', ponto: '', taxa: 0 };
+        let carrinho = [];
+        let currentItem = null;
+        let qty = 1;
+        let userData = { nome: '', tel: '', bairro: '', rua: '', ponto: '', taxa: 0 };
 
-    // --- 2. FUNÇÕES DE NAVEGAÇÃO E RENDERIZAÇÃO ---
-
-    function renderizarProdutos() {
-        const container = document.getElementById('listaProdutos');
-        if(!container) return;
-        container.innerHTML = '';
+        function startOrder() {
+            const nome = document.getElementById('userName').value;
+            const tel = document.getElementById('userTel').value;
+            if (!nome || !tel) return alert("Preencha nome e telefone!");
+            userData.nome = nome;
+            userData.tel = tel;
+            localStorage.setItem('agapio_user', JSON.stringify(userData));
+            showStep(2);
+        }
         
-        cardapioData.forEach(item => {
-            const corFundo = item.tipo === 'bebida' ? 'bg-blue-50' : 'bg-gray-50';
-            container.innerHTML += `
-                <button onclick="selectItem('${item.nome}', ${item.preco})" 
-                        class="btn-option p-4 rounded-xl flex justify-between items-center ${corFundo} hover:border-red-400 border-2 border-transparent transition-all">
-                    <span>${item.nome}</span>
-                    <span class="text-gray-500 text-xs">R$ ${item.preco.toFixed(2).replace('.',',')}</span>
-                </button>
-            `;
-        });
-    }
-
-    function renderizarBairros() {
-        const container = document.getElementById('listaBairros');
-        if(!container) return;
-        container.innerHTML = '';
-        
-        bairrosData.forEach(b => {
-            container.innerHTML += `
-                <button onclick="selectBairro('${b.nome}', ${b.taxa})" 
-                        class="btn-option p-4 bg-gray-50 rounded-xl flex justify-between items-center border-2 border-transparent">
-                    <span>${b.nome}</span>
-                    <span class="text-gray-400 text-xs">${b.taxa > 0 ? 'Taxa: R$ '+b.taxa.toFixed(2) : 'Grátis'}</span>
-                </button>
-            `;
-        });
-    }
-
-    function startOrder() {
-        const nome = document.getElementById('userName').value;
-        const tel = document.getElementById('userTel').value;
-        if (!nome || !tel) return alert("Preencha nome e telefone!");
-        userData.nome = nome;
-        userData.tel = tel;
-        localStorage.setItem('agapio_user', JSON.stringify(userData));
-        showStep(2);
-    }
-
+        // ... RESTANTE DAS FUNÇÕES (RENDERIZARPRODUTOS, SHOWSTEP, ETC) ...
+    </script>
     function showStep(s) {
         document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
         document.getElementById('step' + s).classList.add('active');
