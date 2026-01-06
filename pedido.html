@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Assistente Agápio - Final</title>
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqFTznbj8hGOxa8oY7w9On6zmw6VmW6y4kr1lo4M7YG3vNgAVk7PlnlSHjpRanOwBTt8Cf6wvdDkHtBGRIymydYivyhV8d5RxIu-g4gMsqY2i77rRFVYDf25L9IYgPQS5axqc1hNWX_4_tvupmqH37dImY8h57iFPvDoa6x3kDZE2rKfYLjeLutb1BPcU/s1600/A2.png" type="image/png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .step { display: none; }
@@ -12,13 +13,15 @@
         .btn-option { transition: all 0.2s; border: 2px solid #e5e7eb; }
         .btn-option:active { transform: scale(0.98); border-color: #E7252A; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .pulse-border { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { border-color: #e5e7eb; } 50% { border-color: #E7252A; } 100% { border-color: #e5e7eb; } }
     </style>
 </head>
 <body class="bg-[#EED117] min-h-screen flex items-center justify-center p-4 font-sans text-slate-800">
 
     <div class="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-[#E7252A] relative">
         
-        <div class="bg-gray-50 flex items-center justify-center border-b-2 border-dashed border-gray-300">
+        <div class="bg-gray-50 flex items-center justify-center border-b-2 border-dashed border-gray-300 overflow-hidden">
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIE6oSAmM1W2lR2dxwXO1rqcb9rzVoXAeF_GrSeW6FmSjhFW8vyIgLSPWeCtKMyxiS-9-Uamt4i03spCOsZYTYBX8ttOfl7ISLKRinq9ofmejDVBIwO0M9BOrOsueiuyrXZ934xRZt7aakxOEkPKRh1Gv6JsVvqf2SMXf9DvD8Z4slze43_cYsC3GcFas/s1600/Novo%20banner%20agapio3.webp" class="w-full h-auto block" alt="Agápio Lanches">
         </div>
 
@@ -28,222 +31,221 @@
             </svg>
         </button>
 
-        <div class="p-6 pb-24">
-            
+        <div class="p-6">
             <div id="step1" class="step active text-center">
                 <h2 class="text-xl font-black mb-6 uppercase italic text-[#E7252A]">Seus Dados</h2>
-                <input type="text" id="userName" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
-                <input type="tel" id="userTel" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
-                <button onclick="startOrder()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-6 font-bold italic">Começar Pedido</button>
+                <input type="text" id="nome" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
+                <input type="tel" id="telefone" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
+                <button onclick="saveUserAndNext()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-6 font-bold">Começar Pedido</button>
+                <button onclick="clearMemory()" class="text-[10px] text-gray-400 underline uppercase font-bold">Limpar dados salvos</button>
             </div>
 
             <div id="step2" class="step">
-                <p class="font-bold text-center italic text-sm mb-4 uppercase">Cardápio</p>
-                <div id="listaProdutos" class="grid grid-cols-1 gap-2 max-h-[350px] overflow-y-auto no-scrollbar text-left font-bold italic"></div>
+                <div class="flex items-center justify-center gap-2 mb-4">
+                    <p class="font-bold text-center italic text-sm">O que vamos pedir hoje?</p>
+                </div>
+                <div class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left font-bold italic">
+                    <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
+                    <button onclick="selectItem('Xis Tudo', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
+                    <button onclick="selectItem('Coca-Cola Lata', 6.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50">Coca-Cola Lata <span>R$ 6,00</span></button>
+                    <button onclick="selectItem('Cerveja Latão', 10.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50 text-sm">Cerveja Latão <span>R$ 10,00</span></button>
+                    <button onclick="selectItem('Porção Mix', 45.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Porção Mix <span>R$ 45,00</span></button>
+                </div>
             </div>
 
             <div id="step3" class="step text-center">
-                <p class="font-bold mb-2 text-lg uppercase italic">Personalizar: <span id="itemNome" class="text-[#E7252A]"></span></p>
+                <p class="font-bold mb-2 text-lg italic uppercase">Item: <span id="itemNome" class="text-[#E7252A]"></span></p>
                 <div class="flex items-center justify-center gap-6 mb-6">
                     <button onclick="updateQty(-1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">-</button>
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                <div class="flex justify-between items-end mb-1">
-                    <p class="text-[12px] font-bold text-gray-400 uppercase italic ml-1">Instruções para este item:</p>
-                    <button onclick="chamarAtendenteExtra()" class="text-[11px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase tracking-tighter">Add itens Extras</button>
-                </div>
-                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none"></textarea>
-                <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold italic">Confirmar item</button>
-            </div>
-
-            <div id="step4" class="step">
-                <p class="font-bold text-center italic text-sm mb-4 uppercase">Resumo do Pedido</p>
-                <div id="reumoPedido" class="mb-6 space-y-2 max-h-[150px] overflow-y-auto pr-1"></div>
                 
-                <hr class="mb-4 border-dashed border-gray-300">
-                <p class="font-bold text-center italic text-sm mb-4 uppercase">Onde entregamos?</p>
-                <div id="listaBairros" class="grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto no-scrollbar mb-4 font-bold italic"></div>
+                <div class="flex justify-between items-end mb-1">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase italic ml-1">Observações:</p>
+                    <button onclick="chamarAtendenteExtra()" class="text-[12px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase italic">Add itens Extras</button>
+                </div>
+                
+                <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none"></textarea>
+                <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold italic">Adicionar ao Pedido</button>
             </div>
 
-            <div id="step5" class="step">
-                <div id="areaEndereco" class="mb-4 text-left">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase italic mb-1 ml-1">Rua e Número:</p>
-                    <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold text-sm outline-none focus:border-red-500">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase italic mb-1 ml-1">Ponto de Referência:</p>
-                    <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-6 font-bold text-sm outline-none focus:border-red-500">
-                </div>
-                <p class="font-bold text-center italic text-sm mb-4 text-red-600 uppercase underline">Forma de Pagamento</p>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="finishOrder('Dinheiro')" class="bg-gray-800 text-white py-4 rounded-2xl font-bold uppercase italic text-xs">Dinheiro</button>
-                    <button onclick="escolherCartao()" class="bg-gray-800 text-white py-4 rounded-2xl font-bold uppercase italic text-xs">Cartão</button>
+            <div id="stepCarrinho" class="step">
+                <p class="font-bold mb-4 text-center italic text-sm">Seu Pedido (toque para remover):</p>
+                <div id="listaCarrinho" class="space-y-2 mb-6 max-h-[180px] overflow-y-auto pr-1 no-scrollbar"></div>
+                <div class="grid grid-cols-1 gap-3">
+                    <button onclick="goStep(2)" class="w-full bg-gray-100 text-gray-700 py-3 rounded-2xl font-black uppercase border-2 border-gray-200 italic">+ Mais itens</button>
+                    <button onclick="goStep(4)" class="w-full bg-green-600 text-white py-4 rounded-2xl font-black uppercase shadow-lg italic">Ir para Entrega</button>
                 </div>
             </div>
-        </div>
 
-        <div id="cartBar" class="hidden absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 flex justify-between items-center shadow-2xl">
-            <div class="flex flex-col">
-                <span class="text-[10px] text-gray-400 font-bold uppercase italic">Total parcial:</span>
-                <span class="text-lg font-black text-red-600 italic leading-none">R$ <span id="cartTotal">0,00</span></span>
+            <div id="step4" class="step text-left">
+                <div class="flex items-center justify-center gap-2 mb-4">
+                    <p class="font-bold text-sm italic">Onde entregamos?</p>
+                </div>
+                <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold outline-none focus:border-[#E7252A]" placeholder="Rua e Número">
+                <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="Complemento / Ponto de Ref.">
+                
+                <p class="text-[10px] text-center mb-2 font-black text-red-600 uppercase italic tracking-widest leading-tight">👇 Escolha seu Bairro abaixo:</p>
+                <div class="grid grid-cols-1 gap-2 max-h-[140px] overflow-y-auto no-scrollbar p-1">
+                    <button onclick="selectBairro('Azenha', 9.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Azenha <span>+R$ 9,00</span></button>
+                    <button onclick="selectBairro('Centro', 11.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Centro <span>+R$ 11,00</span></button>
+                    <button onclick="selectBairro('Retirada', 0.00)" class="btn-option p-3 rounded-xl font-bold text-green-600 bg-green-50 text-sm italic">Vou Retirar no Local</button>
+                </div>
             </div>
-            <button onclick="showStep(4)" class="bg-green-600 text-white px-6 py-3 rounded-xl font-black uppercase italic text-xs">
-                Finalizar Pedido
-            </button>
+
+            <div id="step5" class="step text-center">
+                <p class="font-bold mb-4 italic text-sm">Forma de Pagamento: 💳</p>
+                <div class="grid grid-cols-1 gap-2 mb-4 text-sm italic font-bold">
+                    <button onclick="finishOrder('Pix')" class="btn-option p-3 rounded-xl bg-gray-50">Pix</button>
+                    <button onclick="escolherCartao()" class="btn-option p-3 rounded-xl bg-gray-50">Cartão (Débito/Crédito/Banri)</button>
+                    <button onclick="finishOrder('Dinheiro')" class="btn-option p-3 rounded-xl bg-gray-50 text-orange-700 underline">Dinheiro (Troco?)</button>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+                    <div class="flex justify-between text-xl font-black text-[#E7252A] italic underline"><span>TOTAL:</span><span id="resumoTotal">R$ 0,00</span></div>
+                </div>
+            </div>
         </div>
     </div>
 
-<script>
-    const cardapioData = [
-        { nome: 'Xis Salada', preco: 18.00, tipo: 'lanche' },
-        { nome: 'Xis Tudo', preco: 25.00, tipo: 'lanche' },
-        { nome: 'Cerveja Latão', preco: 10.00, tipo: 'bebida' },
-        { nome: 'Refrigerante Lata', preco: 6.00, tipo: 'bebida' }
-    ];
+    <script>
+        let userData = { nome: '', tel: '', rua: '', ponto: '', bairro: '', taxa: 0 };
+        let carrinho = [];
+        let tempItem = { nome: '', preco: 0, qty: 1, tipo: '' };
+        window.currentStep = 1;
 
-    const bairrosData = [
-        { nome: 'Centro', taxa: 5.00 },
-        { nome: 'Bela Vista', taxa: 7.00 },
-        { nome: 'Retirada', taxa: 0.00 }
-    ];
+        window.onload = () => {
+            const saved = localStorage.getItem('agapio_user');
+            if(saved) {
+                const u = JSON.parse(saved);
+                document.getElementById('nome').value = u.nome || '';
+                document.getElementById('telefone').value = u.tel || '';
+                document.getElementById('rua').value = u.rua || '';
+                document.getElementById('ponto').value = u.ponto || '';
+                userData.nome = u.nome; userData.tel = u.tel; userData.rua = u.rua; userData.ponto = u.ponto;
+            }
+        };
 
-    let carrinho = [];
-    let currentItem = null;
-    let qty = 1;
-    let currentStep = 1;
-    let userData = { nome: '', tel: '', bairro: '', taxa: 0 };
-
-    function renderizarProdutos() {
-        const container = document.getElementById('listaProdutos');
-        container.innerHTML = '';
-        cardapioData.forEach(item => {
-            const corFundo = item.tipo === 'bebida' ? 'bg-blue-50' : 'bg-gray-50';
-            container.innerHTML += `
-                <button onclick="selectItem('${item.nome}', ${item.preco}, '${item.tipo}')" 
-                        class="btn-option p-4 rounded-xl flex justify-between items-center ${corFundo}">
-                    <span>${item.nome}</span>
-                    <span class="text-gray-500 text-xs font-bold">R$ ${item.preco.toFixed(2).replace('.',',')}</span>
-                </button>`;
-        });
-    }
-
-    function renderizarBairros() {
-        const container = document.getElementById('listaBairros');
-        container.innerHTML = '';
-        bairrosData.forEach(b => {
-            container.innerHTML += `
-                <button onclick="selectBairro('${b.nome}', ${b.taxa})" 
-                        class="btn-option p-4 bg-gray-50 rounded-xl flex justify-between items-center">
-                    <span>${b.nome}</span>
-                    <span class="text-gray-400 text-xs font-bold">${b.taxa > 0 ? '+ R$ '+b.taxa.toFixed(2) : 'Grátis'}</span>
-                </button>`;
-        });
-    }
-
-    function selectItem(nome, preco, tipo) {
-        currentItem = { nome, preco, tipo };
-        qty = 1;
-        document.getElementById('itemNome').innerText = nome;
-        document.getElementById('qty').innerText = qty;
-        const obsField = document.getElementById('itemObs');
-        obsField.value = '';
-        obsField.placeholder = (tipo === 'bebida') ? "Alguma observação sobre a bebida?" : "Ex: Sem cebola, carne bem passada...";
-        showStep(3);
-    }
-
-    function updateQty(v) {
-        qty = Math.max(1, qty + v);
-        document.getElementById('qty').innerText = qty;
-    }
-
-    function addToCart() {
-        const obs = document.getElementById('itemObs').value || 'Sem observações';
-        carrinho.push({ ...currentItem, qty, obs });
-        updateCartUI();
-        showStep(2);
-    }
-
-    function updateCartUI() {
-        const count = carrinho.reduce((sum, i) => sum + i.qty, 0);
-        const total = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
-        if(count > 0) {
-            document.getElementById('cartBar').classList.remove('hidden');
-            document.getElementById('cartTotal').innerText = total.toFixed(2).replace('.',',');
+        function selectItem(nome, preco, tipo) {
+            tempItem = { nome, preco, qty: 1, tipo: tipo };
+            document.getElementById('itemNome').innerText = nome;
+            document.getElementById('qty').innerText = 1;
+            document.getElementById('itemObs').value = '';
+            atualizarPlaceholder();
+            goStep(3);
         }
-    }
 
-    function renderizarResumo() {
-        const res = document.getElementById('reumoPedido');
-        res.innerHTML = '';
-        carrinho.forEach((item, index) => {
-            res.innerHTML += `
-                <div class="bg-gray-50 p-3 rounded-xl border-l-4 border-red-500 text-left relative">
-                    <p class="font-bold text-xs uppercase">${item.qty}x ${item.nome}</p>
-                    <p class="text-[10px] italic text-gray-500">Obs: ${item.obs}</p>
-                    <button onclick="removerItem(${index})" class="absolute right-2 top-2 text-red-400 text-[10px] font-bold underline uppercase">Remover</button>
-                </div>`;
-        });
-    }
-
-    function removerItem(index) {
-        carrinho.splice(index, 1);
-        if(carrinho.length === 0) showStep(2);
-        else { renderizarResumo(); updateCartUI(); }
-    }
-
-    function selectBairro(nome, taxa) {
-        userData.bairro = nome;
-        userData.taxa = taxa;
-        if(nome === 'Retirada') finishOrder('A combinar (Retirada)');
-        else showStep(5);
-    }
-
-    function showStep(s) {
-        currentStep = s;
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-        document.getElementById('step' + s).classList.add('active');
-        document.getElementById('btnVoltar').classList.toggle('hidden', s === 1);
-        
-        // Regras de exibição da barra de carrinho
-        if (s === 2 && carrinho.length > 0) document.getElementById('cartBar').classList.remove('hidden');
-        else document.getElementById('cartBar').classList.add('hidden');
-
-        if(s === 2) renderizarProdutos();
-        if(s === 4) { renderizarResumo(); renderizarBairros(); }
-    }
-
-    function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
-
-    function startOrder() {
-        const n = document.getElementById('userName').value;
-        const t = document.getElementById('userTel').value;
-        if (!n || !t) return alert("Preencha nome e telefone!");
-        userData.nome = n; userData.tel = t;
-        showStep(2);
-    }
-
-    function escolherCartao() {
-        const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras");
-        let pag = {"1":"Débito", "2":"Crédito", "3":"Banricompras"}[tipo] || "Cartão";
-        finishOrder(pag);
-    }
-
-    function finishOrder(pag) {
-        let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
-        let total = subtotal + userData.taxa;
-        let itensMsg = carrinho.map(i => `*${i.qty}x ${i.nome}*\n_Obs: ${i.obs}_`).join('\n\n');
-        
-        let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n*CLIENTE:* ${userData.nome}\n*TEL:* ${userData.tel}\n\n${itensMsg}\n\n*ENTREGA:* ${userData.bairro}\n`;
-        if(userData.bairro !== 'Retirada') msg += `*END:* ${document.getElementById('rua').value}\n*REF:* ${document.getElementById('ponto').value}\n`;
-        msg += `*TAXA:* R$ ${userData.taxa.toFixed(2)}\n*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2)}*`;
-
-        window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
-    }
-
-    function chamarAtendenteExtra() {
-        if(confirm("Para adicionar ingredientes extras (ovo, queijo, bife, etc), precisamos atualizar os valores manualmente via WhatsApp.\n\nDeseja falar com o atendente agora?")) {
-            window.open(`https://wa.me/5551992141406?text=Olá! Gostaria de um pedido com itens extras.`);
+        function updateQty(val) {
+            tempItem.qty = Math.max(1, tempItem.qty + val);
+            document.getElementById('qty').innerText = tempItem.qty;
+            atualizarPlaceholder();
         }
-    }
-</script>
+
+        function atualizarPlaceholder() {
+            const campo = document.getElementById('itemObs');
+            if (tempItem.tipo === 'bebida') {
+                campo.placeholder = "Ex: Bem gelada ou temperatura ambiente...";
+            } else {
+                campo.placeholder = tempItem.qty > 1 ? "Como você pediu mais de um item, detalhe cada um (Ex: Um sem cebola e o outro sem milho)." : "Ex: Sem cebola, carne bem passada...";
+            }
+        }
+
+        function addToCart() {
+            const obs = document.getElementById('itemObs').value;
+            carrinho.push({ ...tempItem, obs: obs || 'Sem observações' });
+            renderCarrinho();
+            goStep('Carrinho');
+        }
+
+        function renderCarrinho() {
+            const container = document.getElementById('listaCarrinho');
+            container.innerHTML = '';
+            carrinho.forEach((item, index) => {
+                container.innerHTML += `<div onclick="removeItem(${index})" class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-200 text-sm cursor-pointer active:bg-red-50"><div class="text-left"><p class="font-bold">${item.qty}x ${item.nome}</p><p class="text-[10px] text-gray-400 italic">${item.obs}</p></div><span class="text-red-500 font-bold text-xs uppercase">Remover</span></div>`;
+            });
+        }
+
+        function removeItem(index) {
+            if(confirm("Remover este item do pedido?")) {
+                carrinho.splice(index, 1);
+                renderCarrinho();
+                if(carrinho.length === 0) goStep(2);
+            }
+        }
+
+        function selectBairro(b, taxa) {
+            userData.bairro = b; userData.taxa = taxa;
+            userData.rua = document.getElementById('rua').value;
+            userData.ponto = document.getElementById('ponto').value;
+            if(b !== 'Retirada' && !userData.rua) return alert("Por favor, preencha a Rua e Número!");
+            updateLS();
+            let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
+            document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2)}`;
+            goStep(5);
+        }
+
+        function saveUserAndNext() {
+            userData.nome = document.getElementById('nome').value;
+            userData.tel = document.getElementById('telefone').value;
+            if(!userData.nome || !userData.tel) return alert("Preencha nome e WhatsApp!");
+            updateLS(); goStep(2);
+        }
+
+        function updateLS() {
+            const data = { nome: document.getElementById('nome').value, tel: document.getElementById('telefone').value, rua: document.getElementById('rua').value, ponto: document.getElementById('ponto').value };
+            localStorage.setItem('agapio_user', JSON.stringify(data));
+        }
+
+        function goStep(n) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            const target = n === 'Carrinho' ? 'stepCarrinho' : 'step' + n;
+            document.getElementById(target).classList.add('active');
+            window.currentStep = n;
+            document.getElementById('btnVoltar').classList.toggle('hidden', n === 1);
+        }
+
+        function prevStep() {
+            if(window.currentStep === 'Carrinho') goStep(2);
+            else if(window.currentStep === 4) goStep('Carrinho');
+            else if(window.currentStep === 3) goStep(2);
+            else if(window.currentStep > 1) goStep(window.currentStep - 1);
+        }
+
+        function escolherCartao() {
+            const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras\n(Ou digite o nome)");
+            let cartaoEscolhido = "";
+            if (tipo === "1") cartaoEscolhido = "Cartão de Débito";
+            else if (tipo === "2") cartaoEscolhido = "Cartão de Crédito";
+            else if (tipo === "3") cartaoEscolhido = "Banricompras";
+            else if (tipo) cartaoEscolhido = "Cartão: " + tipo;
+            else return; 
+            finishOrder(cartaoEscolhido);
+        }
+
+        function finishOrder(pag) {
+            let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
+            let total = subtotal + userData.taxa;
+            let troco = "";
+            if(pag === 'Dinheiro') {
+                let vt = prompt(`Total: R$ ${total.toFixed(2)}\nTroco para quanto?`);
+                if(vt) troco = ` (Troco para R$ ${vt})`;
+            }
+            let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
+            let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n------------------------------------------\n*CLIENTE:* ${userData.nome}\n*CONTATO:* ${userData.tel}\n------------------------------------------\n\n${itensMsg}\n\n------------------------------------------\n*ENTREGA:* ${userData.bairro !== 'Retirada' ? userData.bairro : 'Retirada no Local'}\n`;
+            if(userData.bairro !== 'Retirada') {
+                msg += `*END:* ${userData.rua}\n*REF:* ${userData.ponto || '-'}\n`;
+            }
+            msg += `------------------------------------------\n*PAGAMENTO:* ${pag}${troco}\n*TOTAL: R$ ${total.toFixed(2)}*\n------------------------------------------\n_Pedido enviado via Assistente Virtual_`;
+            window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
+        }
+
+        function chamarAtendenteExtra() {
+            if(confirm("Para adicionar ingredientes extras (ovo, queijo, bife, etc), precisamos atualizar os valores manualmente via WhatsApp.\n\nDeseja falar com o atendente agora?")) {
+                window.open(`https://wa.me/5551992141406?text=Olá! Gostaria de um pedido com itens extras.`);
+            }
+        }
+
+        function clearMemory() { if(confirm("Deseja apagar seus dados salvos?")) { localStorage.clear(); location.reload(); } }
+    </script>
 </body>
 </html>
