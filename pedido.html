@@ -123,14 +123,22 @@
         container.innerHTML = '';
         cardapioData.forEach(item => {
             const corFundo = item.tipo === 'bebida' ? 'bg-blue-50' : 'bg-gray-50';
-            container.innerHTML += `
-                <button onclick="selectItem('${item.nome}', ${item.preco})" 
-                        class="btn-option p-4 rounded-xl flex justify-between items-center ${corFundo} hover:border-red-400 border-2 border-transparent transition-all">
-                    <span>${item.nome}</span>
-                    <span class="text-gray-500 text-xs font-bold">R$ ${item.preco.toFixed(2).replace('.',',')}</span>
-                </button>`;
-        });
-    }
+            function renderizarProdutos() {
+    const container = document.getElementById('listaProdutos');
+    if(!container) return;
+    container.innerHTML = '';
+    
+    cardapioData.forEach(item => {
+        const corFundo = item.tipo === 'bebida' ? 'bg-blue-50' : 'bg-gray-50';
+        // Note que agora passamos item.tipo como 3º parâmetro
+        container.innerHTML += `
+            <button onclick="selectItem('${item.nome}', ${item.preco}, '${item.tipo}')" 
+                    class="btn-option p-4 rounded-xl flex justify-between items-center ${corFundo} hover:border-red-400 border-2 border-transparent transition-all">
+                <span>${item.nome}</span>
+                <span class="text-gray-500 text-xs font-bold">R$ ${item.preco.toFixed(2).replace('.',',')}</span>
+            </button>`;
+    });
+}
 
     function renderizarBairros() {
         const container = document.getElementById('listaBairros');
