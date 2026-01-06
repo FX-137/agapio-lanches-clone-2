@@ -240,8 +240,12 @@
         }
 
         function chamarAtendenteExtra() {
-            if(confirm("Para adicionar ingredientes extras (ovo, queijo, bife, etc), precisamos atualizar os valores manualmente via WhatsApp.\n\nDeseja falar com o atendente agora?")) {
-                window.open(`https://wa.me/5551992141406?text=Olá! Gostaria de um pedido com itens extras.`);
+            if (tempItem.tipo === 'bebida') {
+                alert("Essa função de extras não se aplica à categoria de bebidas. Você pode escrever qualquer instrução especial no campo abaixo.");
+            } else {
+                if(confirm("Para adicionar ingredientes extras (ovo, queijo, bife, etc), precisamos atualizar os valores manualmente via WhatsApp.\n\nDeseja falar com o atendente agora?")) {
+                    window.open(`https://wa.me/5551992141406?text=Olá! Gostaria de um pedido com itens extras.`);
+                }
             }
         }
 
