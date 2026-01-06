@@ -18,7 +18,7 @@
 
     <div class="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-[#E7252A] relative">
         
-        <div class="bg-gray-50 flex items-center justify-center border-b-2 border-dashed border-gray-300 overflow-hidden">
+        <div class="bg-gray-50 flex items-center justify-center border-b-2 border-dashed border-gray-300">
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIE6oSAmM1W2lR2dxwXO1rqcb9rzVoXAeF_GrSeW6FmSjhFW8vyIgLSPWeCtKMyxiS-9-Uamt4i03spCOsZYTYBX8ttOfl7ISLKRinq9ofmejDVBIwO0M9BOrOsueiuyrXZ934xRZt7aakxOEkPKRh1Gv6JsVvqf2SMXf9DvD8Z4slze43_cYsC3GcFas/s1600/Novo%20banner%20agapio3.webp" class="w-full h-auto block" alt="Agápio Lanches">
         </div>
 
@@ -28,12 +28,13 @@
             </svg>
         </button>
 
-        <div class="p-6 pb-24"> <div id="step1" class="step active text-center">
+        <div class="p-6 pb-24">
+            
+            <div id="step1" class="step active text-center">
                 <h2 class="text-xl font-black mb-6 uppercase italic text-[#E7252A]">Seus Dados</h2>
                 <input type="text" id="userName" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-3 font-bold outline-none focus:border-[#E7252A]" placeholder="Nome Completo">
                 <input type="tel" id="userTel" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="WhatsApp com DDD">
                 <button onclick="startOrder()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-6 font-bold italic">Começar Pedido</button>
-                <button onclick="clearMemory()" class="text-[10px] text-gray-400 underline uppercase font-bold">Limpar dados salvos</button>
             </div>
 
             <div id="step2" class="step">
@@ -42,23 +43,27 @@
             </div>
 
             <div id="step3" class="step text-center">
-                <p class="font-bold mb-2 text-lg uppercase italic">Item: <span id="itemNome" class="text-[#E7252A]"></span></p>
+                <p class="font-bold mb-2 text-lg uppercase italic">Personalizar: <span id="itemNome" class="text-[#E7252A]"></span></p>
                 <div class="flex items-center justify-center gap-6 mb-6">
                     <button onclick="updateQty(-1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">-</button>
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
                 <div class="flex justify-between items-end mb-1">
-                    <p class="text-[14px] font-bold text-gray-400 uppercase italic ml-1">Observações:</p>
-                    <button onclick="chamarAtendenteExtra()" class="text-[12px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase">Add itens Extras</button>
+                    <p class="text-[12px] font-bold text-gray-400 uppercase italic ml-1">Instruções para este item:</p>
+                    <button onclick="chamarAtendenteExtra()" class="text-[11px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase tracking-tighter">Add itens Extras</button>
                 </div>
                 <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none"></textarea>
-                <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold italic">Adicionar ao Pedido</button>
+                <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold italic">Confirmar item</button>
             </div>
 
             <div id="step4" class="step">
+                <p class="font-bold text-center italic text-sm mb-4 uppercase">Resumo do Pedido</p>
+                <div id="reumoPedido" class="mb-6 space-y-2 max-h-[150px] overflow-y-auto pr-1"></div>
+                
+                <hr class="mb-4 border-dashed border-gray-300">
                 <p class="font-bold text-center italic text-sm mb-4 uppercase">Onde entregamos?</p>
-                <div id="listaBairros" class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto no-scrollbar mb-4 font-bold italic"></div>
+                <div id="listaBairros" class="grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto no-scrollbar mb-4 font-bold italic"></div>
             </div>
 
             <div id="step5" class="step">
@@ -76,13 +81,13 @@
             </div>
         </div>
 
-        <div id="cartBar" class="hidden absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 flex justify-between items-center shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
+        <div id="cartBar" class="hidden absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 flex justify-between items-center shadow-2xl">
             <div class="flex flex-col">
-                <span class="text-[10px] text-gray-400 font-bold uppercase italic">Itens: <span id="cartCount">0</span></span>
+                <span class="text-[10px] text-gray-400 font-bold uppercase italic">Total parcial:</span>
                 <span class="text-lg font-black text-red-600 italic leading-none">R$ <span id="cartTotal">0,00</span></span>
             </div>
-            <button onclick="showStep(4)" class="bg-green-600 text-white px-8 py-3 rounded-xl font-black uppercase italic text-sm shadow-lg shadow-green-200">
-                Ver Pedido
+            <button onclick="showStep(4)" class="bg-green-600 text-white px-6 py-3 rounded-xl font-black uppercase italic text-xs">
+                Finalizar Pedido
             </button>
         </div>
     </div>
@@ -105,7 +110,7 @@
     let currentItem = null;
     let qty = 1;
     let currentStep = 1;
-    let userData = { nome: '', tel: '', bairro: '', rua: '', ponto: '', taxa: 0 };
+    let userData = { nome: '', tel: '', bairro: '', taxa: 0 };
 
     function renderizarProdutos() {
         const container = document.getElementById('listaProdutos');
@@ -139,11 +144,9 @@
         qty = 1;
         document.getElementById('itemNome').innerText = nome;
         document.getElementById('qty').innerText = qty;
-        
         const obsField = document.getElementById('itemObs');
         obsField.value = '';
-        obsField.placeholder = (tipo === 'bebida') ? "Gelada? Com gelo e limão?" : "Ex: Sem cebola, carne bem passada...";
-        
+        obsField.placeholder = (tipo === 'bebida') ? "Alguma observação sobre a bebida?" : "Ex: Sem cebola, carne bem passada...";
         showStep(3);
     }
 
@@ -160,15 +163,31 @@
     }
 
     function updateCartUI() {
-        const bar = document.getElementById('cartBar');
         const count = carrinho.reduce((sum, i) => sum + i.qty, 0);
         const total = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
-        
         if(count > 0) {
-            bar.classList.remove('hidden');
-            document.getElementById('cartCount').innerText = count;
+            document.getElementById('cartBar').classList.remove('hidden');
             document.getElementById('cartTotal').innerText = total.toFixed(2).replace('.',',');
         }
+    }
+
+    function renderizarResumo() {
+        const res = document.getElementById('reumoPedido');
+        res.innerHTML = '';
+        carrinho.forEach((item, index) => {
+            res.innerHTML += `
+                <div class="bg-gray-50 p-3 rounded-xl border-l-4 border-red-500 text-left relative">
+                    <p class="font-bold text-xs uppercase">${item.qty}x ${item.nome}</p>
+                    <p class="text-[10px] italic text-gray-500">Obs: ${item.obs}</p>
+                    <button onclick="removerItem(${index})" class="absolute right-2 top-2 text-red-400 text-[10px] font-bold underline uppercase">Remover</button>
+                </div>`;
+        });
+    }
+
+    function removerItem(index) {
+        carrinho.splice(index, 1);
+        if(carrinho.length === 0) showStep(2);
+        else { renderizarResumo(); updateCartUI(); }
     }
 
     function selectBairro(nome, taxa) {
@@ -182,27 +201,23 @@
         currentStep = s;
         document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
         document.getElementById('step' + s).classList.add('active');
-        
-        // Controla botão voltar
         document.getElementById('btnVoltar').classList.toggle('hidden', s === 1);
-        // Oculta barra de carrinho em certos passos
-        if (s === 1 || s === 3 || s === 5) document.getElementById('cartBar').classList.add('hidden');
-        else if (carrinho.length > 0) document.getElementById('cartBar').classList.remove('hidden');
+        
+        // Regras de exibição da barra de carrinho
+        if (s === 2 && carrinho.length > 0) document.getElementById('cartBar').classList.remove('hidden');
+        else document.getElementById('cartBar').classList.add('hidden');
 
         if(s === 2) renderizarProdutos();
-        if(s === 4) renderizarBairros();
+        if(s === 4) { renderizarResumo(); renderizarBairros(); }
     }
 
-    function prevStep() {
-        if (currentStep > 1) showStep(currentStep - 1);
-    }
+    function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
 
     function startOrder() {
-        const nome = document.getElementById('userName').value;
-        const tel = document.getElementById('userTel').value;
-        if (!nome || !tel) return alert("Preencha seus dados!");
-        userData.nome = nome; userData.tel = tel;
-        localStorage.setItem('agapio_user', JSON.stringify(userData));
+        const n = document.getElementById('userName').value;
+        const t = document.getElementById('userTel').value;
+        if (!n || !t) return alert("Preencha nome e telefone!");
+        userData.nome = n; userData.tel = t;
         showStep(2);
     }
 
@@ -215,29 +230,20 @@
     function finishOrder(pag) {
         let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
         let total = subtotal + userData.taxa;
-        let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
+        let itensMsg = carrinho.map(i => `*${i.qty}x ${i.nome}*\n_Obs: ${i.obs}_`).join('\n\n');
         
         let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n*CLIENTE:* ${userData.nome}\n*TEL:* ${userData.tel}\n\n${itensMsg}\n\n*ENTREGA:* ${userData.bairro}\n`;
         if(userData.bairro !== 'Retirada') msg += `*END:* ${document.getElementById('rua').value}\n*REF:* ${document.getElementById('ponto').value}\n`;
-        msg += `*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2)}*`;
+        msg += `*TAXA:* R$ ${userData.taxa.toFixed(2)}\n*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2)}*`;
 
         window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
     }
 
     function chamarAtendenteExtra() {
-        window.open(`https://wa.me/5551992141406?text=Quero um pedido com adicionais extras.`);
-    }
-
-    function clearMemory() { localStorage.clear(); location.reload(); }
-
-    window.onload = () => {
-        const saved = localStorage.getItem('agapio_user');
-        if (saved) {
-            const data = JSON.parse(saved);
-            document.getElementById('userName').value = data.nome || '';
-            document.getElementById('userTel').value = data.tel || '';
+        if(confirm("Para adicionar ingredientes extras (ovo, queijo, bife, etc), precisamos atualizar os valores manualmente via WhatsApp.\n\nDeseja falar com o atendente agora?")) {
+            window.open(`https://wa.me/5551992141406?text=Olá! Gostaria de um pedido com itens extras.`);
         }
-    };
+    }
 </script>
 </body>
 </html>
