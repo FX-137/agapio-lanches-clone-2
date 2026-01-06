@@ -146,7 +146,7 @@
             if (tempItem.tipo === 'bebida') {
                 campo.placeholder = "Ex: Bem gelada ou temperatura ambiente...";
             } else {
-                campo.placeholder = tempItem.qty > 1 ? "Como você pediu mais de um lanche, detalhe cada um (Ex: Um sem cebola e o outro sem milho)." : "Ex: Sem cebola, carne bem passada...";
+                campo.placeholder = tempItem.qty > 1 ? "Como você pediu mais de um item, detalhe cada um (Ex: Um sem cebola e o outro sem milho)." : "Ex: Sem cebola, carne bem passada...";
             }
         }
 
@@ -225,13 +225,11 @@
         function finishOrder(pag) {
             let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
             let total = subtotal + userData.taxa;
-            let trocoTxt = "";
+            let valorTroco = "";
             
             if(pag === 'Dinheiro') {
                 let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?\n\nEscreva apenas números: ex; 30, 50, 100`);
-                if(vt) {
-                    trocoTxt = `\n*TROCO PARA:* R$ ${vt}`;
-                }
+                if(vt) valorTroco = vt;
             }
 
             let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
@@ -252,7 +250,12 @@
             
             msg += `------------------------------------------\n`;
             msg += `*PAGAMENTO:* ${pag}\n`;
-            msg += `*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*${trocoTxt ? '*' + trocoTxt + '*' : ''}\n`;
+            msg += `*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n`; // TOTAL EM NEGRITO
+            
+            if(valorTroco) {
+                msg += `*TROCO PARA: R$ ${valorTroco}*\n`; // TROCO EM NEGRITO E EM LINHA SEPARADA
+            }
+            
             msg += `------------------------------------------\n`;
             msg += `_Pedido enviado via Assistente Virtual_`;
             
