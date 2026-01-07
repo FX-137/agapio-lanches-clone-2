@@ -205,24 +205,30 @@
     const ruaInput = document.getElementById('rua').value.trim();
     const aviso = document.getElementById('aviso-entrega');
 
-    // 1. Validação da Rua
+    // 1. Valida se a rua foi preenchida (exceto para retirada)
     if (b !== 'Retirada' && ruaInput === "") {
         alert("Informe Rua e Número antes de selecionar o bairro!");
         return;
     }
 
-    // 2. Controle do Aviso (Aparece se tiver taxa, some se for Retirada)
+    // 2. Mostra ou esconde o aviso piscante
     if (aviso) {
-        aviso.style.display = (taxa > 0) ? 'block' : 'none';
+        if (taxa > 0) {
+            aviso.classList.remove('hidden'); // Mostra o aviso
+        } else {
+            aviso.classList.add('hidden');    // Esconde se for retirada
+        }
     }
 
-    // 3. Atualiza as variáveis globais
+    // 3. Salva os dados da escolha
     bairroSelecionado = b;
     taxaEntrega = taxa;
 
-    // 4. Atualiza o Total e vai para o próximo passo
+    // 4. Atualiza os cálculos de preço
     updateOrder();
-    nextStep(5);
+
+    // 5. O QUE ESTAVA FALTANDO: Avançar para o passo 5 (Pagamento)
+    nextStep(5); 
 }
         function saveUserAndNext() {
             userData.nome = document.getElementById('nome').value;
