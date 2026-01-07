@@ -255,31 +255,29 @@
         if(vt) valorTroco = vt;
     }
 
-    // Formatação dos itens com separadores
-    let itensMsg = carrinho.map(i => `✅ *${i.qty}x ${i.nome}*\n   _Obs: ${i.obs}_`).join('\n\n');
+    let itensMsg = carrinho.map(i => `[ ] *${i.qty}x ${i.nome}*\n    Obs: ${i.obs}`).join('\n\n');
     
-    // Montagem do "Cupom"
-    let msg = `*--- 🍔 PEDIDO AGÁPIO ---*\n`;
+    let msg = `*--- PEDIDO AGÁPIO ---*\n`;
     msg += `------------------------------------------\n`;
-    msg += `👤 *CLIENTE:* ${userData.nome}\n`;
-    msg += `📞 *CONTATO:* ${userData.tel}\n`;
+    msg += `> *CLIENTE:* ${userData.nome}\n`;
+    msg += `> *CONTATO:* ${userData.tel}\n`;
     msg += `------------------------------------------\n\n`;
     msg += `${itensMsg}\n\n`;
     msg += `------------------------------------------\n`;
-    msg += `📍 *ENTREGA:* ${userData.bairro}\n`;
+    msg += `> *ENTREGA:* ${userData.bairro}\n`;
     
     if(userData.bairro !== 'Retirada') {
-        msg += `🏠 *END:* ${userData.rua}\n`;
-        msg += `📍 *REF:* ${userData.ponto || '-'}\n`;
-        msg += `🚚 *TAXA:* R$ ${userData.taxa.toFixed(2).replace('.',',')}\n`;
+        msg += `> *END:* ${userData.rua}\n`;
+        msg += `> *REF:* ${userData.ponto || '-'}\n`;
+        msg += `> *TAXA:* R$ ${userData.taxa.toFixed(2).replace('.',',')}\n`;
     }
     
     msg += `------------------------------------------\n`;
-    msg += `💳 *PAGAMENTO:* ${pag}\n`;
-    msg += `💰 *TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n`;
+    msg += `> *PAGAMENTO:* ${pag}\n`;
+    msg += `> *TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n`;
     
     if(valorTroco) {
-        msg += `💵 *TROCO PARA:* R$ ${valorTroco}\n`;
+        msg += `> *TROCO PARA:* R$ ${valorTroco}\n`;
     }
     
     msg += `------------------------------------------\n`;
@@ -287,11 +285,6 @@
 
     window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
 }
-
-        function chamarAtendenteExtra() {
-            if(confirm("Deseja falar com o atendente para adicionar itens extras?")) {
-                window.open(`https://wa.me/5551992141406?text=Olá! Quero itens extras.`);
-            }
         }
 
         function clearMemory() { if(confirm("Apagar dados?")) { localStorage.clear(); location.reload(); } }
