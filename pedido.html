@@ -47,7 +47,6 @@
                     <button onclick="showTab(event, 'tab-bebidas')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Bebidas</button>
                     <button onclick="showTab(event, 'tab-porcoes')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Porções</button>
                 </div>
-
                 <div class="max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left font-bold italic">
                     <div id="tab-lanches" class="tab-content grid grid-cols-1 gap-2">
                         <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
@@ -72,7 +71,7 @@
                 </div>
                 <div class="flex justify-between items-end mb-1">
                     <p class="text-[10px] font-bold text-gray-400 uppercase italic ml-1">Observações:</p>
-                    <button onclick="chamarAtendenteExtra()" class="text-[12px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase italic">Add itens Extras</button>
+                    <button id="btnExtra" onclick="chamarAtendenteExtra()" class="text-[12px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase italic">Add itens Extras</button>
                 </div>
                 <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none"></textarea>
                 <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold italic">Adicionar ao Pedido</button>
@@ -88,9 +87,7 @@
             </div>
 
             <div id="step4" class="step text-left">
-                <div class="flex items-center justify-center gap-2 mb-4">
-                    <p class="font-bold text-sm italic">Onde entregamos?</p>
-                </div>
+                <p class="font-bold text-sm italic mb-4 text-center">Onde entregamos?</p>
                 <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold outline-none focus:border-[#E7252A]" placeholder="Rua e Número">
                 <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="Complemento / Ponto de Ref.">
                 <p class="text-[10px] text-center mb-2 font-black text-red-600 uppercase italic tracking-widest leading-tight">👇 Escolha seu Bairro abaixo:</p>
@@ -157,6 +154,11 @@
             document.getElementById('itemNome').innerText = nome;
             document.getElementById('qty').innerText = 1;
             document.getElementById('itemObs').value = '';
+            
+            const btnExtra = document.getElementById('btnExtra');
+            if (tipo === 'bebida') btnExtra.classList.add('hidden');
+            else btnExtra.classList.remove('hidden');
+
             atualizarPlaceholder();
             goStep(3);
         }
@@ -169,11 +171,8 @@
 
         function atualizarPlaceholder() {
             const campo = document.getElementById('itemObs');
-            if (tempItem.tipo === 'bebida') {
-                campo.placeholder = "Ex: Bem gelada ou temperatura ambiente...";
-            } else {
-                campo.placeholder = tempItem.qty > 1 ? "Como você pediu mais de um item, detalhe cada um." : "Ex: Sem cebola, carne bem passada...";
-            }
+            if (tempItem.tipo === 'bebida') campo.placeholder = "Ex: Gelada ou Natural...";
+            else campo.placeholder = tempItem.qty > 1 ? "Detalhe cada item solicitado." : "Ex: Sem cebola, bem passado...";
         }
 
         function addToCart() {
@@ -192,7 +191,7 @@
         }
 
         function removeItem(index) {
-            if(confirm("Remover este item do pedido?")) {
+            if(confirm("Remover este item?")) {
                 carrinho.splice(index, 1);
                 renderCarrinho();
                 if(carrinho.length === 0) goStep(2);
@@ -202,10 +201,9 @@
         function selectBairro(b, taxa) {
             const ruaInput = document.getElementById('rua').value.trim();
             if (b !== 'Retirada' && ruaInput === "") {
-                alert("⚠️ Por favor, informe sua RUA e NÚMERO antes de selecionar o bairro!");
+                alert("Informe Rua e Número antes de selecionar o bairro!");
                 return;
             }
-            if (b !== 'Retirada') alert("O valor da taxa de entrega está sujeito a conferência pela lancheria.");
             userData.bairro = b; userData.taxa = taxa;
             userData.rua = ruaInput;
             userData.ponto = document.getElementById('ponto').value;
@@ -235,56 +233,39 @@
         }
 
         function escolherCartao() {
-            const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras\n(Ou digite o nome)");
-            let cartaoEscolhido = "";
-            if (tipo === "1") cartaoEscolhido = "Cartão de Débito";
-            else if (tipo === "2") cartaoEscolhido = "Cartão de Crédito";
-            else if (tipo === "3") cartaoEscolhido = "Banricompras";
-            else if (tipo) cartaoEscolhido = "Cartão: " + tipo;
-            else return; 
-            finishOrder(cartaoEscolhido);
+            const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras");
+            let cartao = tipo === "1" ? "Débito" : tipo === "2" ? "Crédito" : tipo === "3" ? "Banri" : tipo;
+            if(cartao) finishOrder("Cartão: " + cartao);
         }
 
         function finishOrder(pag) {
-    let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
-    let total = subtotal + userData.taxa;
-    let valorTroco = "";
-    
-    if(pag === 'Dinheiro') {
-        let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?`);
-        if(vt) valorTroco = vt;
-    }
+            let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
+            let total = subtotal + userData.taxa;
+            let valorTroco = "";
+            if(pag === 'Dinheiro') {
+                let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?`);
+                if(vt) valorTroco = vt;
+            }
+            let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
+            let msg = `*--- PEDIDO AGÁPIO ---*\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*CLIENTE:* ${userData.nome}\n*CONTATO:* ${userData.tel}\n`;
+            msg += `------------------------------------------\n\n${itensMsg}\n\n`;
+            msg += `------------------------------------------\n`;
+            msg += `*ENTREGA:* ${userData.bairro}\n`;
+            if(userData.bairro !== 'Retirada') {
+                msg += `*END:* ${userData.rua}\n*REF:* ${userData.ponto || '-'}\n*TAXA:* R$ ${userData.taxa.toFixed(2).replace('.',',')}\n`;
+            }
+            msg += `------------------------------------------\n`;
+            msg += `*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*`;
+            if(valorTroco) msg += `\n*TROCO PARA: R$ ${valorTroco}*`;
+            window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
+        }
 
-    let itensMsg = carrinho.map(i => `[ ] *${i.qty}x ${i.nome}*\n    Obs: ${i.obs}`).join('\n\n');
-    
-    let msg = `*--- PEDIDO AGÁPIO ---*\n`;
-    msg += `------------------------------------------\n`;
-    msg += `> *CLIENTE:* ${userData.nome}\n`;
-    msg += `> *CONTATO:* ${userData.tel}\n`;
-    msg += `------------------------------------------\n\n`;
-    msg += `${itensMsg}\n\n`;
-    msg += `------------------------------------------\n`;
-    msg += `> *ENTREGA:* ${userData.bairro}\n`;
-    
-    if(userData.bairro !== 'Retirada') {
-        msg += `> *END:* ${userData.rua}\n`;
-        msg += `> *REF:* ${userData.ponto || '-'}\n`;
-        msg += `> *TAXA:* R$ ${userData.taxa.toFixed(2).replace('.',',')}\n`;
-    }
-    
-    msg += `------------------------------------------\n`;
-    msg += `> *PAGAMENTO:* ${pag}\n`;
-    msg += `> *TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n`;
-    
-    if(valorTroco) {
-        msg += `> *TROCO PARA:* R$ ${valorTroco}\n`;
-    }
-    
-    msg += `------------------------------------------\n`;
-    msg += `_Gerado por Assistente Virtual_`;
-
-    window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
-}
+        function chamarAtendenteExtra() {
+            if(confirm("Deseja falar com o atendente para adicionar itens extras?")) {
+                window.open(`https://wa.me/5551992141406?text=Olá! Quero itens extras no meu pedido.`);
+            }
         }
 
         function clearMemory() { if(confirm("Apagar dados?")) { localStorage.clear(); location.reload(); } }
