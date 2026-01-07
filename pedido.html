@@ -246,20 +246,47 @@
         }
 
         function finishOrder(pag) {
-            let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
-            let total = subtotal + userData.taxa;
-            let valorTroco = "";
-            if(pag === 'Dinheiro') {
-                let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?`);
-                if(vt) valorTroco = vt;
-            }
-            let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
-            let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n*CLIENTE:* ${userData.nome}\n*CONTATO:* ${userData.tel}\n\n${itensMsg}\n\n*ENTREGA:* ${userData.bairro}\n`;
-            if(userData.bairro !== 'Retirada') msg += `*END:* ${userData.rua}\n*REF:* ${userData.ponto || '-'}\n`;
-            msg += `*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*`;
-            if(valorTroco) msg += `\n*TROCO PARA: R$ ${valorTroco}*`;
-            window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
-        }
+    let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
+    let total = subtotal + userData.taxa;
+    let valorTroco = "";
+    
+    if(pag === 'Dinheiro') {
+        let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?`);
+        if(vt) valorTroco = vt;
+    }
+
+    // Formatação dos itens com separadores
+    let itensMsg = carrinho.map(i => `✅ *${i.qty}x ${i.nome}*\n   _Obs: ${i.obs}_`).join('\n\n');
+    
+    // Montagem do "Cupom"
+    let msg = `*--- 🍔 PEDIDO AGÁPIO ---*\n`;
+    msg += `------------------------------------------\n`;
+    msg += `👤 *CLIENTE:* ${userData.nome}\n`;
+    msg += `📞 *CONTATO:* ${userData.tel}\n`;
+    msg += `------------------------------------------\n\n`;
+    msg += `${itensMsg}\n\n`;
+    msg += `------------------------------------------\n`;
+    msg += `📍 *ENTREGA:* ${userData.bairro}\n`;
+    
+    if(userData.bairro !== 'Retirada') {
+        msg += `🏠 *END:* ${userData.rua}\n`;
+        msg += `📍 *REF:* ${userData.ponto || '-'}\n`;
+        msg += `🚚 *TAXA:* R$ ${userData.taxa.toFixed(2).replace('.',',')}\n`;
+    }
+    
+    msg += `------------------------------------------\n`;
+    msg += `💳 *PAGAMENTO:* ${pag}\n`;
+    msg += `💰 *TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n`;
+    
+    if(valorTroco) {
+        msg += `💵 *TROCO PARA:* R$ ${valorTroco}\n`;
+    }
+    
+    msg += `------------------------------------------\n`;
+    msg += `_Gerado por Assistente Virtual_`;
+
+    window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
+}
 
         function chamarAtendenteExtra() {
             if(confirm("Deseja falar com o atendente para adicionar itens extras?")) {
