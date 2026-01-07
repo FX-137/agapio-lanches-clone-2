@@ -116,179 +116,197 @@
     </div>
 
     <script>
-        let userData = { nome: '', tel: '', rua: '', ponto: '', bairro: '', taxa: 0 };
-        let carrinho = [];
-        let tempItem = { nome: '', preco: 0, qty: 1, tipo: '' };
-        window.currentStep = 1;
+    let userData = { nome: '', tel: '', rua: '', ponto: '', bairro: '', taxa: 0 };
+    let carrinho = [];
+    let tempItem = { nome: '', preco: 0, qty: 1, tipo: '' };
+    window.currentStep = 1;
 
-        window.onload = () => {
-            const saved = localStorage.getItem('agapio_user');
-            if(saved) {
-                const u = JSON.parse(saved);
-                document.getElementById('nome').value = u.nome || '';
-                document.getElementById('telefone').value = u.tel || '';
-                document.getElementById('rua').value = u.rua || '';
-                document.getElementById('ponto').value = u.ponto || '';
-                userData.nome = u.nome; userData.tel = u.tel; userData.rua = u.rua; userData.ponto = u.ponto;
-            }
-        };
+    window.onload = () => {
+        const saved = localStorage.getItem('agapio_user');
+        if(saved) {
+            const u = JSON.parse(saved);
+            document.getElementById('nome').value = u.nome || '';
+            document.getElementById('telefone').value = u.tel || '';
+            document.getElementById('rua').value = u.rua || '';
+            document.getElementById('ponto').value = u.ponto || '';
+            userData.nome = u.nome; userData.tel = u.tel; userData.rua = u.rua; userData.ponto = u.ponto;
+        }
+    };
 
-        function goStep(n) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            const target = n === 'Carrinho' ? 'stepCarrinho' : 'step' + n;
-            document.getElementById(target).classList.add('active');
+    function goStep(n) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        const target = n === 'Carrinho' ? 'stepCarrinho' : 'step' + n;
+        const targetEl = document.getElementById(target);
+        if (targetEl) {
+            targetEl.classList.add('active');
             window.currentStep = n;
             document.getElementById('btnVoltar').classList.toggle('hidden', n === 1);
         }
+    }
 
-        function showTab(event, tabId) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.getElementById(tabId).classList.remove('hidden');
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('bg-[#E7252A]', 'text-white');
-                b.classList.add('text-gray-500');
-            });
-            event.currentTarget.classList.add('bg-[#E7252A]', 'text-white');
-            event.currentTarget.classList.remove('text-gray-500');
-        }
+    function showTab(event, tabId) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+        document.getElementById(tabId).classList.remove('hidden');
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('bg-[#E7252A]', 'text-white');
+            b.classList.add('text-gray-500');
+        });
+        event.currentTarget.classList.add('bg-[#E7252A]', 'text-white');
+        event.currentTarget.classList.remove('text-gray-500');
+    }
 
-        function selectItem(nome, preco, tipo) {
-            tempItem = { nome, preco, qty: 1, tipo: tipo };
-            document.getElementById('itemNome').innerText = nome;
-            document.getElementById('qty').innerText = 1;
-            document.getElementById('itemObs').value = '';
-            
-            const btnExtra = document.getElementById('btnExtra');
-            if (tipo === 'bebida') btnExtra.classList.add('hidden');
-            else btnExtra.classList.remove('hidden');
+    function selectItem(nome, preco, tipo) {
+        tempItem = { nome, preco, qty: 1, tipo: tipo };
+        document.getElementById('itemNome').innerText = nome;
+        document.getElementById('qty').innerText = 1;
+        document.getElementById('itemObs').value = '';
+        
+        const btnExtra = document.getElementById('btnExtra');
+        if (tipo === 'bebida') btnExtra.classList.add('hidden');
+        else btnExtra.classList.remove('hidden');
 
-            atualizarPlaceholder();
-            goStep(3);
-        }
+        atualizarPlaceholder();
+        goStep(3);
+    }
 
-        function updateQty(val) {
-            tempItem.qty = Math.max(1, tempItem.qty + val);
-            document.getElementById('qty').innerText = tempItem.qty;
-            atualizarPlaceholder();
-        }
+    function updateQty(val) {
+        tempItem.qty = Math.max(1, tempItem.qty + val);
+        document.getElementById('qty').innerText = tempItem.qty;
+        atualizarPlaceholder();
+    }
 
-        function atualizarPlaceholder() {
-            const campo = document.getElementById('itemObs');
-            if (tempItem.tipo === 'bebida') campo.placeholder = "Ex: Gelada ou Natural...";
-            else campo.placeholder = tempItem.qty > 1 ? "Detalhe cada item solicitado." : "Ex: Sem cebola, bem passado...";
-        }
+    function atualizarPlaceholder() {
+        const campo = document.getElementById('itemObs');
+        if (tempItem.tipo === 'bebida') campo.placeholder = "Ex: Gelada ou Natural...";
+        else campo.placeholder = tempItem.qty > 1 ? "Detalhe cada item solicitado." : "Ex: Sem cebola, bem passado...";
+    }
 
-        function addToCart() {
-            const obs = document.getElementById('itemObs').value;
-            carrinho.push({ ...tempItem, obs: obs || 'Sem observações' });
+    function addToCart() {
+        const obs = document.getElementById('itemObs').value;
+        carrinho.push({ ...tempItem, obs: obs || 'Sem observações' });
+        renderCarrinho();
+        goStep('Carrinho');
+    }
+
+    function renderCarrinho() {
+        const container = document.getElementById('listaCarrinho');
+        container.innerHTML = '';
+        carrinho.forEach((item, index) => {
+            container.innerHTML += `<div onclick="removeItem(${index})" class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-200 text-sm cursor-pointer active:bg-red-50"><div class="text-left"><p class="font-bold">${item.qty}x ${item.nome}</p><p class="text-[10px] text-gray-400 italic">${item.obs}</p></div><span class="text-red-500 font-bold text-xs uppercase">Remover</span></div>`;
+        });
+    }
+
+    function removeItem(index) {
+        if(confirm("Remover este item?")) {
+            carrinho.splice(index, 1);
             renderCarrinho();
-            goStep('Carrinho');
-        }
-
-        function renderCarrinho() {
-            const container = document.getElementById('listaCarrinho');
-            container.innerHTML = '';
-            carrinho.forEach((item, index) => {
-                container.innerHTML += `<div onclick="removeItem(${index})" class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-200 text-sm cursor-pointer active:bg-red-50"><div class="text-left"><p class="font-bold">${item.qty}x ${item.nome}</p><p class="text-[10px] text-gray-400 italic">${item.obs}</p></div><span class="text-red-500 font-bold text-xs uppercase">Remover</span></div>`;
-            });
-        }
-
-        function removeItem(index) {
-            if(confirm("Remover este item?")) {
-                carrinho.splice(index, 1);
-                renderCarrinho();
-                if(carrinho.length === 0) goStep(2);
-            }
-        }
-
-       function selectBairro(b, taxa) {
-    const ruaInput = document.getElementById('rua').value.trim();
-    const aviso = document.getElementById('aviso-entrega');
-
-    // 1. Valida se a rua foi preenchida (exceto para retirada)
-    if (b !== 'Retirada' && ruaInput === "") {
-        alert("Informe Rua e Número antes de selecionar o bairro!");
-        return;
-    }
-
-    // 2. Mostra ou esconde o aviso piscante
-    if (aviso) {
-        if (taxa > 0) {
-            aviso.classList.remove('hidden'); // Mostra o aviso
-            aviso.style.display = 'block';    // Garante que apareça
-        } else {
-            aviso.classList.add('hidden');    // Esconde se for retirada
-            aviso.style.display = 'none';
+            if(carrinho.length === 0) goStep(2);
         }
     }
 
-    // 3. Salva os dados
-    bairroSelecionado = b;
-    taxaEntrega = taxa;
+    // FUNÇÃO CORRIGIDA ABAIXO
+    function selectBairro(b, taxa) {
+        const ruaInput = document.getElementById('rua').value.trim();
+        const aviso = document.getElementById('aviso-entrega');
 
-    // 4. Atualiza os cálculos e o LocalStorage
-    updateOrder();
-    if (typeof updateLS === "function") updateLS();
-
-    // 5. O AJUSTE: Usando o nome da sua função original
-    goStep(5); 
-}
-        function saveUserAndNext() {
-            userData.nome = document.getElementById('nome').value;
-            userData.tel = document.getElementById('telefone').value;
-            if(!userData.nome || !userData.tel) return alert("Preencha nome e WhatsApp!");
-            updateLS(); goStep(2);
+        if (b !== 'Retirada' && ruaInput === "") {
+            alert("Informe Rua e Número antes de selecionar o bairro!");
+            return;
         }
 
-        function updateLS() {
-            const data = { nome: document.getElementById('nome').value, tel: document.getElementById('telefone').value, rua: document.getElementById('rua').value, ponto: document.getElementById('ponto').value };
-            localStorage.setItem('agapio_user', JSON.stringify(data));
-        }
-
-        function prevStep() {
-            if(window.currentStep === 'Carrinho') goStep(2);
-            else if(window.currentStep === 4) goStep('Carrinho');
-            else if(window.currentStep === 3) goStep(2);
-            else if(window.currentStep > 1) goStep(window.currentStep - 1);
-        }
-
-        function escolherCartao() {
-            const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras");
-            let cartao = tipo === "1" ? "Débito" : tipo === "2" ? "Crédito" : tipo === "3" ? "Banri" : tipo;
-            if(cartao) finishOrder("Cartão: " + cartao);
-        }
-
-        function finishOrder(pag) {
-            let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
-            let total = subtotal + userData.taxa;
-            let valorTroco = "";
-            if(pag === 'Dinheiro') {
-                let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?`);
-                if(vt) valorTroco = vt;
-            }
-            let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
-            let msg = `*--- PEDIDO AGÁPIO ---*\n`;
-            msg += `------------------------------------------\n`;
-            msg += `*CLIENTE:* ${userData.nome}\n*CONTATO:* ${userData.tel}\n`;
-            msg += `------------------------------------------\n\n${itensMsg}\n\n`;
-            msg += `------------------------------------------\n`;
-            msg += `*ENTREGA:* ${userData.bairro}\n`;
-            if(userData.bairro !== 'Retirada') {
-                msg += `*END:* ${userData.rua}\n*REF:* ${userData.ponto || '-'}\n*TAXA:* R$ ${userData.taxa.toFixed(2).replace('.',',')}\n`;
-            }
-            msg += `------------------------------------------\n`;
-            msg += `*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*`;
-            if(valorTroco) msg += `\n*TROCO PARA: R$ ${valorTroco}*`;
-            window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
-        }
-
-        function chamarAtendenteExtra() {
-            if(confirm("Deseja falar com o atendente para adicionar itens extras?")) {
-                window.open(`https://wa.me/5551992141406?text=Olá! Quero itens extras no meu pedido.`);
+        // 1. Gerenciar o aviso visual
+        if (aviso) {
+            if (taxa > 0) {
+                aviso.classList.remove('hidden');
+            } else {
+                aviso.classList.add('hidden');
             }
         }
 
-        function clearMemory() { if(confirm("Apagar dados?")) { localStorage.clear(); location.reload(); } }
-    </script>
+        // 2. Guardar dados
+        userData.bairro = b; 
+        userData.taxa = taxa;
+        userData.rua = ruaInput;
+        userData.ponto = document.getElementById('ponto').value;
+        
+        updateLS();
+
+        // 3. Calcular Total e mostrar na tela final
+        let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
+        const totalFinal = subtotal + taxa;
+        document.getElementById('resumoTotal').innerText = `R$ ${totalFinal.toFixed(2).replace('.',',')}`;
+
+        // 4. Ir para o pagamento (Passo 5)
+        goStep(5);
+    }
+
+    function saveUserAndNext() {
+        userData.nome = document.getElementById('nome').value;
+        userData.tel = document.getElementById('telefone').value;
+        if(!userData.nome || !userData.tel) return alert("Preencha nome e WhatsApp!");
+        updateLS(); goStep(2);
+    }
+
+    function updateLS() {
+        const data = { 
+            nome: document.getElementById('nome').value, 
+            tel: document.getElementById('telefone').value, 
+            rua: document.getElementById('rua').value, 
+            ponto: document.getElementById('ponto').value 
+        };
+        localStorage.setItem('agapio_user', JSON.stringify(data));
+    }
+
+    function prevStep() {
+        if(window.currentStep === 'Carrinho') goStep(2);
+        else if(window.currentStep === 4) goStep('Carrinho');
+        else if(window.currentStep === 5) goStep(4); // Volta para entrega
+        else if(window.currentStep === 3) goStep(2);
+        else if(window.currentStep > 1) goStep(window.currentStep - 1);
+    }
+
+    function escolherCartao() {
+        const tipo = prompt("Qual o cartão?\n1. Débito\n2. Crédito\n3. Banricompras");
+        let cartao = tipo === "1" ? "Débito" : tipo === "2" ? "Crédito" : tipo === "3" ? "Banri" : tipo;
+        if(cartao) finishOrder("Cartão: " + cartao);
+    }
+
+    function finishOrder(pag) {
+        let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
+        let total = subtotal + userData.taxa;
+        let valorTroco = "";
+        
+        if(pag === 'Dinheiro') {
+            let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?`);
+            if(vt) valorTroco = vt;
+        }
+
+        let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
+        let msg = `*--- PEDIDO AGÁPIO ---*\n`;
+        msg += `------------------------------------------\n`;
+        msg += `*CLIENTE:* ${userData.nome}\n*CONTATO:* ${userData.tel}\n`;
+        msg += `------------------------------------------\n\n${itensMsg}\n\n`;
+        msg += `------------------------------------------\n`;
+        msg += `*ENTREGA:* ${userData.bairro}\n`;
+        
+        if(userData.bairro !== 'Retirada') {
+            msg += `*END:* ${userData.rua}\n*REF:* ${userData.ponto || '-'}\n*TAXA:* R$ ${userData.taxa.toFixed(2).replace('.',',')} (A confirmar)\n`;
+        }
+        
+        msg += `------------------------------------------\n`;
+        msg += `*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*`;
+        if(valorTroco) msg += `\n*TROCO PARA: R$ ${valorTroco}*`;
+        
+        window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
+    }
+
+    function chamarAtendenteExtra() {
+        if(confirm("Deseja falar com o atendente para adicionar itens extras?")) {
+            window.open(`https://wa.me/5551992141406?text=Olá! Quero adicionar itens extras ao meu pedido.`);
+        }
+    }
+
+    function clearMemory() { if(confirm("Apagar dados?")) { localStorage.clear(); location.reload(); } }
+</script>
 </body>
 </html>
