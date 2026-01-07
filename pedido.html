@@ -41,20 +41,32 @@
             </div>
 
             <div id="step2" class="step">
-                <div class="flex items-center justify-center gap-2 mb-4">
-                    <p class="font-bold text-center italic text-sm">O que vamos pedir hoje?</p>
-                </div>
-                <div class="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left font-bold italic">
-                    <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
-                    <button onclick="selectItem('Xis Tudo', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
-                    <button onclick="selectItem('Xis Strogonoff', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Strogonoff <span>R$ 32,00</span></button>
-                    <button onclick="selectItem('Xis da Frango', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Frango <span>R$ 19,00</span></button>
+    <p class="font-bold text-center italic text-sm mb-4">O que vamos pedir hoje?</p>
+    
+    <div class="flex gap-1 mb-4 bg-gray-100 p-1 rounded-xl">
+        <button onclick="showTab('tab-lanches')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg bg-[#E7252A] text-white">Lanches</button>
+        <button onclick="showTab('tab-bebidas')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Bebidas</button>
+        <button onclick="showTab('tab-porcoes')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Porções</button>
+    </div>
 
-                    <button onclick="selectItem('Coca-Cola Lata', 6.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50">Coca-Cola Lata <span>R$ 6,00</span></button>
-                    <button onclick="selectItem('Cerveja Latão', 10.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50 text-sm">Cerveja Latão <span>R$ 10,00</span></button>
-                    <button onclick="selectItem('Porção Mix', 45.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Porção Mix <span>R$ 45,00</span></button>
-                </div>
-            </div>
+    <div class="max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left font-bold italic">
+        
+        <div id="tab-lanches" class="tab-content grid grid-cols-1 gap-2">
+            <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
+            <button onclick="selectItem('Xis Tudo', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
+        </div>
+
+        <div id="tab-bebidas" class="tab-content hidden grid grid-cols-1 gap-2">
+            <button onclick="selectItem('Coca-Cola Lata', 6.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50">Coca-Cola Lata <span>R$ 6,00</span></button>
+            <button onclick="selectItem('Cerveja Latão', 10.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50 text-sm">Cerveja Latão <span>R$ 10,00</span></button>
+        </div>
+
+        <div id="tab-porcoes" class="tab-content hidden grid grid-cols-1 gap-2">
+            <button onclick="selectItem('Porção Mix', 45.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Porção Mix <span>R$ 45,00</span></button>
+        </div>
+
+    </div>
+</div>
 
             <div id="step3" class="step text-center">
                 <p class="font-bold mb-2 text-lg italic uppercase">Item: <span id="itemNome" class="text-[#E7252A]"></span></p>
@@ -202,13 +214,25 @@
             localStorage.setItem('agapio_user', JSON.stringify(data));
         }
 
-        function goStep(n) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            const target = n === 'Carrinho' ? 'stepCarrinho' : 'step' + n;
-            document.getElementById(target).classList.add('active');
-            window.currentStep = n;
-            document.getElementById('btnVoltar').classList.toggle('hidden', n === 1);
-        }
+        function showTab(tabId) {
+    // Esconde todos os conteúdos das abas
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+    });
+    
+    // Mostra apenas a aba clicada
+    document.getElementById(tabId).classList.remove('hidden');
+
+    // Ajusta as cores dos botões das abas
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-[#E7252A]', 'text-white');
+        btn.classList.add('text-gray-500');
+    });
+
+    // Destaca o botão ativo
+    event.currentTarget.classList.add('bg-[#E7252A]', 'text-white');
+    event.currentTarget.classList.remove('text-gray-500');
+}
 
         function prevStep() {
             if(window.currentStep === 'Carrinho') goStep(2);
