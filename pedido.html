@@ -189,18 +189,31 @@
         }
 
         function selectBairro(b, taxa) {
-            if (b !== 'Retirada') {
-                alert("O valor da taxa de entrega está sujeito a conferência pela lancheria conforme sua localização exata.");
-            }
-            userData.bairro = b; userData.taxa = taxa;
-            userData.rua = document.getElementById('rua').value;
-            userData.ponto = document.getElementById('ponto').value;
-            if(b !== 'Retirada' && !userData.rua) return alert("Por favor, preencha a Rua e Número!");
-            updateLS();
-            let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
-            document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2)}`;
-            goStep(5);
-        }
+    // Pegamos os valores dos campos de endereço
+    const ruaInput = document.getElementById('rua').value.trim();
+    
+    // Se NÃO for retirada e a rua estiver vazia:
+    if (b !== 'Retirada' && ruaInput === "") {
+        alert("⚠️ Por favor, informe sua RUA e NÚMERO antes de selecionar o bairro!");
+        return; // Para o código aqui e não deixa avançar
+    }
+
+    // Se passou na validação ou se for Retirada, segue o baile:
+    if (b !== 'Retirada') {
+        alert("O valor da taxa de entrega está sujeito a conferência pela lancheria conforme sua localização exata.");
+    }
+    
+    userData.bairro = b; 
+    userData.taxa = taxa;
+    userData.rua = ruaInput;
+    userData.ponto = document.getElementById('ponto').value;
+    
+    updateLS();
+    
+    let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
+    document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2).replace('.',',')}`;
+    goStep(5);
+}
 
         function saveUserAndNext() {
             userData.nome = document.getElementById('nome').value;
