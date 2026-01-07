@@ -201,21 +201,30 @@
             }
         }
 
-        function selectBairro(b, taxa) {
-            const ruaInput = document.getElementById('rua').value.trim();
-            if (b !== 'Retirada' && ruaInput === "") {
-                alert("Informe Rua e Número antes de selecionar o bairro!");
-                return;
-            }
-            userData.bairro = b; userData.taxa = taxa;
-            userData.rua = ruaInput;
-            userData.ponto = document.getElementById('ponto').value;
-            updateLS();
-            let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
-            document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2).replace('.',',')}`;
-            goStep(5);
-        }
+        ffunction selectBairro(b, taxa) {
+    const ruaInput = document.getElementById('rua').value.trim();
+    const aviso = document.getElementById('aviso-entrega'); // Pega o elemento do aviso
 
+    if (b !== 'Retirada' && ruaInput === "") {
+        alert("Informe Rua e Número antes de selecionar o bairro!");
+        return;
+    }
+
+    // --- NOVA LÓGICA DO AVISO ---
+    if (aviso) {
+        if (taxa > 0) {
+            aviso.classList.remove('hidden'); // Mostra o aviso se for entrega
+        } else {
+            aviso.classList.add('hidden');    // Esconde se for retirada
+        }
+    }
+    // ----------------------------
+
+    bairroSelecionado = b;
+    taxaEntrega = taxa;
+    updateOrder();
+    nextStep(5); // Avança para o pagamento
+}
         function saveUserAndNext() {
             userData.nome = document.getElementById('nome').value;
             userData.tel = document.getElementById('telefone').value;
