@@ -41,32 +41,27 @@
             </div>
 
             <div id="step2" class="step">
-    <p class="font-bold text-center italic text-sm mb-4">O que vamos pedir hoje?</p>
-    
-    <div class="flex gap-1 mb-4 bg-gray-100 p-1 rounded-xl">
-        <button onclick="showTab('tab-lanches')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg bg-[#E7252A] text-white">Lanches</button>
-        <button onclick="showTab('tab-bebidas')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Bebidas</button>
-        <button onclick="showTab('tab-porcoes')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Porções</button>
-    </div>
+                <p class="font-bold text-center italic text-sm mb-4">O que vamos pedir hoje?</p>
+                <div class="flex gap-1 mb-4 bg-gray-100 p-1 rounded-xl">
+                    <button onclick="showTab(event, 'tab-lanches')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg bg-[#E7252A] text-white">Lanches</button>
+                    <button onclick="showTab(event, 'tab-bebidas')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Bebidas</button>
+                    <button onclick="showTab(event, 'tab-porcoes')" class="tab-btn flex-1 py-2 text-xs font-black uppercase italic rounded-lg text-gray-500">Porções</button>
+                </div>
 
-    <div class="max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left font-bold italic">
-        
-        <div id="tab-lanches" class="tab-content grid grid-cols-1 gap-2">
-            <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
-            <button onclick="selectItem('Xis Tudo', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
-        </div>
-
-        <div id="tab-bebidas" class="tab-content hidden grid grid-cols-1 gap-2">
-            <button onclick="selectItem('Coca-Cola Lata', 6.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50">Coca-Cola Lata <span>R$ 6,00</span></button>
-            <button onclick="selectItem('Cerveja Latão', 10.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50 text-sm">Cerveja Latão <span>R$ 10,00</span></button>
-        </div>
-
-        <div id="tab-porcoes" class="tab-content hidden grid grid-cols-1 gap-2">
-            <button onclick="selectItem('Porção Mix', 45.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Porção Mix <span>R$ 45,00</span></button>
-        </div>
-
-    </div>
-</div>
+                <div class="max-h-[300px] overflow-y-auto pr-1 no-scrollbar text-left font-bold italic">
+                    <div id="tab-lanches" class="tab-content grid grid-cols-1 gap-2">
+                        <button onclick="selectItem('Xis Salada', 18.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Salada <span>R$ 18,00</span></button>
+                        <button onclick="selectItem('Xis Tudo', 25.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Xis Tudo <span>R$ 25,00</span></button>
+                    </div>
+                    <div id="tab-bebidas" class="tab-content hidden grid grid-cols-1 gap-2">
+                        <button onclick="selectItem('Coca-Cola Lata', 6.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50">Coca-Cola Lata <span>R$ 6,00</span></button>
+                        <button onclick="selectItem('Cerveja Latão', 10.00, 'bebida')" class="btn-option p-4 rounded-xl flex justify-between bg-blue-50 text-sm">Cerveja Latão <span>R$ 10,00</span></button>
+                    </div>
+                    <div id="tab-porcoes" class="tab-content hidden grid grid-cols-1 gap-2">
+                        <button onclick="selectItem('Porção Mix', 45.00, 'lanche')" class="btn-option p-4 rounded-xl flex justify-between bg-gray-50">Porção Mix <span>R$ 45,00</span></button>
+                    </div>
+                </div>
+            </div>
 
             <div id="step3" class="step text-center">
                 <p class="font-bold mb-2 text-lg italic uppercase">Item: <span id="itemNome" class="text-[#E7252A]"></span></p>
@@ -75,12 +70,10 @@
                     <span id="qty" class="text-3xl font-black">1</span>
                     <button onclick="updateQty(1)" class="bg-gray-100 w-12 h-12 rounded-full font-black text-xl border border-gray-200">+</button>
                 </div>
-                
                 <div class="flex justify-between items-end mb-1">
                     <p class="text-[10px] font-bold text-gray-400 uppercase italic ml-1">Observações:</p>
                     <button onclick="chamarAtendenteExtra()" class="text-[12px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg font-bold border border-yellow-200 uppercase italic">Add itens Extras</button>
                 </div>
-                
                 <textarea id="itemObs" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 h-24 font-medium text-sm focus:border-[#E7252A] outline-none"></textarea>
                 <button onclick="addToCart()" class="w-full bg-[#E7252A] text-white py-4 rounded-2xl font-black uppercase shadow-md font-bold italic">Adicionar ao Pedido</button>
             </div>
@@ -100,7 +93,6 @@
                 </div>
                 <input type="text" id="rua" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-2 font-bold outline-none focus:border-[#E7252A]" placeholder="Rua e Número">
                 <input type="text" id="ponto" class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl mb-4 font-bold outline-none focus:border-[#E7252A]" placeholder="Complemento / Ponto de Ref.">
-                
                 <p class="text-[10px] text-center mb-2 font-black text-red-600 uppercase italic tracking-widest leading-tight">👇 Escolha seu Bairro abaixo:</p>
                 <div class="grid grid-cols-1 gap-2 max-h-[140px] overflow-y-auto no-scrollbar p-1">
                     <button onclick="selectBairro('Azenha', 9.00)" class="btn-option pulse-border p-3 rounded-xl font-bold flex justify-between bg-gray-50 text-sm italic">Azenha <span>+R$ 9,00</span></button>
@@ -141,6 +133,25 @@
             }
         };
 
+        function goStep(n) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            const target = n === 'Carrinho' ? 'stepCarrinho' : 'step' + n;
+            document.getElementById(target).classList.add('active');
+            window.currentStep = n;
+            document.getElementById('btnVoltar').classList.toggle('hidden', n === 1);
+        }
+
+        function showTab(event, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('bg-[#E7252A]', 'text-white');
+                b.classList.add('text-gray-500');
+            });
+            event.currentTarget.classList.add('bg-[#E7252A]', 'text-white');
+            event.currentTarget.classList.remove('text-gray-500');
+        }
+
         function selectItem(nome, preco, tipo) {
             tempItem = { nome, preco, qty: 1, tipo: tipo };
             document.getElementById('itemNome').innerText = nome;
@@ -161,7 +172,7 @@
             if (tempItem.tipo === 'bebida') {
                 campo.placeholder = "Ex: Bem gelada ou temperatura ambiente...";
             } else {
-                campo.placeholder = tempItem.qty > 1 ? "Como você pediu mais de um item, detalhe cada um (Ex: Um sem cebola e o outro sem milho)." : "Ex: Sem cebola, carne bem passada...";
+                campo.placeholder = tempItem.qty > 1 ? "Como você pediu mais de um item, detalhe cada um." : "Ex: Sem cebola, carne bem passada...";
             }
         }
 
@@ -189,31 +200,20 @@
         }
 
         function selectBairro(b, taxa) {
-    // Pegamos os valores dos campos de endereço
-    const ruaInput = document.getElementById('rua').value.trim();
-    
-    // Se NÃO for retirada e a rua estiver vazia:
-    if (b !== 'Retirada' && ruaInput === "") {
-        alert("⚠️ Por favor, informe sua RUA e NÚMERO antes de selecionar o bairro!");
-        return; // Para o código aqui e não deixa avançar
-    }
-
-    // Se passou na validação ou se for Retirada, segue o baile:
-    if (b !== 'Retirada') {
-        alert("O valor da taxa de entrega está sujeito a conferência pela lancheria conforme sua localização exata.");
-    }
-    
-    userData.bairro = b; 
-    userData.taxa = taxa;
-    userData.rua = ruaInput;
-    userData.ponto = document.getElementById('ponto').value;
-    
-    updateLS();
-    
-    let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
-    document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2).replace('.',',')}`;
-    goStep(5);
-}
+            const ruaInput = document.getElementById('rua').value.trim();
+            if (b !== 'Retirada' && ruaInput === "") {
+                alert("⚠️ Por favor, informe sua RUA e NÚMERO antes de selecionar o bairro!");
+                return;
+            }
+            if (b !== 'Retirada') alert("O valor da taxa de entrega está sujeito a conferência pela lancheria.");
+            userData.bairro = b; userData.taxa = taxa;
+            userData.rua = ruaInput;
+            userData.ponto = document.getElementById('ponto').value;
+            updateLS();
+            let subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qty), 0);
+            document.getElementById('resumoTotal').innerText = `R$ ${(subtotal + taxa).toFixed(2).replace('.',',')}`;
+            goStep(5);
+        }
 
         function saveUserAndNext() {
             userData.nome = document.getElementById('nome').value;
@@ -226,26 +226,6 @@
             const data = { nome: document.getElementById('nome').value, tel: document.getElementById('telefone').value, rua: document.getElementById('rua').value, ponto: document.getElementById('ponto').value };
             localStorage.setItem('agapio_user', JSON.stringify(data));
         }
-
-        function showTab(tabId) {
-    // Esconde todos os conteúdos das abas
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.add('hidden');
-    });
-    
-    // Mostra apenas a aba clicada
-    document.getElementById(tabId).classList.remove('hidden');
-
-    // Ajusta as cores dos botões das abas
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-[#E7252A]', 'text-white');
-        btn.classList.add('text-gray-500');
-    });
-
-    // Destaca o botão ativo
-    event.currentTarget.classList.add('bg-[#E7252A]', 'text-white');
-    event.currentTarget.classList.remove('text-gray-500');
-}
 
         function prevStep() {
             if(window.currentStep === 'Carrinho') goStep(2);
@@ -269,53 +249,25 @@
             let subtotal = carrinho.reduce((sum, i) => sum + (i.preco * i.qty), 0);
             let total = subtotal + userData.taxa;
             let valorTroco = "";
-            
             if(pag === 'Dinheiro') {
-                let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?\n\nEscreva apenas números: ex; 30, 50, 100`);
+                let vt = prompt(`Total: R$ ${total.toFixed(2).replace('.',',')}\nTroco para quanto?`);
                 if(vt) valorTroco = vt;
             }
-
             let itensMsg = carrinho.map(i => `> *${i.qty}x ${i.nome}*\n  Obs: ${i.obs}`).join('\n\n');
-            
-            let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n`;
-            msg += `------------------------------------------\n`;
-            msg += `*CLIENTE:* ${userData.nome}\n`;
-            msg += `*CONTATO:* ${userData.tel}\n`;
-            msg += `------------------------------------------\n\n`;
-            msg += `${itensMsg}\n\n`;
-            msg += `------------------------------------------\n`;
-            msg += `*ENTREGA:* ${userData.bairro !== 'Retirada' ? userData.bairro : 'Retirada no Local'}\n`;
-            
-            if(userData.bairro !== 'Retirada') {
-                msg += `*END:* ${userData.rua}\n`;
-                msg += `*REF:* ${userData.ponto || '-'}\n`;
-            }
-            
-            msg += `------------------------------------------\n`;
-            msg += `*PAGAMENTO:* ${pag}\n`;
-            msg += `*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*\n`;
-            
-            if(valorTroco) {
-                msg += `*TROCO PARA: R$ ${valorTroco}*\n`;
-            }
-            
-            msg += `------------------------------------------\n`;
-            msg += `_Pedido enviado via Assistente Virtual_`;
-            
+            let msg = `*--- NOVO PEDIDO: AGÁPIO ---*\n*CLIENTE:* ${userData.nome}\n*CONTATO:* ${userData.tel}\n\n${itensMsg}\n\n*ENTREGA:* ${userData.bairro}\n`;
+            if(userData.bairro !== 'Retirada') msg += `*END:* ${userData.rua}\n*REF:* ${userData.ponto || '-'}\n`;
+            msg += `*PAGAMENTO:* ${pag}\n*TOTAL: R$ ${total.toFixed(2).replace('.',',')}*`;
+            if(valorTroco) msg += `\n*TROCO PARA: R$ ${valorTroco}*`;
             window.open(`https://wa.me/5551992141406?text=${encodeURIComponent(msg)}`);
         }
 
         function chamarAtendenteExtra() {
-            if (tempItem.tipo === 'bebida') {
-                alert("Essa função de extras não se aplica à categoria de bebidas. Você pode escrever qualquer instrução especial no campo abaixo.");
-            } else {
-                if(confirm("Para adicionar ingredientes extras (ovo, queijo, bife, etc), precisamos atualizar os valores manualmente via WhatsApp.\n\nDeseja falar com o atendente agora?")) {
-                    window.open(`https://wa.me/5551992141406?text=Olá! Gostaria de um pedido com itens extras.`);
-                }
+            if(confirm("Deseja falar com o atendente para adicionar itens extras?")) {
+                window.open(`https://wa.me/5551992141406?text=Olá! Quero itens extras.`);
             }
         }
 
-        function clearMemory() { if(confirm("Deseja apagar seus dados salvos?")) { localStorage.clear(); location.reload(); } }
+        function clearMemory() { if(confirm("Apagar dados?")) { localStorage.clear(); location.reload(); } }
     </script>
 </body>
 </html>
