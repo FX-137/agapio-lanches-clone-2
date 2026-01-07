@@ -215,20 +215,23 @@
     if (aviso) {
         if (taxa > 0) {
             aviso.classList.remove('hidden'); // Mostra o aviso
+            aviso.style.display = 'block';    // Garante que apareça
         } else {
             aviso.classList.add('hidden');    // Esconde se for retirada
+            aviso.style.display = 'none';
         }
     }
 
-    // 3. Salva os dados da escolha
+    // 3. Salva os dados
     bairroSelecionado = b;
     taxaEntrega = taxa;
 
-    // 4. Atualiza os cálculos de preço
+    // 4. Atualiza os cálculos e o LocalStorage
     updateOrder();
+    if (typeof updateLS === "function") updateLS();
 
-    // 5. O QUE ESTAVA FALTANDO: Avançar para o passo 5 (Pagamento)
-    nextStep(5); 
+    // 5. O AJUSTE: Usando o nome da sua função original
+    goStep(5); 
 }
         function saveUserAndNext() {
             userData.nome = document.getElementById('nome').value;
